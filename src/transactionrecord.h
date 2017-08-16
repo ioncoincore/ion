@@ -166,18 +166,7 @@ public:
 
     /** Return whether a status update is needed.
      */
-    bool statusUpdateNeeded(int chainLockHeight);
-
-    /**
-     * Return stringified transaction record type
-     */
-    std::string GetTransactionRecordType() const;
-    std::string GetTransactionRecordType(Type type) const;
-
-    /**
-     * Return stringified transaction status
-     */
-    std::string GetTransactionStatus() const;
-    std::string GetTransactionStatus(TransactionStatus::Status status) const;};
+    bool statusUpdateNeeded(int chainLockHeight) const;
+};
 
 #endif // BITCOIN_QT_TRANSACTIONRECORD_H
