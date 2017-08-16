@@ -160,7 +160,7 @@ public:
      * If this callback is provided and returns false, the allocation fails (hard fail), if
      * it returns true the allocation proceeds, but it could warn.
      */
-    explicit LockedPool(std::unique_ptr<LockedPageAllocator> allocator, LockingFailed_Callback lf_cb_in = nullptr);
+    LockedPool(std::unique_ptr<LockedPageAllocator> allocator, LockingFailed_Callback lf_cb_in = nullptr);
     ~LockedPool();
 
     LockedPool(const LockedPool& other) = delete; // non construction-copyable
