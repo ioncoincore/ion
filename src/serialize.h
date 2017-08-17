@@ -608,7 +608,7 @@ class CVarInt
 protected:
     I &n;
 public:
-    CVarInt(I& nIn) : n(nIn) { }
+    explicit CVarInt(I& nIn) : n(nIn) { }
 
     template<typename Stream>
     void Serialize(Stream &s) const {
@@ -626,7 +626,7 @@ class CCompactSize
 protected:
     uint64_t &n;
 public:
-    CCompactSize(uint64_t& nIn) : n(nIn) { }
+    explicit CCompactSize(uint64_t& nIn) : n(nIn) { }
 
     unsigned int GetSerializeSize() const {
         return GetSizeOfCompactSize(n);
@@ -649,7 +649,7 @@ class LimitedString
 protected:
     std::string& string;
 public:
-    LimitedString(std::string& _string) : string(_string) {}
+    explicit LimitedString(std::string& _string) : string(_string) {}
 
     template<typename Stream>
     void Unserialize(Stream& s)
