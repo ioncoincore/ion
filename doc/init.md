@@ -9,13 +9,15 @@ can be found in the contrib/init folder.
     contrib/init/iond.conf:       Upstart service configuration file
     contrib/init/iond.init:       CentOS compatible SysV style init script
 
-## 1. Service User
+Service User
+---------------------------------
 
 All three Linux startup configurations assume the existence of a "ioncore" user
 and group.  They must be created before attempting to use these scripts.
 The OS X configuration assumes iond will be set up for the current user.
 
-## 2. Configuration
+Configuration
+---------------------------------
 
 At a bare minimum, iond requires that the rpcpassword setting be set
 when running as a daemon.  If the configuration file does not exist or this
@@ -43,9 +45,10 @@ relative to the data directory. `wallet` *only* supports relative paths.
 For an example configuration file that describes the configuration settings,
 see `contrib/debian/examples/ioncoin.conf`.
 
-## 3. Paths
+Paths
+---------------------------------
 
-3a) Linux
+### Linux
 
 All three configurations assume several paths that might need to be adjusted.
 
@@ -61,16 +64,17 @@ reasons to make the configuration file and data directory only readable by the
 ioncore user and group.  Access to ion-cli and other iond rpc clients
 can then be controlled by group membership.
 
-3b) Mac OS X
+### Mac OS X
 
-Binary:              `/usr/local/bin/iond`  
-Configuration file:  `~/Library/Application Support/ioncoin/ioncoin.conf`  
-Data directory:      `~/Library/Application Support/ioncoin`
-Lock file:           `~/Library/Application Support/ioncoin/.lock`
+Binary:              `/usr/local/bin/dashd`  
+Configuration file:  `~/Library/Application Support/DashCore/dash.conf`  
+Data directory:      `~/Library/Application Support/DashCore`  
+Lock file:           `~/Library/Application Support/DashCore/.lock`  
 
-# 1. Installing Service Configuration
+Installing Service Configuration
+-----------------------------------
 
-4a) systemd
+### systemd
 
 Installing this .service file consists of just copying it to
 /usr/lib/systemd/system directory, followed by the command
@@ -79,14 +83,14 @@ Installing this .service file consists of just copying it to
 To test, run `systemctl start iond` and to enable for system startup run
 `systemctl enable iond`
 
-4b) OpenRC
+### OpenRC
 
 Rename iond.openrc to iond and drop it in /etc/init.d.  Double
 check ownership and permissions and make it executable.  Test it with
 `/etc/init.d/iond start` and configure it to run on startup with
 `rc-update add iond`
 
-4c) Upstart (for Debian/Ubuntu based distributions)
+### Upstart (for Debian/Ubuntu based distributions)
 
 Drop iond.conf in /etc/init.  Test by running `service iond start`
 it will automatically start on reboot.
@@ -94,7 +98,7 @@ it will automatically start on reboot.
 NOTE: This script is incompatible with CentOS 5 and Amazon Linux 2014 as they
 use old versions of Upstart and do not supply the start-stop-daemon utility.
 
-4d) CentOS
+### CentOS
 
 Copy iond.init to /etc/init.d/iond. Test by running `service iond start`.
 
@@ -102,7 +106,7 @@ Using this script, you can adjust the path and flags to the iond program by
 setting the IOND and FLAGS environment variables in the file
 /etc/sysconfig/iond. You can also use the DAEMONOPTS environment variable here.
 
-4e) Mac OS X
+### Mac OS X
 
 Copy org.ion.iond.plist into ~/Library/LaunchAgents. Load the launch agent by
 running `launchctl load ~/Library/LaunchAgents/org.ion.iond.plist`.
@@ -113,7 +117,8 @@ NOTE: This approach is intended for those wanting to run iond as the current use
 You will need to modify org.ion.iond.plist if you intend to use it as a
 Launch Daemon with a dedicated ioncore user.
 
-## 1. Auto-respawn
+Auto-respawn
+-----------------------------------
 
 Auto respawning is currently only configured for Upstart and systemd.
 Reasonable defaults have been chosen but YMMV.
