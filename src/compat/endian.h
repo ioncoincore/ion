@@ -10,9 +10,9 @@
 #include "config/ion-config.h"
 #endif
 
-#include <stdint.h>
-
 #include "compat/byteswap.h"
+
+#include <stdint.h>
 
 #if defined(HAVE_ENDIAN_H)
 #include <endian.h>
