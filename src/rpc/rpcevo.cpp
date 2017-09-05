@@ -8,6 +8,7 @@
 #include "core_io.h"
 #include "init.h"
 #include "messagesigner.h"
+#include "rpc/safemode.h"
 #include "rpc/server.h"
 #include "utilmoneystr.h"
 #include "validation.h"
@@ -418,6 +419,8 @@ UniValue protx_register(const JSONRPCRequest& request)
         protx_register_prepare_help();
     }
 
+    ObserveSafeMode();
+
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
 
@@ -565,6 +568,8 @@ UniValue protx_register_submit(const JSONRPCRequest& request)
         protx_register_submit_help(pwallet);
     }
 
+    ObserveSafeMode();
+
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
 
@@ -617,6 +622,8 @@ UniValue protx_update_service(const JSONRPCRequest& request)
     CWallet* const pwallet = GetWalletForJSONRPCRequest(request);
     if (request.fHelp || (request.params.size() < 4 || request.params.size() > 6))
         protx_update_service_help(pwallet);
+
+    ObserveSafeMode();
 
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
@@ -715,6 +722,8 @@ UniValue protx_update_registrar(const JSONRPCRequest& request)
         protx_update_registrar_help(pwallet);
     }
 
+    ObserveSafeMode();
+
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
 
@@ -804,6 +813,8 @@ UniValue protx_revoke(const JSONRPCRequest& request)
     if (request.fHelp || (request.params.size() < 3 || request.params.size() > 5)) {
         protx_revoke_help(pwallet);
     }
+
+    ObserveSafeMode();
 
     if (!EnsureWalletIsAvailable(pwallet, request.fHelp))
         return NullUniValue;
@@ -1272,10 +1283,10 @@ UniValue _bls(const JSONRPCRequest& request)
 }
 
 static const CRPCCommand commands[] =
-{ //  category              name                      actor (function)         okSafeMode
-  //  --------------------- ------------------------  -----------------------  ----------
-    { "evo",                "bls",                    &_bls,                   false, {}  },
-    { "evo",                "protx",                  &protx,                  false, {}  },
+{ //  category              name                      actor (function)
+  //  --------------------- ------------------------  -----------------------
+    { "evo",                "bls",                    &_bls,                   {}  },
+    { "evo",                "protx",                  &protx,                  {}  },
 };
 
 void RegisterEvoRPCCommands(CRPCTable &tableRPC)
