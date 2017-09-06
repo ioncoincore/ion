@@ -748,38 +748,7 @@ A few guidelines for introducing and reviewing new RPC interfaces:
     with the introduction of multi-wallet, wallet and non-wallet code should be
     separated to avoid introducing circular dependencies between code units.
 
-## build with google cloud api
+- Try to make the RPC response a JSON object.
 
-1. Start gitian instance
-  ```bash
-  gcloud compute instances start gitian-ubuntu-bionic-stable --zone us-west1-b
-  ```
-1. SSH into your vm
-   ```bash
-   ssh gitian-ubuntu-bionic-stable
-   ```
-1. Build for all architectures 
-   ```bash
-   ./build-and-upload.sh
-   ```
-   
-## Building Snapcraft Binaries
-
-When a new release is created the snapcraft binaries in the snapcraft store must be updated
-
-1. clone the repository  
-  ```git clone <repository>```
-  
-2.  change to master branch  
-  ```git checkout master``` 
-  
-3. edit the file snap/snapcraft.yaml and change the following three lines  
-- version: x.y.z Coin version to build
-- grade: devel/stable Note: devel can only be released in the edge channel
-- source-tag: set to whichever branch or tag that you want to build  
-4. push the new snapcraft.yaml file and create a pr  
-  - once the pr is accepted and merged the snapcraft binaries will be automatically built in the snapcraft store  
-  - the default channel that the new snapcraft binaries are placed in is edge  
-5. once the new snap has been tested and deemed ready for production it can be moved to the stable channel
-
-   
+  - *Rationale*: If a RPC response is not a JSON object then it is harder to avoid API breakage if
+    new data in the response is needed.
