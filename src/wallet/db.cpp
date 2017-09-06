@@ -592,7 +592,6 @@ bool CDB::Rewrite(CWalletDBWrapper& dbw, const char* pszSkip)
         }
         MilliSleep(100);
     }
-    return false;
 }
 
 
@@ -723,7 +722,6 @@ bool CWalletDBWrapper::Backup(const std::string& strDest)
         }
         MilliSleep(100);
     }
-    return false;
 }
 
 void CWalletDBWrapper::Flush(bool shutdown)
