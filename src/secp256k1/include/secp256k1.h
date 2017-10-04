@@ -181,18 +181,7 @@ typedef int (*secp256k1_nonce_function)(
 #define SECP256K1_TAG_PUBKEY_HYBRID_EVEN 0x06
 #define SECP256K1_TAG_PUBKEY_HYBRID_ODD 0x07
 
-/** A simple secp256k1 context object with no precomputed tables. These are useful for
- *  type serialization/parsing functions which require a context object to maintain
- *  API consistency, but currently do not require expensive precomputations or dynamic
- *  allocations.
- */
-SECP256K1_API extern const secp256k1_context *secp256k1_context_no_precomp;
-
-/** Create a secp256k1 context object (in dynamically allocated memory).
- *
- *  This function uses malloc to allocate memory. It is guaranteed that malloc is
- *  called at most once for every call of this function. If you need to avoid dynamic
- *  memory allocation entirely, see the functions in secp256k1_preallocated.h.
+/** Create a secp256k1 context object.
  *
  *  Returns: a newly created context object.
  *  In:      flags: which parts of the context to initialize.
