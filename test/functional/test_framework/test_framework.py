@@ -52,7 +52,7 @@ TEST_EXIT_SKIPPED = 77
 
 GENESISTIME = 1575851148
 
-class BitcoinTestFramework(object):
+class BitcoinTestFramework():
     """Base class for a bitcoin test script.
 
     Individual bitcoin test scripts should subclass this class and override the set_test_params() and run_test() methods.
