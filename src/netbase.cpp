@@ -292,7 +292,7 @@ struct ProxyCredentials
     std::string password;
 };
 
-/** Convert SOCKS5 reply to a an error message */
+/** Convert SOCKS5 reply to an error message */
 std::string Socks5ErrorString(uint8_t err)
 {
     switch(err) {
