@@ -143,6 +143,7 @@ BASE_SCRIPTS= [
     #'p2p-acceptblock.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
     'feature_shutdown.py',
     'privatesend.py',
+    'uacomment.py',
 ]
 
 EXTENDED_SCRIPTS = [
