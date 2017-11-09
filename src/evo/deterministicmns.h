@@ -661,6 +661,6 @@ private:
     void CleanupCache(int nHeight);
 };
 
-extern CDeterministicMNManager* deterministicMNManager;
+extern std::unique_ptr<CDeterministicMNManager> deterministicMNManager;
 
 #endif //ION_DETERMINISTICMNS_H
