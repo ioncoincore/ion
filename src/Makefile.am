@@ -287,6 +287,7 @@ BITCOIN_CORE_H = \
   wallet/rpcwallet.h \
   wallet/wallet.h \
   wallet/walletdb.h \
+  wallet/walletutil.h \
   warnings.h \
   xion/accumulators.h \
   xion/accumulatorcheckpoints.h \
@@ -442,11 +443,7 @@ libion_wallet_a_SOURCES = \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
-  xion/deterministicmint.cpp \
-  xion/accumulators.cpp \
-  xion/xionmodule.cpp \
-  xion/witness.cpp \
-  xion/zerocoin.cpp \
+  wallet/walletutil.cpp \
   $(BITCOIN_CORE_H)
 
 libioncore_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
