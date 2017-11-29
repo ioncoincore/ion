@@ -116,12 +116,12 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
 
     hlayout->addWidget(typeWidget);
 
-    addressWidget = new QLineEdit(this);
+    search_widget = new QLineEdit(this);
 #if QT_VERSION >= 0x040700
-    addressWidget->setPlaceholderText(tr("Enter address or label to search"));
+    search_widget->setPlaceholderText(tr("Enter address, transaction id, or label to search"));
 #endif
     addressWidget->setObjectName("addressWidget");
-    hlayout->addWidget(addressWidget);
+    hlayout->addWidget(search_widget);
 
     amountWidget = new QLineEdit(this);
 #if QT_VERSION >= 0x040700
@@ -131,7 +131,7 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
         amountWidget->setFixedWidth(118);
     } else {
         amountWidget->setFixedWidth(125);
-    }  
+    }
     amountWidget->setValidator(new QDoubleValidator(0, 1e20, 8, this));
     amountWidget->setObjectName("amountWidget");
     hlayout->addWidget(amountWidget);
@@ -210,8 +210,8 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     connect(instantsendWidget, SIGNAL(activated(int)), this, SLOT(chooseInstantSend(int)));
     connect(amountWidget, SIGNAL(textChanged(QString)), amount_typing_delay, SLOT(start()));
     connect(amount_typing_delay, SIGNAL(timeout()), this, SLOT(changedAmount()));
-    connect(addressWidget, SIGNAL(textChanged(QString)), prefix_typing_delay, SLOT(start()));
-    connect(prefix_typing_delay, SIGNAL(timeout()), this, SLOT(changedPrefix()));
+    connect(search_widget, SIGNAL(textChanged(QString)), prefix_typing_delay, SLOT(start()));
+    connect(prefix_typing_delay, SIGNAL(timeout()), this, SLOT(changedSearch()));
 
     connect(view, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(doubleClicked(QModelIndex)));
     connect(view, SIGNAL(clicked(QModelIndex)), this, SLOT(computeSum()));
@@ -288,7 +288,7 @@ void TransactionView::setModel(WalletModel *_model)
 
         // Watch-only signal
         connect(_model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyColumn(bool)));
-        
+
         // Update transaction list with persisted settings
         chooseType(settings.value("transactionType").toInt());
         chooseDate(settings.value("transactionDate").toInt());
@@ -299,7 +299,7 @@ void TransactionView::chooseDate(int idx)
 {
     if(!transactionProxyModel)
         return;
-    
+
     QSettings settings;
     QDate current = QDate::currentDate();
     dateRangeWidget->setVisible(false);
@@ -378,11 +378,11 @@ void TransactionView::chooseInstantSend(int idx)
         (TransactionFilterProxy::InstantSendFilter)instantsendWidget->itemData(idx).toInt());
 }
 
-void TransactionView::changedPrefix()
+void TransactionView::changedSearch()
 {
     if(!transactionProxyModel)
         return;
-    transactionProxyModel->setAddressPrefix(addressWidget->text());
+    transactionProxyModel->setSearchString(search_widget->text());
 }
 
 void TransactionView::changedAmount()
@@ -618,7 +618,7 @@ QWidget *TransactionView::createDateRangeWidget()
     QString defaultDateFrom = QDate::currentDate().toString(PERSISTENCE_DATE_FORMAT);
     QString defaultDateTo = QDate::currentDate().addDays(1).toString(PERSISTENCE_DATE_FORMAT);
     QSettings settings;
- 
+
     dateRangeWidget = new QFrame();
     dateRangeWidget->setFrameStyle(QFrame::Panel | QFrame::Raised);
     dateRangeWidget->setContentsMargins(1,1,1,1);
@@ -659,12 +659,12 @@ void TransactionView::dateRangeChanged()
 {
     if(!transactionProxyModel)
         return;
-    
+
     // Persist new date range
     QSettings settings;
     settings.setValue("transactionDateFrom", dateFrom->date().toString(PERSISTENCE_DATE_FORMAT));
     settings.setValue("transactionDateTo", dateTo->date().toString(PERSISTENCE_DATE_FORMAT));
-    
+
     transactionProxyModel->setDateRange(
             QDateTime(dateFrom->date()),
             QDateTime(dateTo->date()));

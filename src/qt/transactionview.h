@@ -69,7 +69,7 @@ private:
     QComboBox *typeWidget;
     QComboBox *watchOnlyWidget;
     QComboBox *instantsendWidget;
-    QLineEdit *addressWidget;
+    QLineEdit *search_widget;
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
@@ -119,7 +119,7 @@ public Q_SLOTS:
     void chooseWatchonly(int idx);
     void chooseInstantSend(int idx);
     void changedAmount();
-    void changedPrefix();
+    void changedSearch();
     void exportClicked();
     void focusTransaction(const QModelIndex&);
     void computeSum();
