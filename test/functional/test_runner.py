@@ -145,6 +145,7 @@ BASE_SCRIPTS= [
     'privatesend.py',
     'uacomment.py',
     'feature_logging.py',
+    'node_network_limited.py',
 ]
 
 EXTENDED_SCRIPTS = [
