@@ -17,7 +17,6 @@
 #include <consensus/tx_verify.h>
 #include <consensus/validation.h>
 #include <cuckoocache.h>
-#include <fs.h>
 #include <hash.h>
 #include <init.h>
 #include <policy/fees.h>
@@ -40,7 +39,6 @@
 #include <utilmoneystr.h>
 #include <utilstrencodings.h>
 #include <validationinterface.h>
-#include <versionbits.h>
 #include <warnings.h>
 
 #include <masternode/masternode-payments.h>
@@ -53,17 +51,6 @@
 #include <llmq/quorums_instantsend.h>
 #include <llmq/quorums_chainlocks.h>
 
-#include "libzerocoin/bignum.h"
-#include "xion/accumulators.h"
-#include "xion/xionchain.h"
-#include "xion/zerocoindb.h"
-
-#include "tokens/groups.h"
-#include "tokens/tokendb.h"
-#include "tokens/tokengroupmanager.h"
-#include "tokens/tokengroupwallet.h"
-
-#include <atomic>
 #include <future>
 #include <sstream>
 
