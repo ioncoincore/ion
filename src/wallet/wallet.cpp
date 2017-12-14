@@ -2310,7 +2310,7 @@ CAmount CWalletTx::GetAvailableCredit(bool fUseCache) const
     return nCredit;
 }
 
-CAmount CWalletTx::GetImmatureWatchOnlyCredit(const bool& fUseCache) const
+CAmount CWalletTx::GetImmatureWatchOnlyCredit(const bool fUseCache) const
 {
     if (IsGenerated() && GetBlocksToMaturity() > 0 && IsInMainChain())
     {
@@ -2324,7 +2324,7 @@ CAmount CWalletTx::GetImmatureWatchOnlyCredit(const bool& fUseCache) const
     return 0;
 }
 
-CAmount CWalletTx::GetAvailableWatchOnlyCredit(const bool& fUseCache) const
+CAmount CWalletTx::GetAvailableWatchOnlyCredit(const bool fUseCache) const
 {
     if (pwallet == nullptr)
         return 0;
@@ -2904,52 +2904,7 @@ CAmount CWallet::GetAvailableBalance(const CCoinControl* coinControl) const
     return balance;
 }
 
-unsigned int CWallet::FilterCoins(std::vector<COutput> &vCoins,
-    std::function<bool(const CWalletTx *, const CTxOut *)> func) const
-{
-    vCoins.clear();
-    unsigned int ret = 0;
-
-    {
-        LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
-            const uint256 &wtxid = it->first;
-            const CWalletTx *pcoin = &(*it).second;
-
-            if (!CheckFinalTx(*pcoin))
-                continue;
-
-            if (pcoin->IsGenerated() && pcoin->GetBlocksToMaturity() > 0)
-                continue;
-
-            int nDepth = pcoin->GetDepthInMainChain();
-            if (nDepth < 0)
-                continue;
-
-            // We should not consider coins which aren't at least in our mempool
-            // It's possible for these to be conflicted via ancestors which we may never be able to detect
-            if (nDepth == 0 && !pcoin->InMempool())
-                continue;
-
-            for (unsigned int i = 0; i < pcoin->tx->vout.size(); i++)
-            {
-                isminetype mine = IsMine(pcoin->tx->vout[i]);
-                if (!(IsSpent(wtxid, i)) && mine != ISMINE_NO && !IsLockedCoin((*it).first, i) &&
-                    func(pcoin, &pcoin->tx->vout[i]))
-                {
-                    // The UTXO is available
-                    COutput outpoint(pcoin, i, nDepth, (mine & ISMINE_SPENDABLE) != ISMINE_NO, false, false);
-                    vCoins.push_back(outpoint);
-                    ret++;
-                }
-            }
-        }
-    }
-    return ret;
-}
-
-void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const CCoinControl *coinControl, const CAmount &nMinimumAmount, const CAmount &nMaximumAmount, const CAmount &nMinimumSumAmount, const uint64_t &nMaximumCount, const int &nMinDepth, const int &nMaxDepth, const bool includeGrouped) const
+void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const CCoinControl *coinControl, const CAmount &nMinimumAmount, const CAmount &nMaximumAmount, const CAmount &nMinimumSumAmount, const uint64_t nMaximumCount, const int nMinDepth, const int nMaxDepth) const
 {
     vCoins.clear();
     CoinType nCoinType = coinControl ? coinControl->nCoinType : CoinType::ALL_COINS;
