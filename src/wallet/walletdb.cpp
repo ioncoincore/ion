@@ -690,7 +690,6 @@ DBErrors CWalletDB::LoadWallet(CWallet* pwallet)
 
 DBErrors CWalletDB::FindWalletTx(std::vector<uint256>& vTxHash, std::vector<CWalletTx>& vWtx)
 {
-    bool fNoncriticalErrors = false;
     DBErrors result = DB_LOAD_OK;
 
     try {
@@ -744,9 +743,6 @@ DBErrors CWalletDB::FindWalletTx(std::vector<uint256>& vTxHash, std::vector<CWal
     catch (...) {
         result = DB_CORRUPT;
     }
-
-    if (fNoncriticalErrors && result == DB_LOAD_OK)
-        result = DB_NONCRITICAL_ERROR;
 
     return result;
 }
