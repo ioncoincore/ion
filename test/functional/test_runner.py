@@ -100,7 +100,8 @@ BASE_SCRIPTS= [
     'mempool_spendcoinbase.py',
     'mempool_reorg.py',
     'mempool_persist.py',
-    #'multiwallet.py', # fails on circleci # TODO fix it
+    'multiwallet.py',
+    'multiwallet.py --usecli',
     'httpbasics.py',
     'multi_rpc.py',
     'proxy_test.py',
