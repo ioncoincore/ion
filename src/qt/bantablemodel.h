@@ -8,6 +8,8 @@
 
 #include <net.h>
 
+#include <memory>
+
 #include <QAbstractTableModel>
 #include <QStringList>
 

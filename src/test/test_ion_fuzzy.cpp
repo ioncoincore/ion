@@ -26,6 +26,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <memory>
 #include <vector>
 
 enum TEST_ID {

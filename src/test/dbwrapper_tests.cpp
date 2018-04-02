@@ -8,6 +8,8 @@
 #include <random.h>
 #include <test/test_dash.h>
 
+#include <memory>
+
 #include <boost/test/unit_test.hpp>
 
 // Test if a string consists entirely of null characters
