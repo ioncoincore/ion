@@ -160,7 +160,9 @@ class BitcoinTestFramework():
                 success = False
                 self.log.exception("Unexpected exception caught during shutdown")
         else:
-            self.log.info("Note: ionds were not stopped and may still be running")
+            for node in self.nodes:
+                node.cleanup_on_exit = False
+            self.log.info("Note: dashds were not stopped and may still be running")
 
         if not self.options.nocleanup and not self.options.noshutdown and success != TestStatus.FAILED:
             self.log.info("Cleaning up")
