@@ -2037,13 +2037,6 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         return false;
     }
 
-    if (pfrom->nTimeFirstMessageReceived == 0) {
-        // First message after VERSION/VERACK
-        pfrom->nTimeFirstMessageReceived = GetTimeMicros();
-        pfrom->fFirstMessageIsMNAUTH = strCommand == NetMsgType::MNAUTH;
-        // Note: do not break the flow here
-    }
-
     if (strCommand == NetMsgType::ADDR) {
         std::vector<CAddress> vAddr;
         vRecv >> vAddr;
@@ -2616,7 +2609,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         return true;
     }
 
-    if (strCommand == NetMsgType::CMPCTBLOCK && !fImporting && !fReindex) // Ignore blocks received while importing
+     if (strCommand == NetMsgType::CMPCTBLOCK && !fImporting && !fReindex) // Ignore blocks received while importing
     {
         CBlockHeaderAndShortTxIDs cmpctblock;
         vRecv >> cmpctblock;
