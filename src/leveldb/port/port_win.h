@@ -35,9 +35,6 @@
 #if !(_MSC_VER >= 1900)
 #define snprintf _snprintf
 #endif
-#if (_MSC_VER < 1500) && !defined(vsnprintf)  /* vsnprintf not defined yet & not introduced */
-#define vsnprintf(b,c,f,a) _vsnprintf(b,c,f,a)
-#endif
 #define close _close
 #define fread_unlocked _fread_nolock
 #ifdef _WIN64
