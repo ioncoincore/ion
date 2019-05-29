@@ -57,7 +57,7 @@ void bench_setup(void* arg) {
 }
 
 void bench_scalar_add(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 2000000; i++) {
@@ -95,7 +95,7 @@ void bench_scalar_mul(void* arg) {
 
 #ifdef USE_ENDOMORPHISM
 void bench_scalar_split(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 20000; i++) {
@@ -107,7 +107,7 @@ void bench_scalar_split(void* arg) {
 #endif
 
 void bench_scalar_inverse(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 2000; i++) {
@@ -118,7 +118,7 @@ void bench_scalar_inverse(void* arg) {
 }
 
 void bench_scalar_inverse_var(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 2000; i++) {
@@ -185,13 +185,13 @@ void bench_field_inverse_var(void* arg) {
 }
 
 void bench_field_sqrt(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
     secp256k1_fe t;
 
     for (i = 0; i < 20000; i++) {
         t = data->fe_x;
-        j += secp256k1_fe_sqrt(&data->fe_x, &t);
+        secp256k1_fe_sqrt(&data->fe_x, &t);
         secp256k1_fe_add(&data->fe_x, &data->fe_y);
     }
     CHECK(j <= 20000);
@@ -234,7 +234,7 @@ void bench_group_add_affine_var(void* arg) {
 }
 
 void bench_group_jacobi_var(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 20000; i++) {
@@ -244,7 +244,7 @@ void bench_group_jacobi_var(void* arg) {
 }
 
 void bench_ecmult_wnaf(void* arg) {
-    int i, bits = 0, overflow = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 20000; i++) {
@@ -256,12 +256,12 @@ void bench_ecmult_wnaf(void* arg) {
 }
 
 void bench_wnaf_const(void* arg) {
-    int i, bits = 0, overflow = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
 
     for (i = 0; i < 20000; i++) {
-        bits += secp256k1_wnaf_const(data->wnaf, &data->scalar_x, WINDOW_A, 256);
-        overflow += secp256k1_scalar_add(&data->scalar_x, &data->scalar_x, &data->scalar_y);
+        secp256k1_wnaf_const(data->wnaf, data->scalar_x, WINDOW_A, 256);
+        secp256k1_scalar_add(&data->scalar_x, &data->scalar_x, &data->scalar_y);
     }
     CHECK(overflow >= 0);
     CHECK(bits <= 256*20000);
@@ -321,7 +321,7 @@ void bench_context_sign(void* arg) {
 
 #ifndef USE_NUM_NONE
 void bench_num_jacobi(void* arg) {
-    int i, j = 0;
+    int i;
     bench_inv *data = (bench_inv*)arg;
     secp256k1_num nx, norder;
 

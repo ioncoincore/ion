@@ -7,80 +7,78 @@
 #ifndef _SECP256K1_SCRATCH_IMPL_H_
 #define _SECP256K1_SCRATCH_IMPL_H_
 
-#include "util.h"
 #include "scratch.h"
 
-static secp256k1_scratch* secp256k1_scratch_create(const secp256k1_callback* error_callback, size_t size) {
-    const size_t base_alloc = ((sizeof(secp256k1_scratch) + ALIGNMENT - 1) / ALIGNMENT) * ALIGNMENT;
-    void *alloc = checked_malloc(error_callback, base_alloc + size);
-    secp256k1_scratch* ret = (secp256k1_scratch *)alloc;
+/* Using 16 bytes alignment because common architectures never have alignment
+ * requirements above 8 for any of the types we care about. In addition we
+ * leave some room because currently we don't care about a few bytes.
+ * TODO: Determine this at configure time. */
+#define ALIGNMENT 16
+
+static secp256k1_scratch* secp256k1_scratch_create(const secp256k1_callback* error_callback, size_t max_size) {
+    secp256k1_scratch* ret = (secp256k1_scratch*)checked_malloc(error_callback, sizeof(*ret));
     if (ret != NULL) {
         memset(ret, 0, sizeof(*ret));
-        memcpy(ret->magic, "scratch", 8);
-        ret->data = (void *) ((char *) alloc + base_alloc);
-        ret->max_size = size;
+        ret->max_size = max_size;
+        ret->error_callback = error_callback;
     }
     return ret;
 }
 
-static void secp256k1_scratch_destroy(const secp256k1_callback* error_callback, secp256k1_scratch* scratch) {
+static void secp256k1_scratch_destroy(secp256k1_scratch* scratch) {
     if (scratch != NULL) {
-        VERIFY_CHECK(scratch->alloc_size == 0); /* all checkpoints should be applied */
-        if (memcmp(scratch->magic, "scratch", 8) != 0) {
-            secp256k1_callback_call(error_callback, "invalid scratch space");
-            return;
-        }
-        memset(scratch->magic, 0, sizeof(scratch->magic));
+        VERIFY_CHECK(scratch->frame == 0);
         free(scratch);
     }
 }
 
-static size_t secp256k1_scratch_checkpoint(const secp256k1_callback* error_callback, const secp256k1_scratch* scratch) {
-    if (memcmp(scratch->magic, "scratch", 8) != 0) {
-        secp256k1_callback_call(error_callback, "invalid scratch space");
+static size_t secp256k1_scratch_max_allocation(const secp256k1_scratch* scratch, size_t objects) {
+    size_t i = 0;
+    size_t allocated = 0;
+    for (i = 0; i < scratch->frame; i++) {
+        allocated += scratch->frame_size[i];
+    }
+    if (scratch->max_size - allocated <= objects * ALIGNMENT) {
         return 0;
     }
-    return scratch->alloc_size;
+    return scratch->max_size - allocated - objects * ALIGNMENT;
 }
 
-static void secp256k1_scratch_apply_checkpoint(const secp256k1_callback* error_callback, secp256k1_scratch* scratch, size_t checkpoint) {
-    if (memcmp(scratch->magic, "scratch", 8) != 0) {
-        secp256k1_callback_call(error_callback, "invalid scratch space");
-        return;
-    }
-    if (checkpoint > scratch->alloc_size) {
-        secp256k1_callback_call(error_callback, "invalid checkpoint");
-        return;
-    }
-    scratch->alloc_size = checkpoint;
-}
+static int secp256k1_scratch_allocate_frame(secp256k1_scratch* scratch, size_t n, size_t objects) {
+    VERIFY_CHECK(scratch->frame < SECP256K1_SCRATCH_MAX_FRAMES);
 
-static size_t secp256k1_scratch_max_allocation(const secp256k1_callback* error_callback, const secp256k1_scratch* scratch, size_t objects) {
-    if (memcmp(scratch->magic, "scratch", 8) != 0) {
-        secp256k1_callback_call(error_callback, "invalid scratch space");
+    if (n <= secp256k1_scratch_max_allocation(scratch, objects)) {
+        n += objects * ALIGNMENT;
+        scratch->data[scratch->frame] = checked_malloc(scratch->error_callback, n);
+        if (scratch->data[scratch->frame] == NULL) {
+            return 0;
+        }
+        scratch->frame_size[scratch->frame] = n;
+        scratch->offset[scratch->frame] = 0;
+        scratch->frame++;
+        return 1;
+    } else {
         return 0;
     }
-    if (scratch->max_size - scratch->alloc_size <= objects * (ALIGNMENT - 1)) {
-        return 0;
-    }
-    return scratch->max_size - scratch->alloc_size - objects * (ALIGNMENT - 1);
 }
 
-static void *secp256k1_scratch_alloc(const secp256k1_callback* error_callback, secp256k1_scratch* scratch, size_t size) {
+static void secp256k1_scratch_deallocate_frame(secp256k1_scratch* scratch) {
+    VERIFY_CHECK(scratch->frame > 0);
+    scratch->frame -= 1;
+    free(scratch->data[scratch->frame]);
+}
+
+static void *secp256k1_scratch_alloc(secp256k1_scratch* scratch, size_t size) {
     void *ret;
-    size = ROUND_TO_ALIGN(size);
+    size_t frame = scratch->frame - 1;
+    size = ((size + ALIGNMENT - 1) / ALIGNMENT) * ALIGNMENT;
 
-    if (memcmp(scratch->magic, "scratch", 8) != 0) {
-        secp256k1_callback_call(error_callback, "invalid scratch space");
+    if (scratch->frame == 0 || size + scratch->offset[frame] > scratch->frame_size[frame]) {
         return NULL;
     }
-
-    if (size > scratch->max_size - scratch->alloc_size) {
-        return NULL;
-    }
-    ret = (void *) ((char *) scratch->data + scratch->alloc_size);
+    ret = (void *) ((unsigned char *) scratch->data[frame] + scratch->offset[frame]);
     memset(ret, 0, size);
-    scratch->alloc_size += size;
+    scratch->offset[frame] += size;
 
     return ret;
 }

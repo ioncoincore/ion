@@ -87,7 +87,7 @@ static void secp256k1_ecmult_gen_context_build(secp256k1_ecmult_gen_context *ctx
                 secp256k1_gej_add_var(&numsbase, &numsbase, &nums_gej, NULL);
             }
         }
-        secp256k1_ge_set_all_gej_var(prec, precj, ECMULT_GEN_PREC_N * ECMULT_GEN_PREC_G);
+        secp256k1_ge_set_all_gej_var(prec, precj, 1024);
     }
     for (j = 0; j < ECMULT_GEN_PREC_N; j++) {
         for (i = 0; i < ECMULT_GEN_PREC_G; i++) {

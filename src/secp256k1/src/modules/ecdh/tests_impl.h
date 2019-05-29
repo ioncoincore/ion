@@ -7,6 +7,23 @@
 #ifndef SECP256K1_MODULE_ECDH_TESTS_H
 #define SECP256K1_MODULE_ECDH_TESTS_H
 
+int ecdh_hash_function_test_fail(unsigned char *output, const unsigned char *x, const unsigned char *y, void *data) {
+    (void)output;
+    (void)x;
+    (void)y;
+    (void)data;
+    return 0;
+}
+
+int ecdh_hash_function_custom(unsigned char *output, const unsigned char *x, const unsigned char *y, void *data) {
+    (void)data;
+    /* Save x and y as uncompressed public key */
+    output[0] = 0x04;
+    memcpy(output + 1, x, 32);
+    memcpy(output + 33, y, 32);
+    return 1;
+}
+
 void test_ecdh_api(void) {
     /* Setup context that just counts errors */
     secp256k1_context *tctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);

@@ -7,6 +7,27 @@
 extern "C" {
 #endif
 
+/** A pointer to a function that applies hash function to a point
+ *
+ *  Returns: 1 if a point was successfully hashed. 0 will cause ecdh to fail
+ *  Out:    output:     pointer to an array to be filled by the function
+ *  In:     x:          pointer to a 32-byte x coordinate
+ *          y:          pointer to a 32-byte y coordinate
+ *          data:       Arbitrary data pointer that is passed through
+ */
+typedef int (*secp256k1_ecdh_hash_function)(
+  unsigned char *output,
+  const unsigned char *x,
+  const unsigned char *y,
+  void *data
+);
+
+/** An implementation of SHA256 hash function that applies to compressed public key. */
+SECP256K1_API extern const secp256k1_ecdh_hash_function secp256k1_ecdh_hash_function_sha256;
+
+/** A default ecdh hash function (currently equal to secp256k1_ecdh_hash_function_sha256). */
+SECP256K1_API extern const secp256k1_ecdh_hash_function secp256k1_ecdh_hash_function_default;
+
 /** Compute an EC Diffie-Hellman secret in constant time
  *  Returns: 1: exponentiation was successful
  *           0: scalar was invalid (zero or overflow)

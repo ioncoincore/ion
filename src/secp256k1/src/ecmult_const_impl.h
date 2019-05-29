@@ -48,7 +48,7 @@
  *
  *  Numbers reference steps of `Algorithm SPA-resistant Width-w NAF with Odd Scalar` on pp. 335
  */
-static int secp256k1_wnaf_const(int *wnaf, const secp256k1_scalar *scalar, int w, int size) {
+static int secp256k1_wnaf_const(int *wnaf, secp256k1_scalar s, int w, int size) {
     int global_sign;
     int skew = 0;
     int word = 0;
@@ -79,7 +79,7 @@ static int secp256k1_wnaf_const(int *wnaf, const secp256k1_scalar *scalar, int w
      * {1, 2} we want to add to the scalar when ensuring that it's odd. Further
      * complicating things, -1 interacts badly with `secp256k1_scalar_cadd_bit` and
      * we need to special-case it in this logic. */
-    flip = secp256k1_scalar_is_high(scalar);
+    flip = secp256k1_scalar_is_high(&s);
     /* We add 1 to even numbers, 2 to odd ones, noting that negation flips parity */
     bit = flip ^ !secp256k1_scalar_is_even(scalar);
     /* We check for negative one, since adding 2 to it will cause an overflow */
@@ -98,7 +98,7 @@ static int secp256k1_wnaf_const(int *wnaf, const secp256k1_scalar *scalar, int w
 
     /* 4 */
     u_last = secp256k1_scalar_shr_int(&s, w);
-    do {
+    while (word * w < size) {
         int sign;
         int even;
 
@@ -144,13 +144,13 @@ static void secp256k1_ecmult_const(secp256k1_gej *r, const secp256k1_ge *a, cons
     if (size > 128) {
         rsize = 128;
         /* split q into q_1 and q_lam (where q = q_1 + q_lam*lambda, and q_1 and q_lam are ~128 bit) */
-        secp256k1_scalar_split_lambda(&q_1, &q_lam, scalar);
-        skew_1   = secp256k1_wnaf_const(wnaf_1,   &q_1,   WINDOW_A - 1, 128);
-        skew_lam = secp256k1_wnaf_const(wnaf_lam, &q_lam, WINDOW_A - 1, 128);
+        secp256k1_scalar_split_lambda(&q_1, &q_lam, &sc);
+        skew_1   = secp256k1_wnaf_const(wnaf_1,   q_1,   WINDOW_A - 1, 128);
+        skew_lam = secp256k1_wnaf_const(wnaf_lam, q_lam, WINDOW_A - 1, 128);
     } else
 #endif
     {
-        skew_1   = secp256k1_wnaf_const(wnaf_1, scalar, WINDOW_A - 1, size);
+        skew_1   = secp256k1_wnaf_const(wnaf_1, sc, WINDOW_A - 1, size);
 #ifdef USE_ENDOMORPHISM
         skew_lam = 0;
 #endif
