@@ -122,15 +122,10 @@ class InstantSendTest(IonTestFramework):
         sync_mempools(self.nodes)
         for node in self.nodes:
             self.wait_for_instantlock(is_id, node)
-        assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", isolated.getrawtransaction, dblspnd_txid)
+        assert_raises_jsonrpc(-5, "No such mempool or blockchain transaction", isolated.getrawtransaction, dblspnd_txid)
         # send coins back to the controller node without waiting for confirmations
         receiver.sendtoaddress(self.nodes[0].getnewaddress(), 0.9, "", "", True)
         assert_equal(receiver.getwalletinfo()["balance"], 0)
-        # mine more blocks
-        self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
-        self.nodes[0].generate(2)
-        self.sync_all()
 
 if __name__ == '__main__':
     InstantSendTest().main()
