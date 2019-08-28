@@ -650,7 +650,7 @@ class RawTransactionsTest(BitcoinTestFramework):
         ######################################
 
         # Make sure there is exactly one input so coin selection can't skew the result
-        assert_equal(len(self.nodes[3].listunspent(1)), 4)
+        assert_equal(len(self.nodes[3].listunspent(1)), 1)
 
         inputs = []
         outputs = {self.nodes[2].getnewaddress(): 1}
