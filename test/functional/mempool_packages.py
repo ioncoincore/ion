@@ -15,7 +15,15 @@ MAX_DESCENDANTS = 25
 class MempoolPackagesTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
-        self.extra_args = [["-maxorphantxsize=1000"], ["-maxorphantxsize=1000", "-limitancestorcount=5"]]
+        self.setup_clean_chain = False
+
+    def setup_network(self):
+        self.nodes = []
+        self.nodes.append(start_node(0, self.options.tmpdir, ["-maxorphantxsize=1000"]))
+        self.nodes.append(start_node(1, self.options.tmpdir, ["-maxorphantxsize=1000", "-limitancestorcount=5"]))
+        connect_nodes(self.nodes[0], 1)
+        self.is_network_split = False
+        self.sync_all()
 
     # Build a transaction that spends parent_txid:vout
     # Return amount sent

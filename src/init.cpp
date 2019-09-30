@@ -1489,12 +1489,8 @@ bool AppInitParameterInteraction()
         return InitError("LLMQ type for ChainLocks can only be overridden on devnet.");
     }
 
-    if (gArgs.IsArgSet("-maxorphantx")) {
+    if (IsArgSet("-maxorphantx")) {
         InitWarning("-maxorphantx is not supported anymore. Use -maxorphantxsize instead.");
-    }
-
-    if (gArgs.IsArgSet("-masternode")) {
-        InitWarning(_("-masternode option is deprecated and ignored, specifying -masternodeblsprivkey is enough to start this node as a masternode."));
     }
 
     return true;

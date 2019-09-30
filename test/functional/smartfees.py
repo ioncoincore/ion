@@ -155,12 +155,8 @@ class EstimateFeeTest(BitcoinTestFramework):
                                       ["-blockmaxsize=17000", "-maxorphantxsize=1000"],
                                       ["-blockmaxsize=8000", "-maxorphantxsize=1000"]])
         # Use node0 to mine blocks for input splitting
-        # Node1 mines small blocks but that are bigger than the expected transaction rate.
-        # NOTE: the CreateNewBlock code starts counting block size at 1,000 bytes,
-        # (17k is room enough for 110 or so transactions)
-        # Node2 is a stingy miner, that
-        # produces too small blocks (room for only 55 or so transactions)
-
+        self.nodes.append(start_node(0, self.options.tmpdir, ["-maxorphantxsize=1000",
+                                                              "-whitelist=127.0.0.1"]))
 
     def transact_and_mine(self, numblocks, mining_node):
         min_fee = Decimal("0.0002")
@@ -226,9 +222,19 @@ class EstimateFeeTest(BitcoinTestFramework):
 
         # Now we can connect the other nodes, didn't want to connect them earlier
         # so the estimates would not be affected by the splitting transactions
-        self.start_node(1)
-        self.start_node(2)
+        # Node1 mines small blocks but that are bigger than the expected transaction rate.
+        # NOTE: the CreateNewBlock code starts counting block size at 1,000 bytes,
+        # (17k is room enough for 110 or so transactions)
+        self.nodes.append(start_node(1, self.options.tmpdir,
+                                     ["-blockmaxsize=17000",
+                                      "-maxorphantxsize=1000"]))
         connect_nodes(self.nodes[1], 0)
+
+        # Node2 is a stingy miner, that
+        # produces too small blocks (room for only 55 or so transactions)
+        node2args = ["-blockmaxsize=8000", "-maxorphantxsize=1000"]
+
+        self.nodes.append(start_node(2, self.options.tmpdir, node2args))
         connect_nodes(self.nodes[0], 2)
         connect_nodes(self.nodes[2], 1)
 
