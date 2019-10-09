@@ -115,11 +115,12 @@ void CPrivateSendServer::ProcessMessage(CNode* pfrom, const std::string& strComm
             // process every dsq only once
             for (const auto& q : vecPrivateSendQueue) {
                 if (q == dsq) {
+                    // LogPrint("privatesend", "DSQUEUE -- %s seen\n", dsq.ToString());
                     return;
                 }
                 if (q.fReady == dsq.fReady && q.masternodeOutpoint == dsq.masternodeOutpoint) {
                     // no way the same mn can send another dsq with the same readiness this soon
-                    LogPrint(BCLog::PRIVATESEND, "DSQUEUE -- Peer %s is sending WAY too many dsq messages for a masternode with collateral %s\n", pfrom->GetLogString(), dsq.masternodeOutpoint.ToStringShort());
+                    LogPrint("privatesend", "DSQUEUE -- Peer %s is sending WAY too many dsq messages for a masternode with collateral %s\n", pfrom->GetLogString(), dsq.masternodeOutpoint.ToStringShort());
                     return;
                 }
             }
@@ -150,7 +151,7 @@ void CPrivateSendServer::ProcessMessage(CNode* pfrom, const std::string& strComm
             }
             mmetaman.AllowMixing(dmn->proTxHash);
 
-            LogPrint(BCLog::PRIVATESEND, "DSQUEUE -- new PrivateSend queue (%s) from masternode %s\n", dsq.ToString(), dmn->pdmnState->addr.ToString());
+            LogPrint("privatesend", "DSQUEUE -- new PrivateSend queue (%s) from masternode %s\n", dsq.ToString(), dmn->pdmnState->addr.ToString());
 
             TRY_LOCK(cs_vecqueue, lockRecv);
             if (!lockRecv) return;

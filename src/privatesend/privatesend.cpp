@@ -180,7 +180,7 @@ void CPrivateSendBaseManager::CheckQueue()
     auto it = vecPrivateSendQueue.begin();
     while (it != vecPrivateSendQueue.end()) {
         if ((*it).IsTimeOutOfBounds()) {
-            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseManager::%s -- Removing a queue (%s)\n", __func__, (*it).ToString());
+            LogPrint("privatesend", "CPrivateSendBaseManager::%s -- Removing a queue (%s)\n", __func__, (*it).ToString());
             it = vecPrivateSendQueue.erase(it);
         } else {
             ++it;
