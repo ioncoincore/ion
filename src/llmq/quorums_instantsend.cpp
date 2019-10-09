@@ -402,17 +402,17 @@ bool CInstantSendManager::ProcessTx(const CTransaction& tx, bool allowReSigning,
         g_connman->RelayInvFiltered(inv, tx, LLMQS_PROTO_VERSION);
     }
 
-    if (!CheckCanLock(tx, true, params)) {
-        LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: CheckCanLock returned false\n", __func__,
-                  tx.GetHash().ToString());
-        return false;
-    }
-
     auto conflictingLock = GetConflictingLock(tx);
     if (conflictingLock) {
         auto islockHash = ::SerializeHash(*conflictingLock);
         LogPrintf("CInstantSendManager::%s -- txid=%s: conflicts with islock %s, txid=%s\n", __func__,
                   tx.GetHash().ToString(), islockHash.ToString(), conflictingLock->txid.ToString());
+        return false;
+    }
+
+    if (!CheckCanLock(tx, true, params)) {
+        LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: CheckCanLock returned false\n", __func__,
+                  tx.GetHash().ToString());
         return false;
     }
 
@@ -441,23 +441,23 @@ bool CInstantSendManager::ProcessTx(const CTransaction& tx, bool allowReSigning,
             return false;
         }
     }
-    if (!allowReSigning && alreadyVotedCount == ids.size()) {
-        LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: already voted on all inputs, bailing out\n", __func__,
+    if (alreadyVotedCount == ids.size()) {
+        LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: already voted on all inputs, bailing out\n", __func__,
                  tx.GetHash().ToString());
         return true;
     }
 
-    LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: trying to vote on %d inputs\n", __func__,
+    LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: trying to vote on %d inputs\n", __func__,
              tx.GetHash().ToString(), tx.vin.size());
 
     for (size_t i = 0; i < tx.vin.size(); i++) {
         auto& in = tx.vin[i];
         auto& id = ids[i];
         inputRequestIds.emplace(id);
-        LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: trying to vote on input %s with id %s. allowReSigning=%d\n", __func__,
-                 tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString(), allowReSigning);
-        if (quorumSigningManager->AsyncSignIfMember(llmqType, id, tx.GetHash(), allowReSigning)) {
-            LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: voted on input %s with id %s\n", __func__,
+        LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: trying to vote on input %s with id %s\n", __func__,
+                 tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString());
+        if (quorumSigningManager->AsyncSignIfMember(llmqType, id, tx.GetHash())) {
+            LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: voted on input %s with id %s\n", __func__,
                       tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString());
         }
     }
@@ -1056,8 +1056,8 @@ void CInstantSendManager::AddNonLockedTx(const CTransactionRef& tx, const CBlock
         }
     }
 
-    LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s, pindexMined=%s\n", __func__,
-             tx->GetHash().ToString(), pindexMined ? pindexMined->GetBlockHash().ToString() : "");
+    LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s\n", __func__,
+             tx->GetHash().ToString());
 }
 
 void CInstantSendManager::RemoveNonLockedTx(const uint256& txid, bool retryChildren)
@@ -1094,7 +1094,7 @@ void CInstantSendManager::RemoveNonLockedTx(const uint256& txid, bool retryChild
 
     nonLockedTxs.erase(it);
 
-    LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s, retryChildren=%d, retryChildrenCount=%d\n", __func__,
+    LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s, retryChildren=%d, retryChildrenCount=%d\n", __func__,
              txid.ToString(), retryChildren, retryChildrenCount);
 }
 
