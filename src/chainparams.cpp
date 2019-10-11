@@ -17,13 +17,14 @@
 
 #include "chainparamsseeds.h"
 
-static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTxTime, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     CMutableTransaction txNew;
     txNew.nVersion = 1;
+    txNew.nTime = nTxTime;
     txNew.vin.resize(1);
     txNew.vout.resize(1);
-    txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
+    txNew.vin[0].scriptSig = CScript() << 1486045800 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
     txNew.vout[0].nValue = genesisReward;
     txNew.vout[0].scriptPubKey = genesisOutputScript;
 
@@ -68,16 +69,16 @@ static CBlock CreateDevNetGenesisBlock(const uint256 &prevBlockHash, const std::
  * database.
  *
  * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
- *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
+ *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nTime=0, nLockTime=0)
  *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
  *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
  *   vMerkleTree: e0028e
  */
-static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+static CBlock CreateGenesisBlock(uint32_t nTxTime, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "Wired 09/Jan/2014 The Grand Experiment Goes Live: Overstock.com Is Now Accepting Bitcoins";
-    const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
-    return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+    const char* pszTimestamp = "The Guardian: [2nd Feb 2017] Finsbury Park mosque wins apology and damages from Thomson Reuters";
+    const CScript genesisOutputScript = CScript() << ParseHex("045622582bdfad9366cdff9652d35a562af17ea4e3462d32cd988b32919ba2ff4bc806485be5228185ad3f75445039b6e744819c4a63304277ca8d20c99a6acec8") << OP_CHECKSIG;
+    return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTxTime, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
 
@@ -255,7 +256,7 @@ public:
         consensus.DIP0003Height = 1028160;
         consensus.DIP0003EnforcementHeight = 1047200;
         consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81");
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
+        consensus.powLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 24
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -312,35 +313,35 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xbf;
-        pchMessageStart[1] = 0x0c;
-        pchMessageStart[2] = 0x6b;
-        pchMessageStart[3] = 0xbd;
-        nDefaultPort = 9999;
+        pchMessageStart[0] = 0xc4;
+        pchMessageStart[1] = 0xe1;
+        pchMessageStart[2] = 0xd8;
+        pchMessageStart[3] = 0xec;
+        nDefaultPort = 12700;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1390095618, 28917698, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1486045800, 1486045800, 28884498, 0x1e00ffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0000004cf5ffbf2e31a9aa07c86298efb01a30b8911b80af7473d1114715084b"));
+        assert(genesis.hashMerkleRoot == uint256S("0x7af2e961c5262cb0411edcb7414ab7178133fc06257ceb47d349e4e5e35e2d40"));
 
         vSeeds.emplace_back("dnsseed.dash.org", true);
         vSeeds.emplace_back("dnsseed.dashdot.io", true);
         vSeeds.emplace_back("dnsseed.masternode.io", true);
 
-        // Dash addresses start with 'X'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
-        // Dash script addresses start with '7'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
-        // Dash private keys start with '7' or 'X'
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+        // Ion addresses start with 'i'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,103);
+        // Ion script addresses start with '?'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,88);
+        // Dash private keys start with '?' or '?'
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,153);
         // Dash BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         // Dash BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
         // Dash BIP44 coin type is '5'
-        nExtCoinType = 5;
+        nExtCoinType = 7567736;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
@@ -362,7 +363,7 @@ public:
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
 
-        vSporkAddresses = {"Xgtyuk76vhuFW2iT7UAiHgNdWXCf3J34wh"};
+        vSporkAddresses = {"inqaYuaES1cmRBXHodp25UceeVPbWQG5wY"};   // Not the correct address
         nMinSporkKeys = 1;
         fBIP9CheckMasternodesUpgraded = true;
 
@@ -434,7 +435,7 @@ public:
         consensus.DIP0003Height = 7000;
         consensus.DIP0003EnforcementHeight = 7300;
         consensus.DIP0003EnforcementHash = uint256S("00000055ebc0e974ba3a3fb785c5ad4365a39637d4df168169ee80d313612f8f");
-        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
+        consensus.powLimit = uint256S("3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 2
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -486,17 +487,17 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000005ae4db9746d6cad8e0ccebdef1e05afec9c40809f31457fdaf7d843"); // 95930
 
-        pchMessageStart[0] = 0xce;
-        pchMessageStart[1] = 0xe2;
-        pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xff;
-        nDefaultPort = 19999;
+        pchMessageStart[0] = 0xdb;
+        pchMessageStart[1] = 0x86;
+        pchMessageStart[2] = 0xfc;
+        pchMessageStart[3] = 0x69;
+        nDefaultPort = 27170;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1486045800, 1491737471, 2263997, 0x1e0ffff0, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000a5e695356de7ccae09478a4aa7053a402f7c2f57a40c44310d8fbe5d3c7"));
+//        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         vFixedSeeds.clear();
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
@@ -507,15 +508,15 @@ public:
         vSeeds.emplace_back("test.dnsseed.masternode.io", true);
 
         // Testnet Dash addresses start with 'y'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,97);
         // Testnet Dash script addresses start with '8' or '9'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         // Testnet Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         // Testnet Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x91};
 
         // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
@@ -538,7 +539,7 @@ public:
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        vSporkAddresses = {"yjPtiKh2uwk3bDutTEA2q9mCtXyiZRWn55"};
+        vSporkAddresses = {"gRgAY9dX7kN3tLNeVPQ8YoVGJdeNiE2Ubr"};
         nMinSporkKeys = 1;
         fBIP9CheckMasternodesUpgraded = true;
 
@@ -649,10 +650,10 @@ public:
         nDefaultPort = 19799;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1486045800, 1491737471, 1096447, 0x207fffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+//        assert(consensus.hashGenesisBlock == uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
+//        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         devnetGenesis = FindDevNetGenesisBlock(consensus, genesis, 50 * COIN);
         consensus.hashDevnetGenesisBlock = devnetGenesis.GetHash();
@@ -662,15 +663,15 @@ public:
         //vSeeds.push_back(CDNSSeedData("dashevo.org",  "devnet-seed.dashevo.org"));
 
         // Testnet Dash addresses start with 'y'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,97);
         // Testnet Dash script addresses start with '8' or '9'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         // Testnet Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         // Testnet Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x91};
 
         // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
@@ -692,7 +693,7 @@ public:
         nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        vSporkAddresses = {"yjPtiKh2uwk3bDutTEA2q9mCtXyiZRWn55"};
+        vSporkAddresses = {"gRgAY9dX7kN3tLNeVPQ8YoVGJdeNiE2Ubr"};
         nMinSporkKeys = 1;
         // devnets are started with no blocks and no MN, so we can't check for upgraded MN (as there are none)
         fBIP9CheckMasternodesUpgraded = false;
@@ -776,17 +777,31 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
-        pchMessageStart[0] = 0xfc;
-        pchMessageStart[1] = 0xc1;
-        pchMessageStart[2] = 0xb7;
-        pchMessageStart[3] = 0xdc;
-        nDefaultPort = 19899;
+        pchMessageStart[0] = 0xb5;
+        pchMessageStart[1] = 0x9a;
+        pchMessageStart[2] = 0x39;
+        pchMessageStart[3] = 0x9e;
+        nDefaultPort = 19994;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1486045800, 1491737471, 2263997, 0x1e0ffff0, 1, 1 * COIN);
+
+        arith_uint256 bnTarget;
+        bnTarget.SetCompact(genesis.nBits);
+
+/*
+        for (uint32_t nNonce = 0; nNonce < UINT32_MAX; nNonce++) {
+            genesis.nNonce = nNonce;
+
+            uint256 hash = genesis.GetHash();
+            if (UintToArith256(hash) <= bnTarget) {
+                break;
+            }
+        }
+*/
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("00000a5e695356de7ccae09478a4aa7053a402f7c2f57a40c44310d8fbe5d3c7"));
+//        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
@@ -803,14 +818,14 @@ public:
         nPoolMaxParticipants = 5;
 
         // privKey: cP4EKFyJsHT39LDqgdcB43Y3YXjNyjb5Fuas1GQSeAtjnZWmZEQK
-        vSporkAddresses = {"yj949n1UH6fDhw6HtVE5VMj2iSTaSWBMcW"};
+        vSporkAddresses = {"gRgAY9dX7kN3tLNeVPQ8YoVGJdeNiE2Ubr"};
         nMinSporkKeys = 1;
         // regtest usually has no masternodes in most tests, so don't check for upgraged MNs
         fBIP9CheckMasternodesUpgraded = false;
 
         checkpointData = (CCheckpointData) {
             {
-                {0, uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e")},
+                {0, uint256S("0x6cb21cdfc47afcd4a8fafcd024282a2ec0349b045b00234fb873f165ae11e91a")},
             }
         };
 
@@ -821,15 +836,15 @@ public:
         };
 
         // Regtest Dash addresses start with 'y'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,97);
         // Regtest Dash script addresses start with '8' or '9'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         // Regtest Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         // Regtest Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x91};
 
         // Regtest Dash BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;

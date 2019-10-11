@@ -196,6 +196,15 @@ static void MutateTxVersion(CMutableTransaction& tx, const std::string& cmdVal)
     tx.nVersion = (int) newVersion;
 }
 
+static void MutateTxTime(CMutableTransaction& tx, const std::string& cmdVal)
+{
+    int64_t newTime = atoi64(cmdVal);
+    if (newTime < 0LL || newTime > 0xffffffffLL)
+        throw std::runtime_error("Invalid TX time requested");
+
+    tx.nTime = (unsigned int) newTime;
+}
+
 static void MutateTxLocktime(CMutableTransaction& tx, const std::string& cmdVal)
 {
     int64_t newLocktime = atoi64(cmdVal);

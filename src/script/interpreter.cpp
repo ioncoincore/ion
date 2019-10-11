@@ -1104,6 +1104,8 @@ public:
         // Serialize nVersion
         int32_t n32bitVersion = txTo.nVersion | (txTo.nType << 16);
         ::Serialize(s, n32bitVersion);
+        // Serialize nTime
+        ::Serialize(s, txTo.nTime);
         // Serialize vin
         unsigned int nInputs = fAnyoneCanPay ? 1 : txTo.vin.size();
         ::WriteCompactSize(s, nInputs);
