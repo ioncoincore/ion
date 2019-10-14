@@ -131,3 +131,26 @@ std::string CTransaction::ToString() const
         str += "    " + tx_out.ToString() + "\n";
     return str;
 }
+
+bool CTransaction::IsCoinStake() const
+{
+    if (vin.empty())
+        return false;
+
+    // ppcoin: the coin stake transaction is marked with the first output empty
+    bool fAllowNull = vin[0].IsZerocoinSpend();
+    if (vin[0].prevout.IsNull() && !fAllowNull)
+        return false;
+
+    return (vout.size() >= 2 && vout[0].IsEmpty());
+}
+
+bool CTxIn::IsZerocoinSpend() const
+{
+    return prevout.hash == uint256() && scriptSig.IsZerocoinSpend();
+}
+
+bool CTxIn::IsZerocoinPublicSpend() const
+{
+    return scriptSig.IsZerocoinPublicSpend();
+}

@@ -254,3 +254,23 @@ bool CScript::IsPushOnly() const
 {
     return this->IsPushOnly(begin());
 }
+
+bool CScript::StartsWithOpcode(const opcodetype opcode) const
+{
+    return (!this->empty() && (*this)[0] == opcode);
+}
+
+bool CScript::IsZerocoinMint() const
+{
+    return StartsWithOpcode(OP_ZEROCOINMINT);
+}
+
+bool CScript::IsZerocoinSpend() const
+{
+    return StartsWithOpcode(OP_ZEROCOINSPEND);
+}
+
+bool CScript::IsZerocoinPublicSpend() const
+{
+    return StartsWithOpcode(OP_ZEROCOINPUBLICSPEND);
+}

@@ -13,6 +13,7 @@
 
 uint256 CBlockHeader::GetHash() const
 {
+    // CVectorWriter grows vch when necessary
     std::vector<unsigned char> vch(80);
     CVectorWriter ss(SER_NETWORK, PROTOCOL_VERSION, vch, 0);
     ss << *this;

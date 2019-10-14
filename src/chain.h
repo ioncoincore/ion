@@ -206,6 +206,14 @@ public:
     //! Verification status of this block. See enum BlockStatus
     unsigned int nStatus;
 
+    // proof-of-stake specific fields
+    unsigned int nFlags; // ppcoin: block index flags
+    enum {
+        BLOCK_PROOF_OF_STAKE = (1 << 0), // is proof-of-stake block
+        BLOCK_STAKE_ENTROPY = (1 << 1),  // entropy bit for stake modifier
+        BLOCK_STAKE_MODIFIER = (1 << 2), // regenerated stake modifier
+    };
+
     //! block header
     int nVersion;
     uint256 hashMerkleRoot;
@@ -234,6 +242,8 @@ public:
         nStatus = 0;
         nSequenceId = 0;
         nTimeMax = 0;
+
+        nFlags = 0;
 
         nVersion       = 0;
         hashMerkleRoot = uint256();
@@ -320,6 +330,21 @@ public:
         return pbegin[(pend - pbegin)/2];
     }
 
+    bool IsProofOfWork() const
+    {
+        return !(nFlags & BLOCK_PROOF_OF_STAKE);
+    }
+
+    bool IsProofOfStake() const
+    {
+        return (nFlags & BLOCK_PROOF_OF_STAKE);
+    }
+
+    void SetProofOfStake()
+    {
+        nFlags |= BLOCK_PROOF_OF_STAKE;
+    }
+
     std::string ToString() const
     {
         return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
@@ -400,6 +425,8 @@ public:
             READWRITE(VARINT(nDataPos));
         if (nStatus & BLOCK_HAVE_UNDO)
             READWRITE(VARINT(nUndoPos));
+
+        READWRITE(VARINT(nFlags));
 
         // block hash
         READWRITE(hash);
