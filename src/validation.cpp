@@ -1004,6 +1004,55 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
+CAmount GetBlockSubsidyION(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
+{
+    CAmount nSubsidy = 0;
+    int nHeight = nPrevHeight + 1;
+    // TESTNET and REGTEST
+    if (Params().NetworkIDString() == CBaseChainParams::REGTEST && nHeight < 86400) {
+        if (nHeight == 0) {
+            nSubsidy = 250 * COIN;
+        } else if (nHeight < 200 && nHeight > 0) {
+            nSubsidy = 250000 * COIN;
+        } else if (nHeight < 86400 && nHeight >= 200) {
+            nSubsidy = 250 * COIN;
+        }
+    } else if ((Params().NetworkIDString() == CBaseChainParams::TESTNET || Params().NetworkIDString() == CBaseChainParams::DEVNET) && nHeight <= 570062) {
+        if (nHeight == 0) {
+            nSubsidy = 1 * COIN;
+        } else if (nHeight == 1) {
+            nSubsidy = 16400000 * COIN;
+        } else if (nHeight >= 2 && nHeight <= 125146) {
+            nSubsidy = 23 * COIN;
+        } else if (nHeight > 125146 && nHeight <= 570062) {
+            nSubsidy = 17 * COIN;
+        }
+    } else {
+        if (nHeight == 0) {
+            nSubsidy = 0 * COIN;
+        } else if (nHeight == 1) {
+            nSubsidy = 16400000 * COIN;
+        } else if (nHeight <= 125146) {
+            nSubsidy = 23 * COIN;
+        } else if (nHeight <= consensusParams.DGWStartHeight + 1) {
+            nSubsidy = 17 * COIN;
+        } else if (nHeight <= consensusParams.DGWStartHeight + 1 + 1440) {
+            nSubsidy = 0.02 * COIN;
+        } else if (nHeight <= 570062 + 1) { // 568622 + 1440 = 570062
+            nSubsidy = 17 * COIN;
+        } else if (nHeight <= 1013538 + 1) {    // 568622+1440=570062   1012098+1440=1013538
+            nSubsidy = 11.5 * COIN;
+        } else if (nHeight <= 4167138 + 1) {    // phase 4-9
+            nSubsidy = 5.75 * COIN;
+        } else if (nHeight <= 4692738 + 1) {    // phase 10
+            nSubsidy = 1.9 * COIN;
+        } else {
+            nSubsidy = 0.02 * COIN;
+        }
+    }
+    return nSubsidy;
+}
+
 /*
 NOTE:   unlike bitcoin we are using PREVIOUS block height here,
         might be a good idea to change this to use prev bits
@@ -1013,6 +1062,12 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 {
     double dDiff;
     CAmount nSubsidyBase;
+
+    if (nPrevHeight >= 0) {
+        CAmount nSubsidy = GetBlockSubsidyION(nPrevBits, nPrevHeight, consensusParams, fSuperblockPartOnly);
+        CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
+        return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
+    }
 
     if (nPrevHeight <= 4500 && Params().NetworkIDString() == CBaseChainParams::MAIN) {
         /* a bug which caused diff to not be correctly calculated */
