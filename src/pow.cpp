@@ -180,6 +180,59 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
    return CalculateNextWorkRequired(pindexLast, pindexFirst->GetBlockTime(), params);
 }
 
+unsigned int static GetNextWorkRequiredOrig(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+{
+    bool fProofOfStake;
+    if (pindexLast->nHeight < 1000) {
+        fProofOfStake = false;
+    } else {
+        fProofOfStake = true;
+    }
+    uint256 bnTargetLimit = fProofOfStake ? uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+        : uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+
+    if (pindexLast == NULL)
+        return UintToArith256(bnTargetLimit).GetCompact(); // genesis block
+    const CBlockIndex* pindexPrev = pindexLast;
+    /*
+    while (pindexPrev && pindexPrev->pprev && (pindexPrev->IsProofOfStake() != fProofOfStake))
+        pindexPrev = pindexPrev->pprev;
+    */
+    if (pindexPrev == NULL)
+        return UintToArith256(bnTargetLimit).GetCompact(); // first block
+    const CBlockIndex* pindexPrevPrev = pindexPrev->pprev;
+    /*
+    while (pindexPrevPrev && pindexPrevPrev->pprev && (pindexPrevPrev->IsProofOfStake() != fProofOfStake))
+        pindexPrevPrev = pindexPrevPrev->pprev;
+    */
+    if (pindexPrevPrev == NULL)
+        return UintToArith256(bnTargetLimit).GetCompact(); // second block
+
+    int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
+
+    if (nActualSpacing < 0) {
+        nActualSpacing = 64;
+    }
+    else if (fProofOfStake && nActualSpacing > 64 * 10) {
+         nActualSpacing = 64 * 10;
+    }
+
+    // target change every block
+    // retarget with exponential moving toward target spacing
+    // Includes fix for wrong retargeting difficulty by Mammix2
+    arith_uint256 bnNew;
+    bnNew.SetCompact(pindexPrev->nBits);
+
+    int64_t nInterval = fProofOfStake ? 10 : 10;
+    bnNew *= ((nInterval - 1) * 64 + nActualSpacing + nActualSpacing);
+    bnNew /= ((nInterval + 1) * 64);
+
+    if (bnNew <= 0 || bnNew > UintToArith256(bnTargetLimit))
+        bnNew = UintToArith256(bnTargetLimit);
+
+    return bnNew.GetCompact();
+}
+
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     // this is only active on devnets
@@ -196,7 +249,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return KimotoGravityWell(pindexLast, params);
     }
     else {
-        return GetNextWorkRequiredBTC(pindexLast, pblock, params);
+        return GetNextWorkRequiredOrig(pindexLast, pblock, params);
     }
 }
 
