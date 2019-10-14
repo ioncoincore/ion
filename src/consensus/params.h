@@ -148,6 +148,11 @@ struct Params {
     /** Block height at which DIP0003 becomes enforced */
     int DIP0003EnforcementHeight;
     uint256 DIP0003EnforcementHash;
+    /** Block height at which IIP0006 becomes active */
+    int IIP0006Height;
+    int POSStartHeight;
+    int MidasStartHeight;
+    int DGWStartHeight;
     /**
      * Minimum blocks including miner confirmation of the total of nMinerConfirmationWindow blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
@@ -169,6 +174,22 @@ struct Params {
     int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
+
+    /** Proof of stake parameters */
+    uint256 posLimit;
+    int64_t nPosTargetTimespanMidas;
+    int64_t nPosTargetSpacingMidas;
+    int64_t nPosTargetSpacing;
+    int64_t nBlockStakeModifierlV2;
+
+    /** Zerocoin */
+    int64_t nZerocoinStartHeight;
+    int64_t nZerocoinStartTime;
+    int64_t nBlockZerocoinV2;
+    int64_t nPublicZCSpends;
+    std::string zerocoinModulus;
+    int64_t nFakeSerialBlockheightEnd;
+
 
     /** these parameters are only used on devnet and can be configured from the outside */
     int nMinimumDifficultyBlocks{0};
