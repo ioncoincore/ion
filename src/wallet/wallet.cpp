@@ -3605,7 +3605,7 @@ bool CWallet::SelectCoinsGroupedByAddresses(std::vector<CompactTallyItem>& vecTa
 
     isminefilter filter = ISMINE_SPENDABLE;
 
-    // Try using the cache for already confirmed mixable inputs.
+    // Try using the cache for already confirmed anonymizable inputs.
     // This should only be used if nMaxOupointsPerAddress was NOT specified.
     if(nMaxOupointsPerAddress == -1 && fAnonymizable && fSkipUnconfirmed) {
         if(fSkipDenominated && fAnonymizableTallyCachedNonDenom) {
@@ -3679,7 +3679,7 @@ bool CWallet::SelectCoinsGroupedByAddresses(std::vector<CompactTallyItem>& vecTa
         vecTallyRet.push_back(item.second);
     }
 
-    // Cache already confirmed mixable entries for later use.
+    // Cache already confirmed anonymizable entries for later use.
     // This should only be used if nMaxOupointsPerAddress was NOT specified.
     if(nMaxOupointsPerAddress == -1 && fAnonymizable && fSkipUnconfirmed) {
         if(fSkipDenominated) {

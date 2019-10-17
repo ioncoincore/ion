@@ -1385,8 +1385,8 @@ bool CPrivateSendClientSession::MakeCollateralAmounts(CConnman& connman)
     // Knowing that each CTxIn is at least 148b big, 400 inputs should take 400 x ~148b = ~60kB.
     // This still leaves more than enough room for another data of typical MakeCollateralAmounts tx.
     std::vector<CompactTallyItem> vecTally;
-    if (!vpwallets[0]->SelectCoinsGroupedByAddresses(vecTally, false, false, true, 400)) {
-        LogPrint(BCLog::PRIVATESEND, "CPrivateSendClientSession::MakeCollateralAmounts -- SelectCoinsGroupedByAddresses can't find any inputs!\n");
+    if (!pwalletMain->SelectCoinsGroupedByAddresses(vecTally, false, false, true, 400)) {
+        LogPrint("privatesend", "CPrivateSendClientSession::MakeCollateralAmounts -- SelectCoinsGroupedByAddresses can't find any inputs!\n");
         return false;
     }
 
