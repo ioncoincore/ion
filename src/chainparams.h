@@ -8,6 +8,7 @@
 
 #include "chainparamsbase.h"
 #include "consensus/params.h"
+#include "libzerocoin/Params.h"
 #include "primitives/block.h"
 #include "protocol.h"
 
@@ -95,6 +96,7 @@ public:
     const std::vector<std::string>& SporkAddresses() const { return vSporkAddresses; }
     int MinSporkKeys() const { return nMinSporkKeys; }
     bool BIP9CheckMasternodesUpgraded() const { return fBIP9CheckMasternodesUpgraded; }
+    libzerocoin::ZerocoinParams* Zerocoin_Params(bool useModulusV1) const;
 protected:
     CChainParams() {}
 

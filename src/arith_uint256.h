@@ -237,6 +237,28 @@ public:
     void SetHex(const std::string& str);
     std::string ToString() const;
 
+    const unsigned char* begin() const
+    {
+        return (unsigned char*)&pn[0];
+    }
+
+    const unsigned char* end() const
+    {
+        return (unsigned char*)&pn[WIDTH];
+    }
+
+    template<typename Stream>
+    const void Serialize(Stream& s) const
+    {
+        s.write((char*)pn, sizeof(pn));
+    }
+
+    template<typename Stream>
+    void Unserialize(Stream& s)
+    {
+        s.read((char*)pn, sizeof(pn));
+    }
+
     unsigned int size() const
     {
         return sizeof(pn);
