@@ -36,6 +36,7 @@ class CBlockIndex;
 class CBlockTreeDB;
 class CChainParams;
 class CCoinsViewDB;
+class CZerocoinDB;
 class CInv;
 class CConnman;
 class CScriptCheck;
@@ -462,6 +463,10 @@ extern CCoinsViewCache *pcoinsTip;
 /** Global variable that points to the active block tree (protected by cs_main) */
 extern CBlockTreeDB *pblocktree;
 
+/** Global variable that points to the zerocoin database (protected by cs_main) */
+extern CZerocoinDB *zerocoinDB;
+
+/** Global variable that points to the active block tree (protected by cs_main) */
 /**
  * Return the spend height, which is one more than the inputs.GetBestBlock().
  * While checking, GetBestBlock() refers to the parent block. (protected by cs_main)

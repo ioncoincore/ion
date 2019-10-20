@@ -317,6 +317,12 @@ public:
         nReadPos = nReadPosNext;
     }
 
+    CDataStream& movePos(size_t nSize)
+    {
+        nReadPos = nReadPos + nSize;
+        return (*this);
+    }
+
     void ignore(int nSize)
     {
         // Ignore from the beginning of the buffer

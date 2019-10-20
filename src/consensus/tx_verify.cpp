@@ -120,7 +120,8 @@ unsigned int GetLegacySigOpCount(const CTransaction& tx)
 
 unsigned int GetP2SHSigOpCount(const CTransaction& tx, const CCoinsViewCache& inputs)
 {
-    if (tx.IsCoinBase())
+    if (tx.IsCoinBase() || tx.HasZerocoinSpendInputs())
+        // a tx containing a zc spend can have only zc inputs
         return 0;
 
     unsigned int nSigOps = 0;
@@ -149,7 +150,7 @@ unsigned int GetTransactionSigOpCount(const CTransaction& tx, const CCoinsViewCa
     return nSigOps;
 }
 
-bool CheckTransaction(const CTransaction& tx, CValidationState &state)
+bool CheckTransaction(const CTransaction& tx, CValidationState &state, const bool fZerocoinActive)
 {
     bool allowEmptyTxInOut = false;
     if (tx.nType == TRANSACTION_QUORUM_COMMITMENT) {
@@ -184,8 +185,13 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
     std::set<COutPoint> vInOutPoints;
     for (const auto& txin : tx.vin)
     {
-        if (!vInOutPoints.insert(txin.prevout).second)
+        if (vInOutPoints.count(txin.prevout))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputs-duplicate");
+
+        //duplicate zcspend serials are checked in CheckZerocoinSpend()
+        if (!txin.IsZerocoinSpend()) {
+            vInOutPoints.insert(txin.prevout);
+        }
     }
 
     if (tx.IsCoinBase())
@@ -201,7 +207,7 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
     else
     {
         for (const auto& txin : tx.vin)
-            if (txin.prevout.IsNull())
+            if (txin.prevout.IsNull() && (fZerocoinActive && !txin.IsZerocoinSpend()))
                 return state.DoS(10, false, REJECT_INVALID, "bad-txns-prevout-null");
     }
 

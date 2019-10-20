@@ -8,6 +8,9 @@
 
 #include "compat/endian.h"
 
+#include "libzerocoin/Denominations.h"
+#include "libzerocoin/SpendType.h"
+
 #include <algorithm>
 #include <assert.h>
 #include <ios>
@@ -211,9 +214,35 @@ template<typename Stream> inline void Unserialize(Stream& s, bool& a) { char f=s
 template <typename T> size_t GetSerializeSize(const T& t, int nType, int nVersion = 0);
 template <typename S, typename T> size_t GetSerializeSize(const S& s, const T& t);
 
+/**
+ * libzerocoin::CoinDenomination
+ */
+template<typename Stream> inline void Serialize(Stream& s, libzerocoin::CoinDenomination a)
+{
+    uint32_t f = libzerocoin::ZerocoinDenominationToInt(a);
+    ser_writedata32(s, f);
+}
 
+template<typename Stream> inline void Unserialize(Stream& s, libzerocoin::CoinDenomination& a)
+{
+    uint32_t f = ser_readdata32(s);
+    a = libzerocoin::IntToZerocoinDenomination(f);
+}
 
+/**
+ * libzerocoin::SpendType
+ */
+template<typename Stream> inline void Serialize(Stream& s, libzerocoin::SpendType a)
+{
+    uint8_t f = static_cast<uint8_t>(a);
+    ser_writedata8(s, f);
+}
 
+template<typename Stream> inline void Unserialize(Stream& s, libzerocoin::SpendType& a)
+{
+    uint8_t f = ser_readdata8(s);
+    a = static_cast<libzerocoin::SpendType>(f);
+}
 
 /**
  * Compact Size

@@ -189,6 +189,8 @@ public:
         return (nValue == 0 && scriptPubKey.empty());
     }
 
+    bool IsZerocoinMint() const;
+
     friend bool operator==(const CTxOut& a, const CTxOut& b)
     {
         return (a.nValue       == b.nValue &&
@@ -285,9 +287,20 @@ public:
      */
     unsigned int GetTotalSize() const;
 
+
+    bool HasZerocoinSpendInputs() const;
+    bool HasZerocoinPublicSpendInputs() const;
+
+    bool HasZerocoinMintOutputs() const;
+
+    bool ContainsZerocoins() const
+    {
+        return HasZerocoinSpendInputs() || HasZerocoinPublicSpendInputs() || HasZerocoinMintOutputs();
+    }
+
     bool IsCoinBase() const
     {
-        return (vin.size() == 1 && vin[0].prevout.IsNull());
+        return (vin.size() == 1 && vin[0].prevout.IsNull() && !ContainsZerocoins());
     }
 
     bool IsCoinStake() const;

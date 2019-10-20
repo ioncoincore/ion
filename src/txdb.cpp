@@ -13,6 +13,7 @@
 #include "util.h"
 #include "ui_interface.h"
 #include "init.h"
+#include "xion/accumulators.h"
 
 #include <stdint.h>
 
@@ -402,6 +403,7 @@ bool CBlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, 
     pcursor->Seek(std::make_pair(DB_BLOCK_INDEX, uint256()));
 
     // Load mapBlockIndex
+    uint256 nPreviousCheckpoint;
     while (pcursor->Valid()) {
         boost::this_thread::interruption_point();
         std::pair<char, uint256> key;
@@ -425,10 +427,23 @@ bool CBlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, 
 
                 //Proof Of Stake
                 pindexNew->nFlags         = diskindex.nFlags;
+                //Zerocoin
+                pindexNew->nAccumulatorCheckpoint = diskindex.nAccumulatorCheckpoint;
+                pindexNew->mapZerocoinSupply = diskindex.mapZerocoinSupply;
+                pindexNew->vMintDenominationsInBlock = diskindex.vMintDenominationsInBlock;
+                //Tokens
 
                 if (pindexNew->nHeight < consensusParams.POSStartHeight && pindexNew->IsProofOfWork() && !CheckProofOfWork(pindexNew->GetBlockHash(), pindexNew->nBits, consensusParams))
                     return error("%s: CheckProofOfWork failed: %s", __func__, pindexNew->ToString());
 
+                //populate accumulator checksum map in memory
+                if(pindexNew->nAccumulatorCheckpoint != uint256() && pindexNew->nAccumulatorCheckpoint != nPreviousCheckpoint) {
+                    //Don't load any checkpoints that exist before v2 xion. The accumulator is invalid for v1 and not used.
+                    if (pindexNew->nHeight >= Params().GetConsensus().nBlockZerocoinV2)
+                        LoadAccumulatorValuesFromDB(pindexNew->nAccumulatorCheckpoint);
+
+                    nPreviousCheckpoint = pindexNew->nAccumulatorCheckpoint;
+                }
                 pcursor->Next();
             } else {
                 return error("%s: failed to read value", __func__);

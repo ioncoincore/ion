@@ -279,6 +279,12 @@ const CLogCategoryDesc LogCategories[] =
     {BCLog::SPORK, "spork"},
     //End Dash
 
+    //Start ION
+    {BCLog::ZEROCOIN, "zerocoin"},
+    {BCLog::STAKING, "staking"},
+    {BCLog::TOKEN, "token"},
+    //End ION
+
 };
 
 bool GetLogCategory(uint64_t *f, const std::string *str)
