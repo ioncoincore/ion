@@ -685,7 +685,7 @@ void CSigSharesManager::ProcessSigShare(NodeId nodeId, const CSigShare& sigShare
         sigSharesToAnnounce.Add(sigShare.GetKey(), true);
 
         // Update the time we've seen the last sigShare
-        timeSeenForSessions[sigShare.GetSignHash()] = GetAdjustedTime();
+        timeSeenForSessions[sigShare.GetSignHash()] = GetTimeMillis();
 
         if (!quorumNodes.empty()) {
             // don't announce and wait for other nodes to request this share and directly send it to them
