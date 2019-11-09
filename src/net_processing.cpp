@@ -2156,7 +2156,13 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 if (!state) {
                     continue;
                 }
-
+                // Get the block when we receive an unknown INV while connected to a legacy node
+                if (pfrom->nVersion < GETHEADERS_VERSION && state->fSyncStarted) {
+                    LOCK(cs_main);
+                    std::vector<CInv> vInv(1);
+                    vInv[0] = CInv(MSG_BLOCK, inv.hash);
+                    connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::GETDATA, vInv));
+                }
                 // Download if this is a nice peer, or we have no nice peers and this one might do.
                 bool fFetch = state->fPreferredDownload || (nPreferredDownload == 0 && !pfrom->fOneShot);
                 // Only actively request headers from a single peer, unless we're close to end of initial download.
@@ -2905,6 +2911,17 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         LogPrint(BCLog::NET, "received block %s peer=%d\n", pblock->GetHash().ToString(), pfrom->GetId());
 
         bool forceProcessing = false;
+
+        // In legacy mode, when the block does not connect, request the missing blocks and bail
+        if (pfrom->nVersion < GETHEADERS_VERSION) {
+            LOCK(cs_main);
+            if (mapBlockIndex.find(pblock->hashPrevBlock) == mapBlockIndex.end()) {
+                connman->PushMessage(pfrom, msgMaker.Make(NetMsgType::GETBLOCKS, chainActive.GetLocator(pindexBestHeader), pblock->GetHash()));
+                return true;
+            }
+            forceProcessing = true;
+        }
+
         const uint256 hash(pblock->GetHash());
         {
             LOCK(cs_main);

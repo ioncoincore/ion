@@ -929,7 +929,7 @@ CDeterministicMNList CDeterministicMNManager::GetListForBlock(const CBlockIndex*
 CDeterministicMNList CDeterministicMNManager::GetListAtChainTip()
 {
     LOCK(cs);
-    if (!tipIndex) {
+    if (!tipIndex || tipIndex->nHeight < Params().GetConsensus().DIP0003EnforcementHeight) {
         return {};
     }
     return GetListForBlock(tipIndex);
