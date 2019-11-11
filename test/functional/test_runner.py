@@ -138,6 +138,7 @@ BASE_SCRIPTS= [
     'minchainwork.py',
     'p2p-acceptblock.py', # NOTE: needs dash_hash to pass
     'feature_shutdown.py',
+    'ionlibtest.py',
 ]
 
 EXTENDED_SCRIPTS = [

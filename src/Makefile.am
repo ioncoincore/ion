@@ -60,6 +60,7 @@ LIBBITCOIN_ZMQ=libdash_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
 LIBBITCOINCONSENSUS=libdashconsensus.la
+LIBBITCOINCORE=libioncore.la
 endif
 if ENABLE_WALLET
 LIBBITCOIN_WALLET=libdash_wallet.a
@@ -95,7 +96,7 @@ EXTRA_LIBRARIES += \
   $(LIBBITCOIN_WALLET) \
   $(LIBBITCOIN_ZMQ)
 
-lib_LTLIBRARIES = $(LIBBITCOINCONSENSUS)
+lib_LTLIBRARIES = $(LIBBITCOINCORE) $(LIBBITCOINCONSENSUS)
 
 bin_PROGRAMS =
 noinst_PROGRAMS =
@@ -390,6 +391,34 @@ libdash_wallet_a_SOURCES = \
   xion/zerocoin.cpp \
   $(BITCOIN_CORE_H)
 
+libioncore_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libioncore_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+
+# base58.cpp
+#  base58.h
+
+libioncore_a_SOURCES = \
+  ionlib/ionlib.cpp \
+  script/sigcommon.cpp \
+  hash.cpp \
+  hash.h \
+  key.cpp \
+  key.h \
+  primitives/transaction.cpp \
+  primitives/transaction.h \
+  pubkey.cpp \
+  pubkey.h \
+  random.cpp \
+  random.h \
+  support/cleanse.cpp \
+  support/cleanse.h \
+  uint256.cpp \
+  uint256.h \
+  utilstrencodings.cpp \
+  utilstrencodings.h \
+  utiltime.cpp \
+  utiltime.h
+
 # crypto primitives library
 crypto_libdash_crypto_base_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
 crypto_libdash_crypto_base_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
@@ -520,6 +549,7 @@ libdash_consensus_a_SOURCES = \
   script/dashconsensus.cpp \
   script/interpreter.cpp \
   script/interpreter.h \
+  script/sigcommon.cpp \
   script/script.cpp \
   script/script.h \
   script/script_error.cpp \
@@ -668,6 +698,22 @@ dash_tx_LDADD = \
   $(LIBSECP256K1)
 
 dash_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
+#
+
+# ioncore library #
+if BUILD_BITCOIN_LIBS
+libioncore_la_SOURCES = $(libioncore_a_SOURCES) $(crypto_libion_crypto_a_SOURCES)
+
+if GLIBC_BACK_COMPAT
+  libioncore_la_SOURCES += compat/glibc_compat.cpp
+endif
+
+libioncore_la_LDFLAGS = $(AM_LDFLAGS) $(SSL_LIBS) $(CRYPTO_LIBS) $(BOOST_LIBS) -no-undefined $(RELDFLAGS)
+libioncore_la_LIBADD = $(LIBSECP256K1)
+libioncore_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(BOOST_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libioncore_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+
+endif
 #
 
 # dashconsensus library #
