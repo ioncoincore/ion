@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>匿名发送信息</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;匿名发送基础知识&lt;/h3&gt;匿名发送通过隐藏您的资金来源为您提供真正的财务隐私。您的钱包中所有的达世币都由不同的“输入”组成，您可以将其视为分开的离散硬币。&lt;br&gt;匿名发送使用创新的方法将您的输入与其他两个人的输入相结合，而过程中不会让您的达世币离开您的钱包。每时每刻，您仍然控制着您的钱。&lt;hr&gt;&lt;b&gt;匿名发送的运作原理如下：&lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;匿名发送首先将您的交易分柝成多个标准面额的交易。这些标准面额分别为0.001 DASH，0.01 DASH，0.1 DASH，1 DASH和10 DASH --有点像您每天使用的纸币。&lt;/li&gt;&lt;li&gt;您的钱包然后发送请求到网络上有专门配置的软件节点，称为“主节点”。这些主节点会收到您希望混合一些资金的通知。没有可识别的信息发送到主节点，所以他们永远不会知道你是“谁”。&lt;li&gt;当另外两个人发送类似的消息时，表示希望混合相同的面额的话，混合会话就会开始。相关的主节点会混合这些输入，并指示所有三个用户的钱包将已经转换了输入的交易支付给自己。您的钱包直接支付给自己，但是付给不同的位址（称之为找零地址）。&lt;/li&gt;&lt;li&gt;为了完全掩盖您的资金来源，您的钱包必须以每个面额来重复此过程数次。每次这个过程完成后，都称之为一个“循环”。每个循环的匿名发送都会令确定您的资金来源的工作倍加困难。&lt;/li&gt;&lt;li&gt;这种混合过程发生在后台，而不需要您进行任何操作。当您想进行交易时，您的资金将已被匿名处理。不需再花额外的时间等待。&lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;重要：&lt;b&gt;您的钱包只能拥有1000个“找零地址”。每次混合事件发生时，最多会使用9个找零地址。这意味着这1000个地址可以容许100次的混合事件。当其的中900个已经被使用后，您的钱包必须创建更多的地址。如果您启用了自动备份，则只能够这样做。&lt;br&gt;因此，禁用备份的用户也将禁用匿名发送。&lt;hr&gt;如欲了解更多信息请参阅&lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;匿名发送文档&lt;/a&gt;。</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1285,6 +1289,10 @@
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>通过SOCKS5代理连接 (默认代理)(&amp;C)：</translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>如果是使用提供的默认SOCKS5代理来连接到节点就加以显示。</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2138,12 +2146,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>打开当前目录中的%1调试日志文件。日志文件大的话可能要等上几秒钟。</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>即时发送锁</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>缩小文字</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>放大文字</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;重置</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2280,6 +2296,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>使用 &lt;b&gt;help&lt;/b&gt; 命令显示可用命令的简介。</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>使用上下方向键浏览历史,  %1清除屏幕。</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>警告: 骗子总是积极地劝说用户在此输入指令, 以窃取用户钱包中的资金. 在没有完全理解各命令行作用前, 请不要使用控制台。</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2606,12 +2630,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>如果自定手续费设定为1000 duffs，而交易信息只有250字节的话，那么选择"每千字节"就只会支付250 duffs的手续费，&lt;br /&gt;而"至少"会支付1000 duffs。但如果交易信息大于一千字节,那么两者都要按每千字节付费。</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
         <translation>当交易量少于区块可容纳的空间时，只需支付最低手续费。&lt;br /&gt;但当交易量的需求增长到超过总体网络可处理的量时，可能会造成一笔一直不被确认的交易。</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>每千字节</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>使用fallbackfee可能会导致发送一笔需要几个小时或几天(或永远不会)确认的交易. 建议手动选择手续费, 或者等待你完全验证整个区块链后。</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>注意: 没有足够数据用于费用测算, 将使用备选费用代替.</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2690,8 +2722,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>复制找零金额</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 区块)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>使用</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>匿名化资金</translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>（匿名发送需要这一数额四舍五入到最接近%1）。</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>任何可用资金（非匿名的）</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3791,6 +3839,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>和指定的地址连接，並且将连接的节点放入白名单中。IPv6请用[host]:port格式</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>只连接指定节点(或多个); -connect=0 禁用自动连接</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>创建系统默认权限的文件，而不是 umask 077 (只在关闭钱包功能时有效) </translation>
     </message>
@@ -3953,6 +4005,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Insufficient funds.</source>
         <translation>余额不足。</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>设定 -discardfee=&lt;金额&gt; 的金额无效：'%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4143,6 +4199,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>用户代理评论(%s)包含不安全的字符。</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>验证(多个)钱包中...</translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>即将重试...</translation>
     </message>
@@ -4241,6 +4301,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>修剪：最后的钱包同步超过了修剪的数据。你需要通过 -reindex (重新下载整个区块链以防止节点被修剪)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>是否在节点地址数量不足时, 使用DNS查询来搜索节点 (默认: 1 除非使用 -connect)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4405,6 +4469,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>设定-fallbackfee=&lt;amount&gt;的金额无效：'%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>无效的 masternodeblsprivkey。请阅读文档。</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4611,6 +4679,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>您无法在简化模式中启动主节点。</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>您无法在开启钱包时启动主节点.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>你需要通过使用-reindex改变-txindex来重新建立数据库</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>ZeroMQ 通知选项：</translation>
     </message>
@@ -4635,18 +4711,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>%s 开发人员</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>%p 开发人员</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>%d 开发人员</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>%b 开发人员</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>无法锁定数据目录 %s。%s 可能已经在运行。</translation>
     </message>
@@ -4655,8 +4719,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>在MIT协议下分发，参见附带的 %s 文件或 %s</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>允许存储在这个钱包内的资金使用匿名发送（0-1, 默认: %u）</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>加载%s时出错：您不能够在非HD钱包上启用HD功能</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>加载钱包 %s 时出错. -wallet 参数必须仅指定文件名 (非路径).</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>读取 %s 时发生错误！所有的密钥都可以正确读取，但是交易记录或地址簿数据可能已经丢失或出错。</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>排除特定类别的调试信息. 可以与 -debug=1 结合使用, 以输出排除一个或多个特定类别以外的所有调试日志.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4695,6 +4775,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>设定生成区块时，所要包含交易每千字节的最低手续费（单位是%s）。（默认：%s）</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>手续费 (以 %s/kB 为单位) 以表示您对添加到手续费中不保存更改的容忍度 (默认: %s). 注意: 如果此项为粉尘时, 输出将会被丢弃. 但我们将始终丢弃最高至粉尘中继费用, 并且高于最长目标费用估测值限制的丢弃费用.</translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>如果更改小于粉尘级别, 这可能是您会丢弃的交易手续费</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>这是在费用估计不可用时你可能会支付的交易费。</translation>
     </message>
@@ -4705,6 +4793,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>在本次交易中, 无法找到足够的未面额化资金.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>无法重播区块. 您需要使用 -reindex-chainstate命令来重建数据库.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4731,8 +4823,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>警告：钱包文件损坏，但数据被救回！原始的钱包文件%s已经重命名为%s并存储到%s目录下 。如果您的账户余额或者交易记录不正确，请使用您的钱包备份文件恢复。</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>是否在关闭时保存内存池并在重启时加载 (默认: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>把来自指定地址（例如：1.2.3.4）或CIDR格式网段（例如：1.2.3.0/24）的节点放进白名单。这个选项可以设定多次。</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>您启动了简化模式, 大多数达世币特有的功能已禁用.</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>您必须在配置中指定一个masternodeblsprivkey。请参阅文档以获得帮助。</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>最近100个区块中的 %d 个区块有意外版本</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4763,6 +4871,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>当 -devnet 和 -server 被指定时, 必须指定 -rpcport</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>接受来自外部链接 (默认：当没有-proxy或-connect时为1)</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>允许 RFC1918 地址能被中继并连接到 (默认: %u)</translation>
     </message>
@@ -4783,6 +4895,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>版权 (C)</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>每个面额化的金额最多创建N个输入 (%u-%u, 默认: %u)</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>载入 %s 时发生错误</translation>
     </message>
@@ -4793,6 +4909,22 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>%s 加载错误：请升级到最新版 %s</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>加载%s时出错：您不能在HD钱包上禁用HD功能</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>加载钱包 %s 时出错. -wallet 文件名必须是一个常规文件.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>加载钱包 %s 时出错. 指定了重复的 -wallet 文件名.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>加载钱包 %s 时出错. -wallet 文件名中含无效字符.</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4809,6 +4941,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>初始化完整性检查失败。%s即将关闭。</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>输入对输出大小不匹配.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4845,6 +4981,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>是否转发非P2SH格式的多签名交易 (默认: %u) </translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>重播区块中...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4899,6 +5039,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>指定您自己的公开地址</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>自动启动匿名发送 (0-1, 默认: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>正在启动网络线程...</translation>
     </message>
@@ -4931,6 +5075,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>交易创建成功。</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>交易手续费和找零计算失败</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>交易费用过高。</translation>
     </message>
@@ -4957,6 +5105,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unknown state: id = %u</source>
         <translation>未知状态：id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>不支持的日志记录类别 %s=%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

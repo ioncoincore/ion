@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>Informação de Envio&amp;Privado</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;O básico sobre EnvioPrivado&lt;/h3&gt;O EnvioPrivado te dá verdadeira privacidade financeira ao obscurecer a origem dos seus fundos. Todos os dashs na sua carteira é composto de "inputs" diferentes que você pode pensar como sendo moedas separadas, discretas.&lt;br&gt;O EnvioPrivado usa um processo inovador para misturas os inputs de duas pessoas diferentes, sem que suas moedas saiam de suas carteiras. Você mantém o controle de seu dinheiro o tempo todo.. &lt;hr&gt;&lt;b&gt;O processo do EnvioPrivado funciona assim: &lt;/b&gt;&lt;li&gt;O EnvioPrivado começa quebrando os inputs de suuas transações em denominações padrão. Essas denominações são 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH e 10 DASH -- algo como o dinheiro de papel que você usa todo dia.&lt;/li&gt;Sua carteira então envia uma requisição para um software especialmente configurado na rede, chamados de "masternodes." Esses masternodes são informados que você está interessado em misturar uma denominação específica. Nenhuma informação identificável é enviada aos masternodes, então eles nunca sabem "quem" você é.&lt;li&gt;Quando duas pessoas enviam mensagens similares, uma sessão de mistura tem início. O masternode mistura os inputs e instrui os três usuários da carteira para pagar o input agora transformado de volta a si mesmos. Sua carteira paga a denominação diretamente a si mesmo, mas em um endereço diferente (chamado de endereço mudado).&lt;li&gt;A fim de obscurecer plenamente seus fundos, sua carteira repete esse processo várias vezes com cada denominação. Cada vez que o processo é completado, se chama um "round". Cada round de EnvioPrivado torna exponencialmente mais difícil determinar onde os fundos se originaram.&lt;li&gt;Esse processo de mistura acontece no background sem nenhuma intervenção da sua parte. Quando você deseja fazer uma transação, seus fundos jã estarão anonimizados. Nenhuma espera adicional é requerida.&lt;li&gt;&lt;ol type="1"&gt;&lt;hr&gt;IMPORTANTE: &lt;b&gt;Sua carteira só contém 1000 desses "endereços mudados." Cada vez que um evento de mistura acontece, 9 de seus endereços são usados. Isso indica que esses 1000 endereços duram por cerca de 100 eventos de mistura. Quando 900 desses endereços são usados, sua carteira deve criar mais endereços. Contudo, ela só é capaz de fazer isso se você tem o backup automático habilitado.&lt;br&gt;Consequentemente, usuários que têm seus backups desabilitados também terão o EnvioPrivado desabilitado. &lt;hr&gt;Para mais informações, consulte a &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;documentação do PrivateSend&lt;/a&gt;.</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1056,6 +1060,14 @@
     <message>
         <source>Node Count:</source>
         <translation>Contagem de Masternodes</translation>
+    </message>
+    <message>
+        <source>Show only masternodes this wallet has keys for.</source>
+        <translation>Mostrar apenas os masternodes para os quais esta carteira possui chaves.</translation>
+    </message>
+    <message>
+        <source>My masternodes only</source>
+        <translation>Meus masternodes apenas</translation>
     </message>
     <message>
         <source>Show only masternodes this wallet has keys for.</source>
@@ -1285,6 +1297,10 @@
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>&amp;Conectar via proxy SOCKS5 (proxy padrão):</translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Mostra se o proxy SOCKS5 padrão fornecido for usado para alcançar pares através deste tipo de rede.</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2138,12 +2154,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Abrir o arquivo de log de depuração do %1 localizado no diretório atual de dados. Isso pode levar alguns segundos para arquivos de log grandes.</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>Bloqueios do EnvioInstantâneo</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>Diminuir o tamanho da fonte</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>Aumentar o tamanho da fonte</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Reset</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2280,6 +2304,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Digite &lt;b&gt;help&lt;/b&gt; para uma visão geral dos comandos disponíveis.</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>Use as setas para cima e para baixo para navegar pelo histórico, e %1 para limpar a tela.</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>AVISO: Os golpistas estão ativos, dizendo aos usuários para digitar comandos aqui, roubando o conteúdo da carteira. Não use este console sem compreender totalmente o contexto de um comando.</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2606,12 +2638,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Se a taxa por defeito está definida em 1000 duffs e a transação é apenas 250 bytes, então "per kilobyte" paga apenas 250 duffs de taxa,&lt;br /&gt;enquanto "no mínimo" paga 1000 duffs. Para transações maiores que um kilobyte, ambas pagam por kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
-        <translation>Não há problema em pagar apenas a taxa mínima desde que exista um volume transacional inferior ao espaço nos blocos.&lt;br /&gt;Mas tenha em conta que pode ocorrer uma transação que nunca será confirmada devido a existir uma maior procura para transações em ion, do que a rede tem capacidade para processar.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <translation>Não há problema em pagar apenas a taxa mínima desde que exista um volume transacional inferior ao espaço nos blocos.&lt;br /&gt;Mas tenha em conta que pode ocorrer uma transação que nunca será confirmada devido a existir uma maior procura para transações em dash, do que a rede tem capacidade para processar.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>por kilobyte</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>Usar o fallbackfee pode resultar no envio de uma transação que levará várias horas ou dias (ou nunca) para confirmação. Considere escolher sua taxa manualmente ou espere até que você tenha validado a cadeia completa.</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>Nota: Não há dados suficientes para estimativa da taxa, usando a taxa de fallback como alternativa.</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2690,8 +2730,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Copiar troco</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 blocos)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>usando</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>fundos anônimos </translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(O privatesend exige que esse valor seja arredondado para o próximo %1).</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>quaisquer fundos disponíveis (não anônimos)</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3791,6 +3847,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Vincular ao endereço fornecido e sempre escutar nele. Use a notação [host]:port para IPv6</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>Conecte-se apenas com nó(s) especificados; -connect=0 desativa conexões automáticas</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>Criar novos arquivos com permissões padrão do sistema, em vez de umask 077 (apenas efetivo com funcionalidade de carteira desabilitada)</translation>
     </message>
@@ -3953,6 +4013,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Insufficient funds.</source>
         <translation>Saldo insuficiente. </translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>Quantidade inválida para -discardfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4143,6 +4207,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Comentário User Agent (%s) contém caracteres inseguros.</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>Verificando carteira(s)...</translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>Será feita nova tentativa...</translation>
     </message>
@@ -4241,6 +4309,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>Prune: A ultima sincronização da carteira foi além do dado comprimido. Você precisa reindexar (fazer o download de toda a blockchain novamente)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>Consulta por par de endereços através de pesquisa DNS, se houver pouco endereço (padrão: 1 senão -connect used)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4405,6 +4477,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>Valor inválido para -fallbackfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>Masternodeblsprivkey invalido. Por favor, veja a documentação.</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4611,6 +4687,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Você não pode iniciar um masternode no modo light.</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>Você não pode iniciar um masternode com a carteira habilitada.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>Você precisa reconstruir o banco de dados usando -reindex para alterar -txindex</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>ZeroMQ notificação opções </translation>
     </message>
@@ -4635,18 +4719,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Desenvolvedores do %s</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>Desenvolvedores do %p</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>Desenvolvedores do %d</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>Desenvolvedores do %b</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>Não foi possível obter exclusividade de escrita no endereço %s. O %s provavelmente já está sendo executado.</translation>
     </message>
@@ -4655,8 +4727,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Distribuído sob a licença de software MIT, veja o arquivo %s ou %s</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Habilitar o uso do EnvioPrivado para os fundos guardados nesta carteira (0-1, padrão: %u)</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>Erro ao carregar %s: você não pode ativar o HD em uma carteira não HD já existente</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>Erro ao carregar a carteira %s. -parâmetro da carteira só deve especificar um nome de arquivo (não um caminho).</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Erro ao ler arquivo %s! Todas as chaves privadas foram lidas corretamente, mas os dados de transação ou o livro de endereços podem estar faltando ou incorretos.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>Excluir informações de depuração para uma categoria. Pode ser usado em conjunto com -debug=1 para gerar logs de depuração para todas as categorias, exceto uma ou mais categorias especificadas.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4695,6 +4783,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Especificar a taxa miníma (em %s/KiB) para transações para ser incluída na criação de blocos. (padrão: %s)</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>A taxa de transação (em %s/kB) indica sua tolerância para descartar o troco adicionando-o à taxa (padrão: %s). Nota: Uma saída é descartada se existe um valor mínimo a essa taxa, mas sempre descartamos até o mínimo da taxa de transação e uma taxa de descarte acima que é limitada pela taxa estimada para o maior alvo</translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>Essa é a taxa de transação que você pode descartar se a alteração for menor que o mínimo neste nível</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>Esta é a taxa que você deve pagar quando a taxa estimada não está disponível.</translation>
     </message>
@@ -4705,6 +4801,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>Não é possível localizar fundos não-expressos do PrivateSend suficientes para essa transação.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>Não foi possível reproduzir os blocos. Você precisará reconstruir o banco de dados usando -reindex-chainstate.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4731,8 +4831,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Atenção: Arquivo da carteira corrompido, dados recuperados! Original %s salvo como %s em %s; se seu saldo ou transações estiverem incorretos, você deve restaurar o backup.</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>Se deseja salvar o mempool no desligamento e carregar na reinicialização (padrão: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>Inclui na lista branca pares conectando do dado endereço IP (ex: 1.2.3.4) ou rede em notação CIDR (ex: 1.2.3.0/24). Pode ser especificado várias vezes.</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>Você está iniciando no modo Lite, a maioria das funcionalidades específicas do Dash está desabilitada.</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Você deve especificar um masternodeblsprivkey na configuração. Por favor, consulte a documentação para obter ajuda.</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>%d dos últimos 100 blocos têm versão inesperada</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4763,6 +4879,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>-rpcport deve ser especificado quando -devnet e -server são especificados</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>Aceitar ligações do exterior (omissão: 1 se não tiver usado -proxy ou -connect)</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>Permitir que os endereços RFC1918 sejam retransmitidos e conectados a (padrão: %u)</translation>
     </message>
@@ -4783,6 +4903,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Copyright</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>Crie até N entradas de cada quantidade denominada (%u-%u, padrão: %u)</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>Erro ao carregar %s</translation>
     </message>
@@ -4793,6 +4917,22 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>Erro ao carregar %s A carteira requer a versão mais nova do %s</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>Erro ao carregar %s: você não pode desativar o HD em uma carteira HD já existente</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>Erro ao carregar a carteira %s. -nome do arquivo da carteira deve ser um arquivo regular.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>Erro ao carregar a carteira %s. Nome do arquivo de -carteira especificado duplicado.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>Erro ao carregar a carteira %s. Caracteres inválidos no nome do arquivo -carteira.</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4809,6 +4949,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>O teste de integridade de inicialização falhou. O %s está sendo desligado.</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>Incompatibilidade de tamanho de entradas x saídas.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4845,6 +4989,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Retransmitir P2SH não multisig (padrão: %u)</translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>Reproduzindo blocos...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4899,6 +5047,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Especificar seu próprio endereço público</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>Iniciar EnvioPrivado automaticamente (0-1, padrão: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>Iniciando threads de rede...</translation>
     </message>
@@ -4931,6 +5083,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Transação criada com sucesso.</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>Falha no cálculo da taxa de transação e do troco</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>Taxa de transação muito alta.</translation>
     </message>
@@ -4957,6 +5113,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unknown state: id = %u</source>
         <translation>Estado desconhecido: id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>Categoria de log não suportada %s=%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

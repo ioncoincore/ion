@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>プライベートセンドの情報</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;プライベートセンドの基本&lt;/h3&gt; プライベートセンドはあなたのファンドの起源を不明瞭にすることによって真のファイナンシャルプライバシーを提供します。あなたのウォレットにあるDashは別々の異なるコインとして考えられる”インプット”から構成されています。&lt;br&gt; プライベートセンドは画期的なプロセスを使用し、ウォレットからあなたのコインが移動させられることなく、他の二人の人々のインプットとあなたのインプットをミックスします。あなたは常にあなたのファンドをコントロールしています。&lt;hr&gt; &lt;b&gt;プライベートセンドのプロセスは以下のように機能します:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;プライベートセンドは、あなたのトランザクションインプットをスタンダードな通貨単位に分割します。これらの通貨単位は0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH そして 10 DASH -- 日常的に使われる紙幣のようなものです。&lt;/li&gt; &lt;li&gt;あなたのウォレットは次に、 "マスターノード"と呼ばれるネットワーク上に特別に設定されたソフトウェアノードにリクエストを送信します。これらのマスターノードは、特定の通貨単位をミキシングしたいというあなたの要望を知らされます。送信者を特定できる情報は送信されないので、マスターノードはあなたが誰かわかりません。 &lt;/li&gt; &lt;li&gt;二人の別の人たちが同じようなメッセージを送信して、同じ通貨単位をミキシングしたいという要望を伝え、ミキシングセッションが開始されます。マスターノードはインプットをミックスし、すべての三人のユーザーのウォレットに命じて変更されたインプットをもとのウォレットに戻させます。あなたのウォレットはその通貨単位を直接もとのウォレットに支払いますが、アドレスは異なっています（チェンジアドレスといいます）&lt;/li&gt; &lt;li&gt;完全にあなたのファンドを匿名化するには、あなたのウォレットはこのプロセスをそれぞれの通貨単位で何回もリピートする必要があります。このプロセスは "ラウンド"と呼びます。プライベートセンドのラウンドが進めば、あなたのファンドの起源を遡ることは指数関数的に困難になっていきます。&lt;/li&gt; &lt;li&gt;このミキシングのプロセスはあなたになにも干渉することなくバックグラウンドで実行されます。あなたがトランザクションを実行したいとき、あなたのファンドはすでに匿名化されています。追加の待ち時間は必要ありません。&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;重要:&lt;/b&gt; あなたのウォレットは、 1000個の "チェンジアドレス"しか保有できません。ミキシングが実行されるたびに、9個のアドレスが使用されます。これは1000個のアドレスを使い切るまでに約100回のミキシングがきることを意味します。900個のアドレスが使用されると、あなたのウォレットは追加のアドレスを生成しなくてはなりません。しかし、あなたが自動バックアップを有効にしていれば可能です。&lt;br&gt; つまりバックアップが無効なユーザーはプライベートセンドが無効になります。 &lt;hr&gt;詳細は &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;プライベートセンドドキュメンテーション&lt;/a&gt;参照.</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1057,6 +1061,14 @@
     <message>
         <source>Node Count:</source>
         <translation>ノード数:</translation>
+    </message>
+    <message>
+        <source>Show only masternodes this wallet has keys for.</source>
+        <translation>このウォレットがキーを持つマスターノードのみを表示</translation>
+    </message>
+    <message>
+        <source>My masternodes only</source>
+        <translation>自分のマスターノードのみ</translation>
     </message>
     <message>
         <source>Show only masternodes this wallet has keys for.</source>
@@ -1286,6 +1298,10 @@
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>SOCKS5プロキシ経由で接続 (デフォルトプロキシ)： (&amp;C)</translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>指定されたデフォルトのSOCKS5プロキシを使用して、このネットワークタイプ経由でピアに到達するかどうかを表示。</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2139,12 +2155,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>現在のデータディレクトリから %1 デバッグ用ログファイルを開きます。ログファイルが巨大な場合数秒かかることがあります。</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>インスタントセンドロック</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>文字サイズを縮小</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>文字サイズを拡大</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;リセット</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2281,6 +2305,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>使用可能なコマンドを見るには &lt;b&gt;help&lt;/b&gt; と入力してください</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>上下の矢印を使用して履歴をナビゲートし、 %1 を使用して画面をクリアします。</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>警告：詐欺師は常にアクティブであり、ユーザーにここへのコマンドを入力させ、ウォレットの中身を盗みます。 コマンドの影響を完全に理解せずにこのコンソールを使用しないでください。</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2607,12 +2639,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>カスタマイズされた手数料が1000duffsに設定され、トランザクションが250 bytesしかなかった場合、キロバイトあたりでは250 duffsしか手数料を支払いませんが&lt;br /&gt;最低でも1000 duffs支払います。1キロバイト以上のトランザクションに対しては、1キロバイトあたり1000duffs支払います。</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
-        <translation>最低限の手数料しか支払わなくても、トランザクション量以上のスペースが対象ブロックにあれば問題ありません。&lt;br /&gt;しかし、ネットワークが処理できる以上のIonのトランザクション需要があれば、処理されないトランザクションになり得ることに注意してください。</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <translation>最低限の手数料しか支払わなくても、トランザクション量以上のスペースが対象ブロックにあれば問題ありません。&lt;br /&gt;しかし、ネットワークが処理できる以上のDashのトランザクション需要があれば、処理されないトランザクションになり得ることに注意してください。</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>1キロバイトあたり手数料</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>フォールバックフィーを使用すると、承認に数時間から数日かかる（あるいは承認されない）トランザクションが送信される可能性があります。手数料を手動で選択するか、ブロックチェーン全体の検証が完了するまで待ってください。</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>注：フォールバックフィーを代わりに使用しているので、手数料の見積もりに十分なデータがありません。</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2691,8 +2731,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>チェンジをコピー</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 ブロック)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>使用中</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>匿名化されたファンド</translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(プライベートセンドはこの数値を %1までラウンドアップすることを要求します)</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>利用可能なファンド (匿名化されてない)</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3792,6 +3848,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>指定されたアドレスおよび、そこに接続を行ってきたホワイトリストのピアに対してバインドを行います。IPv6の場合には [host]:port 表記を使用してください</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>指定されたノードのみに接続; -connect=0 自動接続を無効化</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>umask 077 ではなく、システムのデフォルトパーミッションで新規ファイルを作成する (ウォレット機能が無効化されていた場合にのみ有効)</translation>
     </message>
@@ -3954,6 +4014,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Insufficient funds.</source>
         <translation>残高が不足しています</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>-ディスカードフィー=&lt;amount&gt;の額: '%s' が無効です</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4140,6 +4204,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>ユーザーエージェントのコメント (%s) には安全でない文字が含まれています。</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>ウォレットを検証中…</translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>再試行...</translation>
     </message>
@@ -4238,6 +4306,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>剪定: 最後のウォレット同期ポイントは、剪定されたデータよりも過去のものとなっています。-reindexをする必要があります (剪定されたノードの場合、ブロックチェイン全体をダウンロードしてください)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>アドレスが少ない場合、DNSルックアップを介してピアアドレスを照会します（デフォルト：1 -connectを使用しない限り）</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4402,6 +4474,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>無効な額 -fallbackfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>マスターノードBLS秘密鍵が無効です。ドキュメントをお読み下さい。</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4608,6 +4684,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>ライトモードではマスターノードをスタートできません。</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>ウォレットを有効にした状態でマスターノードを起動することはできません。</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>-txindexを変更するために -reindexを使用してデータベースを再構築する必要があります。</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>ZeroMQ通知オプション:</translation>
     </message>
@@ -4632,18 +4716,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>%s の開発者</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>%p の開発者</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>%d の開発者</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>%b の開発者</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>データディレクトリ %s のロックを取得することができません。おそらく %s は実行中です。</translation>
     </message>
@@ -4652,8 +4724,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>MITソフトウェアライセンスのもとで配布されています。付属のファイル %s または %s を参照してください</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>このウォレットに保管されている資金に対してプライベートセンドの使用を有効にします(0-1, 初期設定: %u)</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>%s読み込みエラー: 既存の非HDウォレット上でHDを有効化できません</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>ウォレットの読み込みエラー %s。-wallet parameterはファイル名（pathではない）のみを使用する必要があります。</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>%s の読み込みエラー! すべてのキーは正しく読み取れますが、トランザクションデータやアドレス帳のエントリが失われたか、正しくない可能性があります。</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>カテゴリのデバッグ情報を除外します。 -debug=1 と組み合わせて使用して、1つ以上の指定されたカテゴリを除くすべてのカテゴリのデバッグログを出力できます。</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4692,6 +4780,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>ブロック生成時に取り込まれるトランザクションの最低手数料率 (%s/kB 単位)。(初期設定: %s)</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>お釣りを手数料(default: %s)に追加することによりお釣りを破棄する許容範囲を示す手数料率 (in %s/kB) 。注意：アウトプットがこのレートでダストである場合、アウトプットは破棄されますが、常にダストリレー手数料まで破棄し、それを超える破棄料金は最長ターゲットの手数料見積もりによって制限されます</translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>これはこのレベルでお釣りがダストよりも少額の場合に破棄できる取引手数料です</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>これは手数料の推定機能が利用できない場合に支払うトランザクション手数料です。</translation>
     </message>
@@ -4702,6 +4798,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>このトランザクションに対してプライベートセンド用の分割されてない充分なファンドが検出できません。</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>ブロックを再生できません。 -reindex-chainstateを使用してデータベースを再構築する必要があります。</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4728,8 +4828,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>警告: ウォレットファイルが破損していましたのでデータを復旧しました！元の %s は %s として %s に保存されました; 残高やトランザクションが正しくない場合にはバックアップから復元してください。</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>シャットダウン時にメモリプールを保存し、再起動時にロードするかどうか(初期設定: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>ホワイトリストとして登録するピア、接続元の IP アドレス (例: 1.2.3.4) または CIDR 表現のネットワーク (例: 1.2.3.0/24)。複数回指定することも可能。</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>ライトモードで起動すると、ほとんどのDash特有の機能が無効になります。</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation> masternodeblsprivkeyを設定で指定する必要があります。ドキュメントを参照してください。</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>最新の100ブロックの %d で予期しないバージョンがあります。</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4760,6 +4876,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>-rpcport は、 -devnet と -server が指定されたとき指定しなければなりません。</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>外部からの接続を許可（初期設定: 1 no -proxyまたは-connectの場合）</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>RFC1918 アドレスが中継され接続されるのを許可 (初期設定: %u)</translation>
     </message>
@@ -4780,6 +4900,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Copyright (C)</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>各金種の額 (%u-%u, default: %u)のN個までのインプットを作成</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>%s 読み込みエラー</translation>
     </message>
@@ -4790,6 +4914,22 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>%s の読み込みに失敗しました: ウォレットにはより新しいバージョンの %s が必要です。</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>読み込みエラー %s: 既存のHDウォレット上のHDを無効化できません</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>ウォレットの読み込みエラー %s. -wallet ファイル名は通常のファイルでなければなりません。</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>ウォレットの読み込みエラー %s。重複する -walletファイル名が指定されました。</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>ウォレットの読み込みエラー %s。ウォレットファイルの名前に無効な文字があります。</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4806,6 +4946,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>初期化時の健全性チェックに失敗しました。%s を終了します。</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>インプットとアウトプットのサイズがミスマッチです。</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4842,6 +4986,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>P2SHでないマルチシグトランザクションをリレーする (初期設定： %u)</translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>ブロックをリプレイ中…</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4896,6 +5044,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>あなた自身のパブリックなアドレスを指定</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>自動的にプライベートセンドを開始 (0-1, デフォルト: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>ネットワークのスレッドを起動しています...</translation>
     </message>
@@ -4928,6 +5080,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>トランザクション作成に成功</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>送金手数料とおつりの計算に失敗しました</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>トランザクション手数料が高すぎます</translation>
     </message>
@@ -4954,6 +5110,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unknown state: id = %u</source>
         <translation>未知の状態: id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>サポートされていないロギングカテゴリ %s=%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

@@ -9,37 +9,28 @@ EXTRA_LIBRARIES += qt/libionqt.a
 
 # ion qt core #
 QT_TS = \
-  qt/locale/ion_ar.ts \
-  qt/locale/ion_bg.ts \
-  qt/locale/ion_ca.ts \
-  qt/locale/ion_cs.ts \
-  qt/locale/ion_da.ts \
-  qt/locale/ion_de.ts \
-  qt/locale/ion_en.ts \
-  qt/locale/ion_eo.ts \
-  qt/locale/ion_es.ts \
-  qt/locale/ion_fi.ts \
-  qt/locale/ion_fr.ts \
-  qt/locale/ion_hi_IN.ts \
-  qt/locale/ion_hr.ts \
-  qt/locale/ion_it.ts \
-  qt/locale/ion_ja.ts \
-  qt/locale/ion_ko.ts \
-  qt/locale/ion_lt_LT.ts \
-  qt/locale/ion_nl.ts \
-  qt/locale/ion_pl.ts \
-  qt/locale/ion_pt.ts \
-  qt/locale/ion_pt_BR.ts \
-  qt/locale/ion_ro.ts \
-  qt/locale/ion_ru.ts \
-  qt/locale/ion_sk.ts \
-  qt/locale/ion_sv.ts \
-  qt/locale/ion_th.ts \
-  qt/locale/ion_tr.ts \
-  qt/locale/ion_uk.ts \
-  qt/locale/ion_vi.ts \
-  qt/locale/ion_zh_CN.ts \
-  qt/locale/ion_zh_TW.ts
+  qt/locale/dash_ar.ts \
+  qt/locale/dash_bg.ts \
+  qt/locale/dash_de.ts \
+  qt/locale/dash_en.ts \
+  qt/locale/dash_es.ts \
+  qt/locale/dash_fi.ts \
+  qt/locale/dash_fr.ts \
+  qt/locale/dash_it.ts \
+  qt/locale/dash_ja.ts \
+  qt/locale/dash_ko.ts \
+  qt/locale/dash_nl.ts \
+  qt/locale/dash_pl.ts \
+  qt/locale/dash_pt.ts \
+  qt/locale/dash_ro.ts \
+  qt/locale/dash_ru.ts \
+  qt/locale/dash_sk.ts \
+  qt/locale/dash_sv.ts \
+  qt/locale/dash_th.ts \
+  qt/locale/dash_tr.ts \
+  qt/locale/dash_vi.ts \
+  qt/locale/dash_zh_CN.ts \
+  qt/locale/dash_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \

@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>PrivateSend informatie</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend geeft u een echte financiële privacy door de oorsprong van uw geld te verschuilen. Alle Dash in uw portefeuille bestaat uit verschillende "inputs" die u kunt beschouwen als afzonderlijke, discrete munten.&lt;br&gt; PrivateSend maakt gebruik van een innovatief proces om uw invoer te mengen met de invoer van twee andere mensen, zonder dat uw munten ooit uw portemonnee verlaten . U behoudt de controle over uw geld te allen tijde. &lt;hr&gt; &lt;b&gt;Het PrivateSend-proces werkt als volgt: &lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begint door uw transactie-inputs in de standaard denominaties te breken. Deze denominaties zijn 0,001 DASH, 0,01 DASH, 0,1 DASH, 1 DASH en 10 DASH - zoals de papiergeld dat u elke dag gebruikt.&lt;/li&gt; &lt;li&gt;Jouw portemonnee stuurt dan verzoeken naar speciaal geconfigureerde software nodes op het netwerk, genaamd "masternodes." Deze masternodes worden dan op de hoogte gesteld dat u geïnteresseerd bent in het mengen van een bepaalde denominaties. Er wordt geen identificeerbare informatie naar de masternodes gestuurd, zodat ze nooit weten wie je bent.&lt;/li&gt; &lt;li&gt;Wanneer twee andere mensen dezelfde berichten sturen, die aanduiden dat ze dezelfde denominaties willen vermengen, begint een mengsessie. De masternode mengt alle invoeren en instrueert de portefeuilles van alle drie de gebruikers om de nu getransformeerde invoer aan zichzelf terug te betalen. Jouw portemonnee betaalt die denominaties rechtstreeks naar zichzelf, maar met een ander adres (een wijziging adres genoemd).&lt;/li&gt; &lt;li&gt;Om uw geld volledig te verschuilen, moet uw portemonnee dit proces een aantal keren herhalen voor elke denominaties. Elke keer dat het proces wordt voltooid, dit heet een 'ronde'. Elke ronde van PrivateSend maakt het exponentieel moeilijker om te bepalen waar uw geld van afkomstig is.&lt;/li&gt; &lt;li&gt;Dit mengproces gebeurt op de achtergrond zonder enige interventie van uw kant. Wanneer u een transactie wenst uit te voeren, zijn uw fondsen al geanonimiseerd. Er is geen extra wachttijd nodig.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;BELANGRIJK:&lt;/b&gt; Je portemonnee bevat slechts 1000 van deze "wijzigingsadressen". Elke keer dat er een mengsessie plaatsvindt, worden maximaal 9 van uw adressen opgebruikt. Dit betekent dat deze 1000 adressen voor ongeveer 100 mengsessies volstaat. Wanneer er 900 werden gebruikt, moet je portemonnee meer adressen aanmaken. Dit kan alleen maar als u automatische back-ups hebt ingeschakeld.&lt;br&gt; Bijgevolg hebben gebruikers die back-ups hebben uitgeschakeld, ook PrivateSend uitgeschakeld. &lt;hr&gt;Voor meer informatie zie de &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentatie&lt;/a&gt;.</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1286,6 +1290,10 @@ Dit heeft ook invloed op de manier waarop uw saldo wordt berekend.</translation>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>&amp;Verbind via een SOCKS-proxy (standaardproxy):</translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Toont of de opgegeven standaard SOCK5 proxy gebruikt is om peers via dit netwerk type te bereiken.</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2140,12 +2148,20 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
         <translation>Open het %1 debug-logbestand van de huidige gegevensmap. Dit kan een aantal seconden duren voor grote logbestanden.</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>InstantSend vergrendelingen</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>Verklein lettergrootte</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>Vergroot lettergrootte</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Reset</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2282,6 +2298,14 @@ Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</tra
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Typ &lt;b&gt;help&lt;/b&gt; voor een overzicht van de beschikbare commando's.</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>Gebruik de pijl toetsen om door de geschiedenis te navigeren, en %1 om het scherm te wissen.</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>PAS OP: Oplichters zijn actief, die proberen om gebruikers hier opdrachten te typen, waardoor de inhoud van de portemonnee gestolen kan worden. Gebruik deze console niet zonder de consequenties van een opdracht volledig te begrijpen.</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2611,12 +2635,20 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Als de aangepaste vergoeding is ingesteld op 1000 duffs en de transactie is maar 250 bytes, dan wordt bij "per kilobyte" 250 duffs aan toeslag berekend, &lt;br /&gt;terwijl er bij "tenminste" 1000 duffs worden berekend. Voor transacties die groter zijn dan een kilobyte, wordt in beide gevallen per kilobyte de toeslag berekend.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
-        <translation>Het betalen van de minimale vergoeding is prima zo lang er minder transactie volume is dan ruimte in de blocks. &lt;br /&gt;Maar houd er rekening mee dat dit kan eindigen in een nooit bevestigde transactie zodra er meer vraag is voor Ion transacties fdan het netwerk kan verwerken.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <translation>Het betalen van de minimale vergoeding is prima zo lang er minder transactie volume is dan ruimte in de blocks. &lt;br /&gt;Maar houd er rekening mee dat dit kan eindigen in een nooit bevestigde transactie zodra er meer vraag is voor Dash transacties fdan het netwerk kan verwerken.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>per kilobyte</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>Het gebruik van de terugval vergoeding kan resulteren in het verzenden van een transactie die enkele uren of dagen (of nooit) duurt om te bevestigen. Overweeg uw tarief handmatig te kiezen of wacht tot u de volledige keten hebt gevalideerd.</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>Opmerking: niet genoeg gegevens voor het schatten van de transactievergoeding, in plaats daarvan wordt de terugval vergoeding gebruikte.</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2695,8 +2727,24 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Kopieer wijziging</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 blokken)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>gebruiken</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>anonieme geldmiddelen</translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(PrivateSend vereist dat dit bedrag afgerond wordt naar dedichtstbijzijnde %1)</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>Al het beschikbare geldmiddelen (niet anoniem)</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3796,6 +3844,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Bind aan opgegeven adres en keur peers die ermee verbinden goed. Gebruik [host]:poort notatie voor IPv6</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>Maak alleen verbinding met de opgegeven knooppunt (en); -connect = 0 schakelt automatische verbindingen uit</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>Creër nieuwe bestanden met standaard systeem bestandsrechten in plaats van umask 077 (alleen effectief met uitgeschakelde portemonnee functionaliteit)</translation>
     </message>
@@ -3958,6 +4010,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Insufficient funds.</source>
         <translation>Ontoereikend saldo.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>Ongeldig bedrag voor -discardfee = &lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4148,6 +4204,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>User Agentcommentaar (%s) bevat onveilige karakters.</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>Portemonnee(s) verifiëren..... </translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>Opnieuw aan het proberen...</translation>
     </message>
@@ -4197,7 +4257,7 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     </message>
     <message>
         <source>Enable multiple PrivateSend mixing sessions per block, experimental (0-1, default: %u)</source>
-        <translation>Inschakel van meerdere PrivateSend mixsessies per blok, experimenteel (0-1, standaard: %u)</translation>
+        <translation>Inschakel van meerdere PrivateSend mix sessies per blok, experimenteel (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>Execute command when a wallet InstantSend transaction is successfully locked (%s in cmd is replaced by TxID)</source>
@@ -4246,6 +4306,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>Prune: laatste wallet synchronisatie gaat verder terug dan de middels -prune beperkte data. U moet -reindex gebruiken (downloadt opnieuw de gehele blockchain voor een pruned node)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>Vraag naar peer-adressen via DNS-lookup, indien laag aantal adressen (standaard: 1 tenzij -connect gebruikt)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4410,6 +4474,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>Ongeldig bedrag voor -fallbackfee=&lt;bedrag&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>Ongeldige masternodeblsprivkey. Zie documentatie.</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4616,6 +4684,14 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Je kan geen masternode starten in lite modus.</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>U kunt geen masternode starten met portemennee ingeschakeld.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>U moet de database opnieuw opbouwen met behulp van -reindex om -txindex te wijzigen</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>ZeroMQ notificatieopties:</translation>
     </message>
@@ -4640,18 +4716,6 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>De %s ontwikkelaars</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>De %p ontwikkelaars</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>De %d ontwikkelaars</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>De %b ontwikkelaars</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>Kan geen lock verkrijgen op gegevensmap %s. %s draait waarschijnlijk al.</translation>
     </message>
@@ -4660,8 +4724,24 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Uitgegeven onder de MIT software licentie, zie het bijgevoegde bestand %s of %s</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Gebruik van PrivateSend inschakelen voor de Dash die in deze portemonnee is opgeslagen (0-1, standaard: %u)</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>Fout bij laden %s: HD kan niet worden geactiveerd bij een bestaande non-HD portemonnee.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>Fout bij laden portemonnee %s. -wallet parameter moet alleen een bestandsnaam opgeven (geen pad).</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Waarschuwing: Fout bij het lezen van %s! Alle sleutels zijn in goede orde uitgelezen, maar transactiedata of adresboeklemma's zouden kunnen ontbreken of fouten bevatten.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>debug-informatie voor een categorie uitsluiten. Kan worden gebruikt in combinatie met -debug=1 voor het uitvoeren van debug-logboeken voor alle categorieën behalve een of meer opgegeven categorieën.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4700,6 +4780,14 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Specificeer het laagste tarief (in %s/kB) voor transacties die bij het maken van een blok moeten worden in rekening worden gebracht (standaard: %s)</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>De tolerantie (in %s/kB) voor het toevoegen van het restantbedrag(dust) aan de transactievergoeding(standaard: %s). Opmerking: Een transactie wordt uitgesloten als het stof is volgens deze instelling. </translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>Dit is de transactievergoeding die u kunt negeren als het wisselgeld kleiner is dan het restantbedrag</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>Dit is de transactievergoeding die je mogelijk betaalt indien geschatte tarief niet beschikbaar is</translation>
     </message>
@@ -4710,6 +4798,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>Kan onvoldoende met PrivateSend niet-gedenomineerd geld vinden voor deze transactie.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>Kan blokken niet nalopen. U moet de database opnieuw opbouwen met behulp van -reindex-chainstate.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4736,8 +4828,24 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Waarschuwing: portemonnee bestand is corrupt, data is veiliggesteld! Originele %s is opgeslagen als %s in %s; als uw balans of transacties incorrect zijn dient u een backup terug te zetten.</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>Of de mempool moet worden bewaard bij afsluiten en weer moet laden bij opnieuw opstarten (standaard: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>Goedgekeurde peers die verbinden vanaf een bepaald IP adres (vb. 1.2.3.4) of CIDR genoteerd netwerk (vb. 1.2.3.0/24). Kan meerdere keren worden gespecificeerd.</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>U start in lite-modus, de meeste Dash-specifieke functionaliteit is uitgeschakeld.</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>U moet een masternodeblsprivkey opgeven in de configuratie. Raadpleeg de documentatie voor hulp.</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>%d van de laatste 100 blokken hebben een onverwachte versie</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4768,6 +4876,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>-rpcport moet worden opgegeven wanneer -devnet en -server worden gebruikt</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>Accepteer verbindingen van buitenaf (standaard: 1 indien geen -proxy of -connect)</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>Sta toe dat RFC1918 adressen worden doorgegeven en er mee wordt verbonden (standaard: %u)</translation>
     </message>
@@ -4788,6 +4900,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Copyright (C)</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>Maak maximaal N ingangen van elk bedrag (%u-%u, standaard: %u)</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>Fout bij het laden van %s</translation>
     </message>
@@ -4798,6 +4914,22 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>Fout bij laden %s: Portemonnee vereist een nieuwere versie van %s</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>Fout bij laden %s. HD kan niet worden uitgeschakeld bij een HD portemonnee.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>Fout bij het laden van portemonnee %s. -wallet bestandsnaam moet een normaal bestand zijn.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>Fout bij het laden van portemonnee %s. Dubbele -wallet bestandsnaam gespecificeerd.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>Fout bij het laden van portemonnee %s. Ongeldig karakter in - wallet bestandsnaam.</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4814,6 +4946,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>Initialisatie sanity check mislukt. %s is aan het afsluiten.</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>Invoer versus uitvoer komt niet overeen.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4850,6 +4986,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Geef non-P2SH multisig door (standaard: %u)</translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>Replaying blocks...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4904,6 +5044,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Specificeer uw eigen publieke adres</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>Start PrivateSend automatisch (0-1, standaard: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>Netwerkthread starten...</translation>
     </message>
@@ -4936,6 +5080,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
         <translation>Transactie succesvol aangemaakt.</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>Transactievergoeding en wisselgeld berekening mislukt</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>Transactiekosten zijn te hoog.</translation>
     </message>
@@ -4962,6 +5110,10 @@ Nota: Het bericht zal niet verzonden worden met de betaling over het Ion netwerk
     <message>
         <source>Unknown state: id = %u</source>
         <translation>Onbekende staat: id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>Niet-ondersteunde logboekcategorie %s=%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

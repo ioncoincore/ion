@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>Informácie o PrivateSend</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend vám poskytuje skutočné finančné súkromie skrývaním pôvodu vašich zdrojov. Všetky Dashe vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené,  diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie vašich vstupov so vstupmi iných ľudí bez toho, aby vaše mince museli opustiť peňaženku. Počas celej doby máte kontrolu nad vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH a 10 DASH -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternód". Tieto masternódy sú potom informované, že máte záujem miešať určité denominácie. Masternód neobdrží žiadne informácie ktoré by vás identifikovali, takže nikdy nevie kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom, že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternód zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli vaše zdroje plne ukryté, vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť, odkiaľ pochádzajú vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí, bez nutnosti zásahov z vašej strany. Keď si prajete uskutočniť transakciu, vaše zdroje budú už anonymné. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt; &lt;b&gt;DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 takýchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;Viac informácií nájdete v &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;dokumentácií ku PrivateSend&lt;/a&gt;.</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1285,6 +1289,10 @@
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>&amp;Pripojiť sa cez SOCKS5 proxy (predvolené proxy):</translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Zobrazuje či je poskytované predvolené SOCKS5 proxy používané pre získavanie peerov cez tento typ siete.</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2139,12 +2147,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Otvoriť %1 ladiaci výpis z aktuálnej zložky. Pri veľkých súboroch to môže chvíľu trvať.</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>Zámky InstantSend</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>Zmenšiť písmo</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>Zväčšiť písmo</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Resetovať</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2281,6 +2297,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Napíšte &lt;b&gt;help&lt;/b&gt; pre prehľad dostupných príkazov.</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>Použi šipky hore a dolu pre navigáciu históriou a %1 pre vyčistenie obrazovky.</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>UPOZORNENIE: Podvodníci sú aktívni a hovoria používateľom, aby sem zadávali príkazy pričom kradnú obsah peňaženky. Nepoužívajte túto konzolu bez úplného pochopenia dopadov takýchto príkazov.</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2607,12 +2631,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Ak je vlastný poplatok nastavený na 1000 duffov a transakcia je len 250 bytov, v tom prípade "za kilobajt" zaplatí iba 250 duffov na poplatkoch, &lt;br /&gt;zatiaľ čo "pri najmenšom" zaplatí 1000 duffov. Pre transakcie väčšie ako jeden kilobajt, obe zaplatia rovnako za kilobajt. </translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
-        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po Ion transakciách väčší ako dokáže sieť Ion spracovať.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po Dash transakciách väčší ako dokáže sieť Dash spracovať.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>za kilobajt</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>Používanie fallbackfee môže mať za následok odoslanie transakcie, ktorá sa bude potvrdzovať niekoľko hodín alebo dní (prípadne nikdy). Zvážte možnosť výberu poplatku ručne alebo počkajte, než potvrdíte kompletný reťazec blokov.</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>Poznámka: Nie je dostatok údajov na odhad poplatku, miesto toho sa použije preddefinovaná hodnota.</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2691,8 +2723,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Kopírovať zmenu</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 blokov)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>používa</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>anonymné zdroje</translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(PrivateSend vyžaduje aby bola táto suma zaokrúhlená nahor k najbližšej %1).</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>akékoľvek dostupné zdroje (nie anonýmne)</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3792,6 +3840,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Spojiť s danou adresou a povolenými partnerskými zariadeniami ktoré sa tam pripájajú. Použite zápis [host]:port pre IPv6</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>Pripojiť iba k zadanému uzlu(om); -connect=0 zakáže automatické pripojenia</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>Vytvoriť nové súbory z predvolenými systémovými právami, namiesto umask 077 (funguje iba z vypnutou funkcionalitou peňaženky)</translation>
     </message>
@@ -3954,6 +4006,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Insufficient funds.</source>
         <translation>Nedostatok prostriedkov.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>Neplatná suma pre -discardfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4144,6 +4200,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Komentár u typu klienta (%s) obsahuje riskantné znaky.</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>Overuje sa peňaženka(y)...</translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>Skúsime znovu...</translation>
     </message>
@@ -4242,6 +4302,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>Orezávanie: posledná synchronizácia peňaženky prebehla už pred orezanými dátami. Je treba spustiť -reindex (stiahne znovu celý blockchain v prípade orezaného uzlu)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>Dotaz na partnerské adresy pomocou vyhľadávania DNS v prípade nedostatku adries (predvolené: 1 ak nie je použité -connect)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4406,6 +4470,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>Neplatná suma pre -fallbackfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>Neplatný masternodeblsprivkey. Pozrite si dokumentáciu.</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4612,6 +4680,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>V režime Lite nemôžete spustiť masternode.</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>Nie je možné spustiť masternód s povolenou peňaženkou.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>Potrebujete prebudovať databázu použitím -reindex zmeniť -txindex</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>Možnosti pripojenia ZeroMQ:</translation>
     </message>
@@ -4636,18 +4712,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Vývojári %s</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>Vývojári %p</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>Vývojári %d</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>Vývojári %b</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>Nedá sa uzamknúť zložka %s. %s pravdepodobne už beží.</translation>
     </message>
@@ -4656,8 +4720,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Distribuované pod softvérovou licenciou MIT, viď sprievodný súbor %s alebo %s</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Povoliť používanie PrivateSend pre zdroje uložené v tejto peňaženke (0-1, predvolené: %u)</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>Chyba pri načítaní %s: Nemôžete zapnúť HD na už existujúcej nie-HD peňaženke</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>Chyba pri načítaní peňaženky %s. Parameter -wallet musí špecifikovať len názov súboru (nie cestu).</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Nastala chyba pri čítaní súboru %s! Všetky kľúče sa prečítali správne, ale dáta o transakciách alebo záznamy v adresári môžu chýbať alebo byť nesprávne.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>Vylúčiť informácie o ladení pre kategóriu. Môže byť použitý v spojení s -debug=1 pre výstup protokolov ladenia pre všetky kategórie okrem jednej, alebo viacerých špecifikovaných kategórií.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4696,6 +4776,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Nastaviť nejnižší akceptovateľný poplatok (v %s/kB) pre transakcie, ktoré majú byť zahrnutý do nových blokov. (predvolené: %s)</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>Sadzba poplatku (v %s/kB), ktorá udáva vašu toleranciu k zahodeniu výdavku a jeho pripočítaním k poplatku (predvolené: %s). Poznámka: Výstup je zahodený, ak je nižší ako udaná suma. Vždy zahodíme až poplatok za prenos prachu a poplatok za zahodenie, ktorý je limitovaný odhadom poplatku za najdlhší cieľ.</translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>Toto je transakčný poplatok, ktorý môžete zahodiť, ak je výdavok menší ako prach pri tejto úrovni</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>Toto je poplatok za transakciu keď odhad poplatkov ešte nie je k dispozícii.</translation>
     </message>
@@ -4706,6 +4794,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>Pre túto transakciu nie je možné nájsť dostatok neverejnených prostriedkov PrivateSend.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>Bloky nie je možné prehrať. Potrebujete prebudovať databázu použitím -reindex-chainstate.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4732,8 +4824,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Varovanie: Peňaženka poškodená, dáta boli zachránené! Originálna %s ako %s v %s; ak váš zostatok alebo transakcie sú nesprávne, mali by ste obnoviť zálohu.</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>Či sa má ale nemá mempool uložiť pri vypnutí a načítať pri reštarte (predvolené: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>Povoliť partnerov pripájajúcich sa z danej IP adresy (napr. 1.2.3.4) alebo zo siete vo formáte CIDR (napr. 1.2.3.0/24). Môže byť zadané viackrát.</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>Začínate v lite móde, kde väčšina funkcií špecifických pre Dash je vypnutá.</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>V konfigurácii musíte špecifikovať masternodeblsprivkey. Pre pomoc sa prosím pozrite do dokumentácie.</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>%d z posledných 100 blokov má neočakávanú verziu</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4764,6 +4872,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>-rpcport musí byť zadaný, keď sú špecifikované -devnet a -server</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>Prijímať pripojenie z vonku (predvolené: 1, ak nie -proxy alebo -connect)</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>Pre prenos a pripojenie povoliť adresy RFC1918 (predvolené: %u)</translation>
     </message>
@@ -4784,6 +4896,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Autorské práva (C)</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>Vytvoriť až N vstupov z každej denominovanej sumy (%u-%u, predvolené: %u)</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>Chyba načítania %s</translation>
     </message>
@@ -4794,6 +4910,22 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>Chyba načítania %s: Peňaženka vyžaduje novšiu verziu %s</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>Chyba pri načítaní %s: Nemôžete vypnúť HD na už existujúcej HD peňaženke</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>Chyba pri načítaní peňaženky %s. Parameter -wallet musí byť obyčajný súbor.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>Chyba pri načítaní peňaženky %s. Bol špecifikovaný duplikáty parameter -wallet.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>Chyba pri načítaní peňaženky %s. Neplatné znaky v názve súboru -wallet.</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4810,6 +4942,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>Kontrola čistoty pri inicializácií zlyhala. %s sa vypína.</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>Nesúlad veľkosti vstupov a výstupov.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4846,6 +4982,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Prenášať non-P2SH multi-podpis (predvolené: %u)</translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>Prebieha nahratie blokov ...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4900,6 +5040,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Zadajte vašu vlastnú verejnú adresu</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>Spustiť PrivateSend automaticky (0-1, predvolené: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>Spúšťajú sa sieťové vlákna...</translation>
     </message>
@@ -4932,6 +5076,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Transakcia úspešne vytvorená</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>Výpočet transakčného poplatku a výdavku zlyhal</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>Transakčné poplatky sú príliš vysoké</translation>
     </message>
@@ -4958,6 +5106,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unknown state: id = %u</source>
         <translation>Neznámy stav: id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>Nepodporovaná záznamová kategória %s =%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

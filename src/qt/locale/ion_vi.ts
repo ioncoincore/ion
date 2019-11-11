@@ -963,7 +963,11 @@
         <source>PrivateSend information</source>
         <translation>Thông tin PrivateSend</translation>
     </message>
-    </context>
+    <message>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;Cơ bản về PrivateSend&lt;/h3&gt; PrivateSend cho bạn sự thực sự riêng tư về tài chính bằng việc che dấu những nguồn cung. Tất cả Dash trong ví của bạn bao gồm những "đầu vào" khác nhau mà bạn nghĩ đó là các coin riêng biệt và rời rạc.&lt;br&gt; PrivateSend sử dụng một tiến trình độc đáo để trộn các đầu vào của bạn với đầu vào của những người khác, mà không làm cho các coin rời khỏi ví của bạn. Bạn vẫn giữ quyền kiểm soát tiền của bạn bất cứ lúc nào.&lt;hr&gt; &lt;b&gt;Quá trình PrivateSend làm việc như sau: &lt;/b&gt; &lt;ol type="1"&gt; &lt;li&gt;PrivateSend bắt đầu bằng việc chia các giao dịch đầu vào của bạn thành những mệnh giá chuẩn. Những mệnh giá đó là 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH, và 10 DASH -- cũng giống như các mệnh giá trên tiền giấy mà bạn sử dụng hàng ngày. &lt;/li&gt;&lt;li&gt;Ví của bạn sau đó gửi yêu cầu đến những nút phần mềm được cấu hình đặc biệt trên mạng gọi là các "masternode". Những masternode được báo rằng bạn quan tâm đến việc xáo trộn một mệnh giá nào đó. Không có thông tin định danh nào được gửi đến cho các masternode, và như vậy họ không bao giờ biết bạn "là ai". &lt;/li&gt; &lt;li&gt;Khi hai người khác nhau gửi những thông điệp tương tự, có nghĩa là họ muốn xáo trộn cùng loại mệnh giá, một phiên xáo trộn bắt đầu. Masternode xáo trộn các đầu vào và hướng dẫn tất cả ví của tất cả ba người dùng để trả đầu vào đã được chuyển đổi trở lại cho chính họ. Ví của bạn sẽ trả mệnh giá đó trực tiếp cho nó, nhưng với một địa chỉ khác (được gọi là địa chỉ trả tiền lẻ). &lt;/li&gt; &lt;li&gt;Để thực sự che khuất nguồn tiền của bạn, ví của bạn phải lặp lại quy trình đó một số lần với mỗi mệnh giá nhất định. Mỗi lần tiến trình hoàn tất, nó được gọi là một "vòng". Mỗi vòng của PrivateSend làm nên độ khó bậc số mũ để xác định nguồn tiền của bạn đến từ đâu. &lt;/li&gt; &lt;li&gt;Quá trình xáo trộn này xảy ra trong chế độ nền mà không xen vào những việc khác của bạn. Khi bạn muốn thực hiện một giao dịch, nguồn tiền của bạn đã được ẩn danh rồi. Do đó bạn không cần phải đợi thêm gì nữa. &lt;/li&gt;&lt;/ol&gt; &lt;hr&gt; &lt;b&gt;QUAN TRỌNG:&lt;/b&gt; Ví của bạn chỉ có chứa 1000 "địa chỉ tiền trả lại". Mỗi lần một sự kiện xáo trộn xảy ra, có đến 9 địa chỉ sẽ được sử dụng. Điều đó có nghĩa với ví mới với 1000 địa chỉ thì dùng cho 100 lần trộn. Khi 900 địa chỉ đã được sử dụng, ví của bạn phải tạo thêm các địa chỉ mới. Nó chỉ có thể làm việc đó, tuy nhiên, nếu bạn có chế độ tự động backup được bật&lt;br&gt; Kết quả là, những người dùng mà chế độ backup bị tắt sẽ có chế độ PrivateSend cũng bị tắt.&lt;hr&gt; Để biết thêm thông tin hãy xem &lt;a href="https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html"&gt;Tài liệu về PrivateSend&lt;/a&gt;.</translation>
+    </message>
+</context>
 <context>
     <name>Intro</name>
     <message>
@@ -1285,6 +1289,10 @@
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
         <translation>&amp;Kết nối thông qua SOCK5 proxy (proxy ngầm định): </translation>
+    </message>
+    <message>
+        <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Hiển thị nếu proxy SOCKS5 mặc định được cung cấp để dùng tiếp cận các thiết bị ngang hàng thông qua loại mạng này.</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
@@ -2138,12 +2146,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Mở cái %1 debug log file từ danh mục dữ liệu hiện tại. Điều này cần vài giây cho large log files.</translation>
     </message>
     <message>
+        <source>InstantSend locks</source>
+        <translation>Khoá InstantSend</translation>
+    </message>
+    <message>
         <source>Decrease font size</source>
         <translation>Giảm cỡ chữ</translation>
     </message>
     <message>
         <source>Increase font size</source>
         <translation>Tăng cỡ chữ</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Reset</translation>
     </message>
     <message>
         <source>Services</source>
@@ -2280,6 +2296,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Gõ &lt;b&gt;help&lt;/b&gt; để xem tổng thể các lệnh có thể dùng.</translation>
+    </message>
+    <message>
+        <source>Use up and down arrows to navigate history, and %1 to clear screen.</source>
+        <translation>Sử dụng các mũi tên lên và xuống để duyệt lịch sử, và %1 để xoá màn hình.</translation>
+    </message>
+    <message>
+        <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramifications of a command.</source>
+        <translation>CẢNH BÁO: Những kẻ lừa đảo đã rất tích cực, xúi mọi người gõ các lệnh ở đây và đánh cắp nội dung ví của họ. Không nên sử dụng cửa sổ lệnh mà không hiểu đầy đủ các câu lệnh.</translation>
     </message>
     <message>
         <source>In:</source>
@@ -2606,12 +2630,20 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Nếu mức phí tuỳ chỉnh được đặt là 1000 duff và giao dịch chỉ có 250 byte, thì "theo kilobyte" chỉ trả 250 duff cho phí,&lt;br /&gt;trong khi "ít nhất" phải trả 1000 duff. Cho các giao dịch lớn hơn 1 kilobyte thì cả hai đều trả theo kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for ion transactions than the network can process.</source>
-        <translation>Chỉ trả phí tối thiểu cũng được chỉ khi mà có lượng giao dịch ít hơn không gian trong khối.&lt;br /&gt;Nhưng cần lưu ý là nó có thể xảy ra hiện tượng giao dịch không bao giờ được xác nhận một khi có nhiều nhu cầu giao ion hơn khả năng mà mạng lưới có thể xử lý được.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dash transactions than the network can process.</source>
+        <translation>Chỉ trả phí tối thiểu cũng được chỉ khi mà có lượng giao dịch ít hơn không gian trong khối.&lt;br /&gt;Nhưng cần lưu ý là nó có thể xảy ra hiện tượng giao dịch không bao giờ được xác nhận một khi có nhiều nhu cầu giao dash hơn khả năng mà mạng lưới có thể xử lý được.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
         <translation>mỗi kilobyte</translation>
+    </message>
+    <message>
+        <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
+        <translation>Sử dụng phí dự phòng có thể dẫn tới việc giao dịch mất đến hàng giờ hoặc hàng ngày (hoặc thậm chí không bao giờ) được xác thực. Hãy cân nhắc tự chọn mức phí hoặc đợi đến khi bạn được chuỗi xác thực hoàn chỉnh.</translation>
+    </message>
+    <message>
+        <source>Note: Not enough data for fee estimation, using the fallback fee instead.</source>
+        <translation>Chú ý: Không đủ dữ liệu cho việc ước lượng chi phí, thay vào đó sử dụng mức phí dự phòng.</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -2690,8 +2722,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Sao chép tiền trả lại</translation>
     </message>
     <message>
+        <source>%1 (%2 blocks)</source>
+        <translation>%1 (%2 khối)</translation>
+    </message>
+    <message>
         <source>using</source>
         <translation>sử dụng</translation>
+    </message>
+    <message>
+        <source>anonymous funds</source>
+        <translation>các khoản tiền ẩn danh</translation>
+    </message>
+    <message>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(privatesend yêu cầu số lượng này để làm tròn về giá trị gần nhất %1).</translation>
+    </message>
+    <message>
+        <source>any available funds (not anonymous)</source>
+        <translation>bất kỳ nguồn cung nào còn (không ẩn danh)</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3791,6 +3839,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Liên kết với địa chỉ cụ thể và đưa nó vào danh sách chấp nhận của các đối tác kết nối vào nó. Sử dụng cách viết [địa chỉ máy]:cổng cho IPv6</translation>
     </message>
     <message>
+        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
+        <translation>Chỉ kết nối đến (các) nút được chỉ định; -connect=0 tắt các kết nối tự động.</translation>
+    </message>
+    <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>Tạo tệp mới với các quyền hệ thống ngầm định, thay vì umask 077 (chỉ có tác dụng với chức năng ví được tắt)</translation>
     </message>
@@ -3953,6 +4005,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Insufficient funds.</source>
         <translation>Không đủ tiền.</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -discardfee=&lt;amount&gt;: '%s'</source>
+        <translation>Số tiền không hợp lệ cho -discardfee=&lt;amount&gt;:'%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
@@ -4143,6 +4199,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Bình luận User Agent (%s) có chứa những ký tự không an toàn.</translation>
     </message>
     <message>
+        <source>Verifying wallet(s)...</source>
+        <translation>Đang kiểm tra (các) ví...</translation>
+    </message>
+    <message>
         <source>Will retry...</source>
         <translation>Sẽ thử lại...</translation>
     </message>
@@ -4241,6 +4301,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
         <translation>Xén tỉa: việc đồng bộ ví mới đây đã đi quá dữ liệu được xén tỉa. Bạn cần -reindex (download toàn bộ blockchain lần nữa trong trường hợp các nút bị xén tỉa)</translation>
+    </message>
+    <message>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect used)</source>
+        <translation>Truy vấn địa chỉ đối tác ngang hàng thông qua tra cứu DNS, nếu có ít địa chỉ (ngầm định: 1 trừ trường hợp -connect được sử dụng)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
@@ -4405,6 +4469,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
         <translation>Số lượng không hợp lệ cho -fallbackfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid masternodeblsprivkey. Please see documentation.</source>
+        <translation>masternodeblsprivkey không hợp lệ. Hãy xem trong tài liệu.</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
@@ -4611,6 +4679,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Bạn không thể khởi động một masternode ở chế độ nhẹ.</translation>
     </message>
     <message>
+        <source>You can not start a masternode with wallet enabled.</source>
+        <translation>Bạn không thể khởi động một masternode với ví được kích hoạt.</translation>
+    </message>
+    <message>
+        <source>You need to rebuild the database using -reindex to change -txindex</source>
+        <translation>Bạn cần tái lập lại cơ sở dữ liệu sử dụng -reindex để thay đổi -txindex</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>Tuỳ chọn thông báo ZeroMQ:</translation>
     </message>
@@ -4635,18 +4711,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Các nhà phát triển %s</translation>
     </message>
     <message>
-        <source>The %p developers</source>
-        <translation>Các nhà phát triển %p</translation>
-    </message>
-    <message>
-        <source>The %d developers</source>
-        <translation>Các nhà phát triển %d</translation>
-    </message>
-    <message>
-        <source>The %b developers</source>
-        <translation>Các nhà phát triển %b</translation>
-    </message>
-    <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>Cannot obtain a lock on data directory %s. %s is probably already running.</translation>
     </message>
@@ -4655,8 +4719,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Distributed under the MIT software license, see the accompanying file %s or %s</translation>
     </message>
     <message>
+        <source>Enable use of PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Cho phép việc sử dụng PrivateSend cho các khoản tiền được lưu trong ví này (0-1, ngầm định: %u)</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't enable HD on an already existing non-HD wallet</source>
+        <translation>Lỗi khi tải %s: Bạn không thể bật HD trên một ví không HD</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet parameter must only specify a filename (not a path).</source>
+        <translation>Lỗi tài ví %s. tham số -wallet chỉ được dùng để xác định một tên file (không phải là một đường dẫn)</translation>
+    </message>
+    <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</translation>
+    </message>
+    <message>
+        <source>Exclude debugging information for a category. Can be used in conjunction with -debug=1 to output debug logs for all categories except one or more specified categories.</source>
+        <translation>Loại bỏ thông tin gỡ rối cho một danh mục. Có thể sử dụng cùng với -debug=1 để xuất nhật ký gỡ rối cho tất cả các danh mục trừ một hoặc các danh mục được xác định.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
@@ -4695,6 +4775,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</translation>
     </message>
     <message>
+        <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
+        <translation>Mức phí (tính theo %s/kB) là thể hiện mức độ chịu đựng của bạn đối với việc loại bỏ khoản tiền lẻ trả lại bằng cách thêm nó vào phí (ngầm định: %s). Lưu ý: Một đầu ra bị loại bỏ nếu đó là bụi ở mức phí này, nhưng chúng tôi sẽ luôn loại bỏ phí chuyển tiếp bụi và phí loại bỏ ở trên mà bị giới hạn bởi ước tính phí cho mục tiêu dài nhất</translation>
+    </message>
+    <message>
+        <source>This is the transaction fee you may discard if change is smaller than dust at this level</source>
+        <translation>Đây là phí giao dịch bạn có thể bỏ qua nếu phần trả lại nhỏ hơn bụi ở cấp độ này</translation>
+    </message>
+    <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
         <translation>This is the transaction fee you may pay when fee estimates are not available.</translation>
     </message>
@@ -4705,6 +4793,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
         <translation>Không thể tìm đủ lượng ngân sách chưa phân mệnh giá Private Send cho giao dịch  này.</translation>
+    </message>
+    <message>
+        <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
+        <translation>Không thể phát lại các khối. Bạn sẽ cần xây dựng lại cơ sở dữ liệu bằng cách sử dụng -reindex-chainstate.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
@@ -4731,8 +4823,24 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</translation>
     </message>
     <message>
+        <source>Whether to save the mempool on shutdown and load on restart (default: %u)</source>
+        <translation>Có nên lưu mempool khi tắt máy và tải lại khi khởi động lại (ngầm định: %u)</translation>
+    </message>
+    <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
         <translation>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, most Dash-specific functionality is disabled.</source>
+        <translation>Bạn đang khởi động ở chế độ nhẹ, hầu hết các tính năng đặc trưng của Dash bị tắt.</translation>
+    </message>
+    <message>
+        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Bạn cần chỉ ra một khoá masternodeblsprivkey trong cấu hình. Hãy xem trong tài liệu để biết thêm.</translation>
+    </message>
+    <message>
+        <source>%d of last 100 blocks have unexpected version</source>
+        <translation>%d của 100 khối cuối cùng có phiên bản không mong đợi</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
@@ -4763,6 +4871,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>-rpcport phải được chỉ rõ khi -devnet và -server được sử dụng</translation>
     </message>
     <message>
+        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
+        <translation>Chấp nhận các kết nối từ ngoài (ngầm định: 1 nếu không -proxy hoặc -connect)</translation>
+    </message>
+    <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>Cho phép địa chỉ RFC1918 để chuyển tiếp và kết nối đến (ngầm định: %u)</translation>
     </message>
@@ -4783,6 +4895,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Bản quyền (C)</translation>
     </message>
     <message>
+        <source>Create up to N inputs of each denominated amount (%u-%u, default: %u)</source>
+        <translation>Tạo tối đa N đầu vào của mỗi số tiền có mệnh giá (%u-%u, ngầm định: %u)</translation>
+    </message>
+    <message>
         <source>Error loading %s</source>
         <translation>Error loading %s</translation>
     </message>
@@ -4793,6 +4909,22 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
         <translation>Error loading %s: Wallet requires newer version of %s</translation>
+    </message>
+    <message>
+        <source>Error loading %s: You can't disable HD on an already existing HD wallet</source>
+        <translation>Lỗi tải %s: Bạn không thể tắt HD trên một ví đã có HD</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. -wallet filename must be a regular file.</source>
+        <translation>Lỗi tải ví %s. -wallet tên file phải là một file bình thường.</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Duplicate -wallet filename specified.</source>
+        <translation>Lỗi tải ví %s. Tham số -wallet tên file chỉ định bị trùng</translation>
+    </message>
+    <message>
+        <source>Error loading wallet %s. Invalid characters in -wallet filename.</source>
+        <translation>Lỗi tải ví %s. Có ký tự không hợp lệ trong tham số -wallet tên file.</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
@@ -4809,6 +4941,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
         <translation>Initialization sanity check failed. %s is shutting down.</translation>
+    </message>
+    <message>
+        <source>Inputs vs outputs size mismatch.</source>
+        <translation>Kích thước của đầu vào với đầu ra không tương xứng.</translation>
     </message>
     <message>
         <source>Invalid -onion address or hostname: '%s'</source>
@@ -4845,6 +4981,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Chuyển tiếp các khoá đa chữ ký không phải P2SH (ngầm định: %u)</translation>
+    </message>
+    <message>
+        <source>Replaying blocks...</source>
+        <translation>Phát lại các khối...</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -4899,6 +5039,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Hãy xác định địa chỉ công khai của bạn</translation>
     </message>
     <message>
+        <source>Start PrivateSend automatically (0-1, default: %u)</source>
+        <translation>Khởi động PrivateSend một cách tự động (0-1, ngầm định: %u)</translation>
+    </message>
+    <message>
         <source>Starting network threads...</source>
         <translation>Starting network threads...</translation>
     </message>
@@ -4931,6 +5075,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Giao dịch được tạo thành công.</translation>
     </message>
     <message>
+        <source>Transaction fee and change calculation failed</source>
+        <translation>Tính phí giao dịch và tiền hoàn lại không thành công</translation>
+    </message>
+    <message>
         <source>Transaction fees are too high.</source>
         <translation>Phí giao dịch quá cao.</translation>
     </message>
@@ -4957,6 +5105,10 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Unknown state: id = %u</source>
         <translation>Trạng thái không xác định: id = %u</translation>
+    </message>
+    <message>
+        <source>Unsupported logging category %s=%s.</source>
+        <translation>Danh mục ghi nhật ký không được hỗ trợ %s=%s.</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
