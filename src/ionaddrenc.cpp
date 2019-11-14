@@ -106,6 +106,17 @@ std::string EncodeIONAddr(const CTxDestination &dst, const CChainParams &params)
     return boost::apply_visitor(IONAddrEncoder(params), dst);
 }
 
+CTxDestination DecodeIONAddr(const std::string &addr, const CChainParams &params)
+{
+    IONAddrContent content = DecodeIONAddrContent(addr, params);
+    if (content.hash.size() == 0)
+    {
+        return CNoDestination{};
+    }
+
+    return DecodeIONAddrDestination(content);
+}
+
 IONAddrContent DecodeIONAddrContent(const std::string &addr, const CChainParams &params)
 {
     std::string prefix;
