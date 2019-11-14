@@ -462,6 +462,11 @@ class CTransaction(object):
             self.sha256 = uint256_from_str(hash256(self.serialize()))
         self.hash = encode(hash256(self.serialize())[::-1], 'hex_codec').decode('ascii')
 
+    def getHash(self):
+        if self.sha256 is None:
+            self.rehash()
+        return self.sha256
+
     def is_valid(self):
         self.calc_sha256()
         for tout in self.vout:

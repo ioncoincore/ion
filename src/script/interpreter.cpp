@@ -229,27 +229,97 @@ bool static CheckMinimalPush(const valtype& data, opcodetype opcode) {
 
 bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, unsigned int flags, const BaseSignatureChecker& checker, SigVersion sigversion, ScriptError* serror)
 {
-    static const CScriptNum bnZero(0);
-    static const CScriptNum bnOne(1);
-    // static const CScriptNum bnFalse(0);
-    // static const CScriptNum bnTrue(1);
-    static const valtype vchFalse(0);
-    // static const valtype vchZero(0);
-    static const valtype vchTrue(1, 1);
+    ScriptMachine sm(flags, checker, MAX_OPS_PER_SCRIPT);
+    sm.setStack(stack);
+    bool result = sm.Eval(script);
+    stack = sm.getStack();
+    if (serror)
+        *serror = sm.getError();
+    return result;
+}
 
-    CScript::const_iterator pc = script.begin();
-    CScript::const_iterator pend = script.end();
-    CScript::const_iterator pbegincodehash = script.begin();
+static const CScriptNum bnZero(0);
+static const CScriptNum bnOne(1);
+// static const CScriptNum bnFalse(0);
+// static const CScriptNum bnTrue(1);
+static const valtype vchFalse(0);
+// static const valtype vchZero(0);
+static const valtype vchTrue(1, 1);
+
+// Returns info about the next instruction to be run
+std::tuple<bool, opcodetype, StackDataType, ScriptError> ScriptMachine::Peek()
+{
+    ScriptError err;
     opcodetype opcode;
-    valtype vchPushValue;
-    std::vector<bool> vfExec;
-    std::vector<valtype> altstack;
-    set_error(serror, SCRIPT_ERR_UNKNOWN_ERROR);
-    if (script.size() > MAX_SCRIPT_SIZE)
-        return set_error(serror, SCRIPT_ERR_SCRIPT_SIZE);
-    int nOpCount = 0;
-    bool fRequireMinimal = (flags & SCRIPT_VERIFY_MINIMALDATA) != 0;
+    StackDataType vchPushValue;
+    auto oldpc = pc;
+    if (!script->GetOp(pc, opcode, vchPushValue))
+        set_error(&err, SCRIPT_ERR_BAD_OPCODE);
+    else if (vchPushValue.size() > MAX_SCRIPT_ELEMENT_SIZE)
+        set_error(&err, SCRIPT_ERR_PUSH_SIZE);
+    pc = oldpc;
+    bool fExec = !count(vfExec.begin(), vfExec.end(), false);
+    return std::tuple<bool, opcodetype, StackDataType, ScriptError>(fExec, opcode, vchPushValue, err);
+}
 
+
+bool ScriptMachine::BeginStep(const CScript &_script)
+{
+    script = &_script;
+
+    pc = pbegin = script->begin();
+    pend = script->end();
+    pbegincodehash = pc;
+
+    sigversion = SigVersion::SIGVERSION_BASE;
+    nOpCount = 0;
+    vfExec.clear();
+
+    set_error(&error, SCRIPT_ERR_UNKNOWN_ERROR);
+    if (script->size() > MAX_SCRIPT_SIZE)
+    {
+        script = nullptr;
+        return set_error(&error, SCRIPT_ERR_SCRIPT_SIZE);
+    }
+    return true;
+}
+
+
+int ScriptMachine::getPos() { return (pc - pbegin); }
+bool ScriptMachine::Eval(const CScript &_script)
+{
+    bool ret;
+
+    if (!(ret = BeginStep(_script)))
+        return ret;
+
+    while (pc < pend)
+    {
+        ret = Step();
+        if (!ret)
+            break;
+    }
+    if (ret)
+        ret = EndStep();
+    script = nullptr; // Ensure that the ScriptMachine does not hold script for longer than this scope
+
+    return ret;
+}
+
+bool ScriptMachine::EndStep()
+{
+    script = nullptr; // let go of our use of the script
+    if (!vfExec.empty())
+        return set_error(&error, SCRIPT_ERR_UNBALANCED_CONDITIONAL);
+    return set_success(&error);
+}
+
+bool ScriptMachine::Step()
+{
+    bool fRequireMinimal = (flags & SCRIPT_VERIFY_MINIMALDATA) != 0;
+    opcodetype opcode;
+    StackDataType vchPushValue;
+    ScriptError *serror = &error;
     try
     {
         while (pc < pend)
@@ -259,7 +329,7 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
             //
             // Read instruction
             //
-            if (!script.GetOp(pc, opcode, vchPushValue))
+            if (!script->GetOp(pc, opcode, vchPushValue))
                 return set_error(serror, SCRIPT_ERR_BAD_OPCODE);
             if (vchPushValue.size() > MAX_SCRIPT_ELEMENT_SIZE)
                 return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
@@ -1009,6 +1079,10 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
             if (stack.size() + altstack.size() > MAX_STACK_SIZE)
                 return set_error(serror, SCRIPT_ERR_STACK_SIZE);
         }
+    }
+    catch (scriptnum_error &e)
+    {
+        return set_error(serror, e.errNum);
     }
     catch (...)
     {
