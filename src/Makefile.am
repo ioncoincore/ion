@@ -120,6 +120,7 @@ BITCOIN_CORE_H = \
   addrman.h \
   base58.h \
   batchedlogger.h \
+  bech32.h \
   bip39.h \
   bip39_english.h \
   blockencodings.h \
@@ -146,6 +147,7 @@ BITCOIN_CORE_H = \
   cuckoocache.h \
   ctpl.h \
   cxxtimer.hpp \
+  dstencode.h \
   evo/cbtx.h \
   evo/deterministicmns.h \
   evo/evodb.h \
@@ -172,6 +174,7 @@ BITCOIN_CORE_H = \
   httpserver.h \
   indirectmap.h \
   init.h \
+  ionaddrenc.h \
   key.h \
   keepass.h \
   keystore.h \
@@ -590,13 +593,16 @@ libdash_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libdash_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdash_common_a_SOURCES = \
   base58.cpp \
+  bech32.cpp \
   bip39.cpp \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
   core_read.cpp \
   core_write.cpp \
+  dstencode.cpp \
   hdchain.cpp \
+  ionaddrenc.cpp \
   key.cpp \
   keystore.cpp \
   netaddress.cpp \
