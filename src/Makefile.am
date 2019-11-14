@@ -360,6 +360,8 @@ libdash_server_a_SOURCES = \
   validation.cpp \
   validationinterface.cpp \
   versionbits.cpp \
+  xion/xionchain.cpp \
+  xion/xionmodule.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
@@ -386,8 +388,6 @@ libdash_wallet_a_SOURCES = \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
-  xion/xionchain.cpp \
-  xion/xionmodule.cpp \
   xion/zerocoin.cpp \
   $(BITCOIN_CORE_H)
 
