@@ -26,6 +26,7 @@
 #include "script/sign.h"
 #include "scheduler.h"
 #include "timedata.h"
+#include "tokengroupwallet.h"
 #include "txmempool.h"
 #include "util.h"
 #include "ui_interface.h"
@@ -1934,15 +1935,144 @@ void CWalletTx::GetAmounts(std::list<COutputEntry>& listReceived,
         // In either case, we need to get the destination address
         CTxDestination address;
 
-        if (!ExtractDestination(txout.scriptPubKey, address) && !txout.scriptPubKey.IsUnspendable())
+        txnouttype whichType;
+        if (!ExtractDestinationAndType(txout.scriptPubKey, address, whichType) && !txout.scriptPubKey.IsUnspendable())
         {
             LogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n",
                      this->GetHash().ToString());
             address = CNoDestination();
         }
 
-        COutputEntry output = {address, txout.nValue, (int)i};
+        // Do not return group outputs from this API
+        if ((whichType != TX_GRP_PUBKEYHASH) && (whichType != TX_GRP_SCRIPTHASH))
+        {
+            COutputEntry output = {address, txout.nValue, (int)i};
 
+            // If we are debited by the transaction, add the output as a "sent" entry
+            if (nDebit > 0)
+                listSent.push_back(output);
+
+            // If we are receiving the output, add it as a "received" entry
+            if (fIsMine & filter)
+                listReceived.push_back(output);
+        }
+    }
+
+}
+
+void CWalletTx::GetGroupAmounts(const CTokenGroupID &grp,
+    std::list<COutputEntry> &listReceived,
+    std::list<COutputEntry> &listSent,
+    CAmount &nFee,
+    std::string &strSentAccount,
+    const isminefilter &filter) const
+{
+    nFee = 0;
+    listReceived.clear();
+    listSent.clear();
+    strSentAccount = strFromAccount;
+
+    // Compute fee:
+    CAmount nDebit = GetDebit(filter);
+    if (nDebit > 0) // debit>0 means we signed/sent this transaction
+    {
+        CAmount nValueOut = tx->GetValueOut();
+        nFee = nDebit - nValueOut;
+    }
+
+    // Sent/received.
+    for (unsigned int i = 0; i < tx->vout.size(); ++i)
+    {
+        const CTxOut &txout = tx->vout[i];
+        isminetype fIsMine = pwallet->IsMine(txout);
+        // Only need to handle txouts if AT LEAST one of these is true:
+        //   1) they debit from us (sent)
+        //   2) the output is to us (received)
+        if (nDebit > 0)
+        {
+            // Don't report 'change' txouts
+            if (pwallet->IsChange(txout))
+                continue;
+        }
+        else if (!(fIsMine & filter))
+            continue;
+
+        // In either case, we need to get the destination address
+        CTxDestination address;
+        txnouttype whichType;
+        if (!ExtractDestinationAndType(txout.scriptPubKey, address, whichType) && !txout.scriptPubKey.IsUnspendable())
+        {
+            LogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n", this->GetHash().ToString());
+            address = CNoDestination();
+        }
+
+        // Only return group outputs from this API
+        if ((whichType == TX_GRP_PUBKEYHASH) || (whichType == TX_GRP_SCRIPTHASH))
+        {
+            CTokenGroupInfo txgrp(txout.scriptPubKey);
+            if (grp == txgrp.associatedGroup)
+            {
+                COutputEntry output = {address, txgrp.quantity, (int)i};
+
+                // If we are debited by the transaction, add the output as a "sent" entry
+                if (nDebit > 0)
+                    listSent.push_back(output);
+
+                // If we are receiving the output, add it as a "received" entry
+                if (fIsMine & filter)
+                    listReceived.push_back(output);
+            }
+        }
+    }
+}
+
+void CWalletTx::GetAmounts(std::list<CGroupedOutputEntry> &listReceived,
+    std::list<CGroupedOutputEntry> &listSent,
+    CAmount &nFee,
+    std::string &strSentAccount,
+    const isminefilter &filter) const
+{
+    nFee = 0;
+    listReceived.clear();
+    listSent.clear();
+    strSentAccount = strFromAccount;
+
+    // Compute fee:
+    CAmount nDebit = GetDebit(filter);
+    if (nDebit > 0) // debit>0 means we signed/sent this transaction
+    {
+        CAmount nValueOut = tx->GetValueOut();
+        nFee = nDebit - nValueOut;
+    }
+
+    // Sent/received.
+    for (unsigned int i = 0; i < tx->vout.size(); ++i)
+    {
+        const CTxOut &txout = tx->vout[i];
+        isminetype fIsMine = pwallet->IsMine(txout);
+        // Only need to handle txouts if AT LEAST one of these is true:
+        //   1) they debit from us (sent)
+        //   2) the output is to us (received)
+        if (nDebit > 0)
+        {
+            // Don't report 'change' txouts
+            if (pwallet->IsChange(txout))
+                continue;
+        }
+        else if (!(fIsMine & filter))
+            continue;
+
+        // In either case, we need to get the destination address
+        CTxDestination address;
+        txnouttype whichType;
+        if (!ExtractDestinationAndType(txout.scriptPubKey, address, whichType) && !txout.scriptPubKey.IsUnspendable())
+        {
+            LogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n", this->GetHash().ToString());
+            address = CNoDestination();
+        }
+
+        CTokenGroupInfo txgrp(txout.scriptPubKey); // If group is invalid, txgrp zeros its members.
+        CGroupedOutputEntry output(txgrp.associatedGroup, txgrp.quantity, address, txout.nValue, (int)i);
         // If we are debited by the transaction, add the output as a "sent" entry
         if (nDebit > 0)
             listSent.push_back(output);
@@ -1951,7 +2081,6 @@ void CWalletTx::GetAmounts(std::list<COutputEntry>& listReceived,
         if (fIsMine & filter)
             listReceived.push_back(output);
     }
-
 }
 
 /**
@@ -2194,7 +2323,7 @@ CAmount CWalletTx::GetAvailableCredit(bool fUseCache) const
     uint256 hashTx = GetHash();
     for (unsigned int i = 0; i < tx->vout.size(); i++)
     {
-        if (!pwallet->IsSpent(hashTx, i))
+        if (!pwallet->IsSpent(hashTx, i) && (GetTokenGroup(tx->vout[i].scriptPubKey) == NoGroup))
         {
             const CTxOut &txout = tx->vout[i];
             nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
@@ -2237,7 +2366,7 @@ CAmount CWalletTx::GetAvailableWatchOnlyCredit(const bool& fUseCache) const
     CAmount nCredit = 0;
     for (unsigned int i = 0; i < tx->vout.size(); i++)
     {
-        if (!pwallet->IsSpent(GetHash(), i))
+        if (!pwallet->IsSpent(GetHash(), i) && (GetTokenGroup(tx->vout[i].scriptPubKey) == NoGroup))
         {
             const CTxOut &txout = tx->vout[i];
             nCredit += pwallet->GetCredit(txout, ISMINE_WATCH_ONLY);
@@ -2699,6 +2828,51 @@ CAmount CWallet::GetAvailableBalance(const CCoinControl* coinControl) const
         }
     }
     return balance;
+}
+
+unsigned int CWallet::FilterCoins(std::vector<COutput> &vCoins,
+    std::function<bool(const CWalletTx *, const CTxOut *)> func) const
+{
+    vCoins.clear();
+    unsigned int ret = 0;
+
+    {
+        LOCK2(cs_main, cs_wallet);
+        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
+        {
+            const uint256 &wtxid = it->first;
+            const CWalletTx *pcoin = &(*it).second;
+
+            if (!CheckFinalTx(*pcoin))
+                continue;
+
+            if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity() > 0)
+                continue;
+
+            int nDepth = pcoin->GetDepthInMainChain();
+            if (nDepth < 0)
+                continue;
+
+            // We should not consider coins which aren't at least in our mempool
+            // It's possible for these to be conflicted via ancestors which we may never be able to detect
+            if (nDepth == 0 && !pcoin->InMempool())
+                continue;
+
+            for (unsigned int i = 0; i < pcoin->tx->vout.size(); i++)
+            {
+                isminetype mine = IsMine(pcoin->tx->vout[i]);
+                if (!(IsSpent(wtxid, i)) && mine != ISMINE_NO && !IsLockedCoin((*it).first, i) &&
+                    func(pcoin, &pcoin->tx->vout[i]))
+                {
+                    // The UTXO is available
+                    COutput outpoint(pcoin, i, nDepth, (mine & ISMINE_SPENDABLE) != ISMINE_NO, false, false);
+                    vCoins.push_back(outpoint);
+                    ret++;
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const CCoinControl *coinControl, const CAmount &nMinimumAmount, const CAmount &nMaximumAmount, const CAmount &nMinimumSumAmount, const uint64_t &nMaximumCount, const int &nMinDepth, const int &nMaxDepth) const
@@ -3171,6 +3345,35 @@ bool CWallet::SelectCoins(const std::vector<COutput>& vAvailableCoins, const CAm
     nValueRet += nValueFromPresetInputs;
 
     return res;
+}
+
+bool CWallet::SignTransaction(CMutableTransaction &tx)
+{
+    AssertLockHeld(cs_wallet); // mapWallet
+
+    unsigned int sighashType = SIGHASH_ALL;
+
+    CTransaction txNewConst(tx);
+    int nIn = 0;
+    for (const auto &input : tx.vin)
+    {
+        std::map<uint256, CWalletTx>::const_iterator mi = mapWallet.find(input.prevout.hash);
+        if (mi == mapWallet.end() || input.prevout.n >= mi->second.tx->vout.size())
+        {
+            return false;
+        }
+        const CScript &scriptPubKey = mi->second.tx->vout[input.prevout.n].scriptPubKey;
+        const CAmount &amount = mi->second.tx->vout[input.prevout.n].nValue;
+        SignatureData sigdata;
+
+        if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, SIGHASH_ALL), scriptPubKey, sigdata)) {
+            return error("%s: Signing transaction failed\n", __func__);
+        } else {
+            UpdateTransaction(tx, nIn, sigdata);
+        }
+        nIn++;
+    }
+    return true;
 }
 
 bool CWallet::FundTransaction(CMutableTransaction& tx, CAmount& nFeeRet, int& nChangePosInOut, std::string& strFailReason, bool lockUnspents, const std::set<int>& setSubtractFeeFromOutputs, CCoinControl coinControl)

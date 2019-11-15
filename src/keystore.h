@@ -110,6 +110,22 @@ public:
     virtual bool HaveWatchOnly() const override;
 
     virtual bool GetHDChain(CHDChain& hdChainRet) const;
+
+    class CheckTxDestination : public boost::static_visitor<bool>
+    {
+        const CKeyStore *keystore;
+
+    public:
+        CheckTxDestination(const CKeyStore *keystore) : keystore(keystore) {}
+        bool operator()(const CKeyID &id) const { return keystore->HaveKey(id); }
+        bool operator()(const CScriptID &id) const { return keystore->HaveCScript(id); }
+        bool operator()(const CNoDestination &) const { return false; }
+    };
+
+    virtual bool HaveTxDestination(const CTxDestination &addr)
+    {
+        return boost::apply_visitor(CheckTxDestination(this), addr);
+    }
 };
 
 typedef std::vector<unsigned char, secure_allocator<unsigned char> > CKeyingMaterial;

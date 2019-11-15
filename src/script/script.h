@@ -177,7 +177,8 @@ enum opcodetype
     OP_NOP4 = 0xb3,
     OP_NOP5 = 0xb4,
     OP_NOP6 = 0xb5,
-    OP_NOP7 = 0xb6,
+    OP_GROUP = 0xb6,
+    OP_NOP7 = OP_GROUP,
     OP_NOP8 = 0xb7,
     OP_NOP9 = 0xb8,
     OP_NOP10 = 0xb9,
@@ -188,6 +189,7 @@ enum opcodetype
     OP_ZEROCOINPUBLICSPEND = 0xc3,
 
     // template matching params
+    OP_GRP_DATA = 0xf9,
     OP_SMALLINTEGER = 0xfa,
     OP_PUBKEYS = 0xfb,
     OP_PUBKEYHASH = 0xfd,
@@ -641,7 +643,8 @@ public:
 
     bool IsPayToPublicKeyHash() const;
 
-    bool IsPayToScriptHash() const;
+    // if this is a p2sh then the script hash is filled into the passed param if its not null
+    bool IsPayToScriptHash(std::vector<unsigned char> *hashBytes = nullptr) const;
 
     bool StartsWithOpcode(const opcodetype opcode) const;
     bool IsZerocoinMint() const;

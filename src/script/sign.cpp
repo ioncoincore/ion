@@ -77,6 +77,7 @@ static bool SignStep(const BaseSignatureCreator& creator, const CScript& scriptP
     case TX_NULL_DATA:
         return false;
     case TX_PUBKEY:
+    case TX_GRP_PUBKEYHASH:
         keyID = CPubKey(vSolutions[0]).GetID();
         return Sign1(keyID, creator, scriptPubKey, ret, sigversion);
     case TX_PUBKEYHASH:
@@ -91,6 +92,7 @@ static bool SignStep(const BaseSignatureCreator& creator, const CScript& scriptP
         }
         return true;
     case TX_SCRIPTHASH:
+    case TX_GRP_SCRIPTHASH:
         if (creator.KeyStore().GetCScript(uint160(vSolutions[0]), scriptRet)) {
             ret.push_back(std::vector<unsigned char>(scriptRet.begin(), scriptRet.end()));
             return true;
@@ -131,7 +133,7 @@ bool ProduceSignature(const BaseSignatureCreator& creator, const CScript& fromPu
     bool P2SH = false;
     CScript subscript;
 
-    if (solved && whichType == TX_SCRIPTHASH)
+    if (solved && (whichType == TX_SCRIPTHASH || whichType == TX_GRP_SCRIPTHASH))
     {
         // Solver returns the subscript that needs to be evaluated;
         // the final scriptSig is the signatures from that
@@ -276,11 +278,13 @@ static Stacks CombineSignatures(const CScript& scriptPubKey, const BaseSignature
         return sigs2;
     case TX_PUBKEY:
     case TX_PUBKEYHASH:
+    case TX_GRP_PUBKEYHASH:
         // Signatures are bigger than placeholders or empty scripts:
         if (sigs1.script.empty() || sigs1.script[0].empty())
             return sigs2;
         return sigs1;
     case TX_SCRIPTHASH:
+    case TX_GRP_SCRIPTHASH:
         if (sigs1.script.empty() || sigs1.script.back().empty())
             return sigs2;
         else if (sigs2.script.empty() || sigs2.script.back().empty())
