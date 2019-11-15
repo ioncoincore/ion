@@ -164,6 +164,14 @@ std::vector<CLogCategoryActive> ListActiveLogCategories();
 /** Return true if str parses as a log category and set the flags in f */
 bool GetLogCategory(uint64_t *f, const std::string *str);
 
+/**
+ * Convert string into true/false
+ *
+ * @param strValue String to parse as a boolean
+ * @return true or false
+ */
+bool InterpretBool(const std::string &strValue);
+
 /** Send a string to the log output */
 int LogPrintStr(const std::string &str);
 

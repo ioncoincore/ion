@@ -19,6 +19,7 @@
 #include "rpc/mining.h"
 #include "rpc/server.h"
 #include "timedata.h"
+#include "tokengroupwallet.h"
 #include "util.h"
 #include "utilmoneystr.h"
 #include "validation.h"

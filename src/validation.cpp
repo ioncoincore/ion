@@ -14,6 +14,7 @@
 #include "checkqueue.h"
 #include "consensus/consensus.h"
 #include "consensus/merkle.h"
+#include "consensus/tokengroups.h"
 #include "consensus/tx_verify.h"
 #include "consensus/validation.h"
 #include "cuckoocache.h"
@@ -572,6 +573,14 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
     // Coinbase is only valid in a block, not as a loose transaction
     if (tx.IsCoinBase())
         return state.DoS(100, false, REJECT_INVALID, "coinbase");
+
+    // Disallow any OP_GROUP txs from entering the mempool until OP_GROUP is enabled.
+    // This ensures that someone won't create an invalid OP_GROUP tx that sits in the mempool until after activation,
+    // potentially causing this node to create a bad block.
+    if ((unsigned int)chainActive.Tip()->nHeight < chainparams.GetConsensus().ATPStartHeight) {
+        if (IsAnyTxOutputGrouped(tx))
+            return state.DoS(0, false, REJECT_NONSTANDARD, "premature-op_group-tx");
+    }
 
     // Rather not work on nonstandard transactions (unless -testnet/-regtest)
     std::string reason;
@@ -1369,6 +1378,13 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, const CCoinsVi
 {
     if (!tx.IsCoinBase() && !tx.HasZerocoinSpendInputs())
     {
+        if (((unsigned int)chainActive.Tip()->nHeight >= Params().GetConsensus().ATPStartHeight) &&
+            !CheckTokenGroups(tx, state, inputs))
+        {
+            return state.DoS(0, false, REJECT_MALFORMED, "token-group-imbalance", false,
+                strprintf("Token group inputs and outputs do not balance"));
+        }
+
         if (pvChecks)
             pvChecks->reserve(tx.vin.size());
 
