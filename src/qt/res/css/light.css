@@ -366,17 +366,19 @@ color:#333;
 color:#333;
 }
 
-QDialog .QTabWidget .QWidget QAbstractSpinBox {
+.QTabWidget .QWidget QAbstractSpinBox {
 }
 
-QDialog .QTabWidget .QWidget QAbstractSpinBox::down-button {
+.QTabWidget .QWidget QAbstractSpinBox::down-button {
 }
 
-QDialog .QTabWidget .QWidget QAbstractSpinBox::up-button {
+.QTabWidget .QWidget QAbstractSpinBox::up-button {
 }
 
-QDialog .QTabWidget .QWidget QComboBox {
+.QTabWidget .QWidget QComboBox {
 }
+
+/* DIALOG BOXES */
 
 QDialog QWidget { /* Remove Annoying Focus Rectangle */
 outline: 0;
@@ -631,7 +633,7 @@ min-width:180px;
 }
 
 QWidget#RPCConsole QWidget#tab_peers  QLabel#peerHeading { /* Peers Info Header */
-color:#110a44;
+color:#1c75bc;
 }
 
 QWidget#RPCConsole QPushButton#openDebugLogfileButton {
