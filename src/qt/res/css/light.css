@@ -141,7 +141,7 @@ border:1px solid #333;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #0092ff;
+border:1px solid #82C3E6;
 padding: 0px 5px 0px 5px;
 background:#fcfcfc;
 min-height:31px;
@@ -366,22 +366,16 @@ color:#333;
 color:#333;
 }
 
-.QTabWidget .QWidget QAbstractSpinBox {
+QDialog .QTabWidget .QWidget QAbstractSpinBox {
 }
 
-.QTabWidget .QWidget QAbstractSpinBox::down-button {
+QDialog .QTabWidget .QWidget QAbstractSpinBox::down-button {
 }
 
-.QTabWidget .QWidget QAbstractSpinBox::up-button {
+QDialog .QTabWidget .QWidget QAbstractSpinBox::up-button {
 }
 
-.QTabWidget .QWidget QComboBox {
-}
-
-/* DIALOG BOXES */
-
-.QProgressDialog {
-background-color: #F8F6F6;
+QDialog .QTabWidget .QWidget QComboBox {
 }
 
 QDialog QWidget { /* Remove Annoying Focus Rectangle */
