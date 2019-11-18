@@ -1414,7 +1414,13 @@ void CWallet::MarkConflicted(const uint256& hashBlock, const uint256& hashTx)
 void CWallet::SyncTransaction(const CTransactionRef& ptx, const CBlockIndex *pindex, int posInBlock) {
     const CTransaction& tx = *ptx;
 
-    if (!AddToWalletIfInvolvingMe(ptx, pindex, posInBlock, true))
+    // v0.14.0.x: Simulates the behavior found in the develop branch when ::BlockConnected/BlockDisconnected are called
+    if (pindex != nullptr && (posInBlock == 0 || posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK)) {
+        fAnonymizableTallyCached = false;
+        fAnonymizableTallyCachedNonDenom = false;
+    }
+
+    if (!AddToWalletIfInvolvingMe(tx, pindex, posInBlock, true))
         return; // Not one of ours
 
     // If a transaction changes 'conflicted' state, that changes the balance
