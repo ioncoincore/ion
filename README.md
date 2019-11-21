@@ -15,7 +15,11 @@ _If you want to encrypt your email/files, please use public pgp key provided bel
   We offer different installation and distribution methods covering most user needs.
   Below you can see
 
-#### Install via SNAP (_preffered method for linux users_)
+Dash is an experimental digital currency that enables instant, private
+payments to anyone, anywhere in the world. Dash uses peer-to-peer technology
+to operate with no central authority: managing transactions and issuing money
+are carried out collectively by the network. Dash Core is the name of the open
+source software which enables the use of this currency.
 
 _For full information about usage and possible installation methods and Branches, please check out [Ioncore Snap Builds](snap/README.md#ioncore-snap-builds)_
 
