@@ -1,5 +1,5 @@
 ---
-name: "ioncore-win-5.0"
+name: "dash-win-0.15"
 enable_cache: true
 distro: "ubuntu"
 suites:

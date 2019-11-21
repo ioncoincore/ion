@@ -1,5 +1,5 @@
 ---
-name: "ioncore-osx-5.0"
+name: "dash-osx-0.15"
 enable_cache: true
 distro: "ubuntu"
 suites:
