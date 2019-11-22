@@ -59,7 +59,6 @@
     <qresource prefix="/css">
         <file alias="dark">res/css/dark.css</file>
         <file alias="light">res/css/light.css</file>
-        <file alias="light-hires">res/css/light-hires.css</file>
         <file alias="scrollbars">res/css/scrollbars.css</file>
     </qresource>
     <qresource prefix="/themes">
