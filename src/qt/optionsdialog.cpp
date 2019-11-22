@@ -92,10 +92,10 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     
     /* Theme selector */
-    QDir themes(":themes");
-    for (const QString &entry : themes.entryList()) {
-        ui->theme->addItem(entry, QVariant(entry));
-    }
+    ui->theme->addItem(QString("Dark"), QVariant("dark"));
+    ui->theme->addItem(QString("Light"), QVariant("light"));
+    ui->theme->addItem(QString("Light-HiRes"), QVariant("light-hires"));
+    ui->theme->addItem(QString("Traditional"), QVariant("trad"));
 
     /* Language selector */
     QDir translations(":translations");

@@ -1,5 +1,5 @@
 WalletFrame {
-background-color: #fff;
+background-color: #444;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
@@ -22,7 +22,6 @@ background-color: #333;
 
 QMenuBar::item {
 background-color: #333;
-color: #ccc;
 }
 
 QMenuBar::item:selected {
@@ -98,7 +97,8 @@ font-size:11px;
 min-height:31px;
 outline:0;
 padding: 0px 3px 0px 3px;
-background-color:#fcfcfc;
+background-color: #333;
+color: #aaa;
 }
 
 .QLineEdit:!focus {
@@ -156,16 +156,12 @@ QPushButton:disabled {
 background-color: #666;
 }
 
-QPushButton:disabled {
-background-color: #666;
-}
-
 QComboBox { /* Dropdown Menus */
-border:1px solid #82C3E6;
+border: 1px solid #1c75bc;
 padding: 0px 5px 0px 5px;
-background:#fcfcfc;
+background: #333;
 min-height:31px;
-color:#818181;
+color: #aaa;
 }
 
 QComboBox:checked {
@@ -188,7 +184,7 @@ border-image: url(':/images/arrow_down') 0 0 0 0 stretch stretch;
 }
 
 QComboBox QListView {
-background:#fff;
+background: #555;
 padding: 3px;
 }
 
@@ -216,11 +212,11 @@ selection-color:transparent;
 }
 
 QAbstractSpinBox {
-border:1px solid #82C3E6;
+border: 1px solid #1c75bc;
 padding: 0px 5px 0px 5px;
-background:#fcfcfc;
+background: #333;
 min-height:31px;
-color:#818181;
+color: #aaa;
 }
 
 QAbstractSpinBox::up-button {
@@ -359,17 +355,17 @@ background-color: #333;
 /*******************************************************/
 
 .QTabWidget {
-border-bottom:1px solid #333;
+border-bottom: 1px solid #444;
 }
 
 .QTabWidget::pane {
-border: 1px solid #d7d7d7;
-background-color:#fff;
+border: 1px solid #333;
+background-color: #444;
 }
 
 .QTabWidget QTabBar::tab {
-background-color:#f2f0f0;
-color:#333;
+background-color: #ccc;
+color: #444;
 padding-left:10px;
 padding-right:10px;
 padding-top:5px;
@@ -378,20 +374,25 @@ border-top: 1px solid #333;
 }
 
 .QTabWidget QTabBar::tab:first {
-border-left: 1px solid #d7d7d7;
+border-left: 1px solid #333;
 }
 
 .QTabWidget QTabBar::tab:last {
-border-right: 1px solid #d7d7d7;
+border-right: 1px solid #333;
 }
 
-.QTabWidget QTabBar::tab:selected, .QTabWidget QTabBar::tab:hover {
-background-color:#ffffff;
-color:#333;
+.QTabWidget QTabBar::tab:selected{
+background-color: #444;
+color: #ccc;
+}
+
+.QTabWidget QTabBar::tab:hover {
+background-color: #555;
+color: #ccc;
 }
 
 .QTabWidget .QWidget {
-color:#333;
+color: #444;
 }
 
 .QTabWidget .QWidget QAbstractSpinBox {
@@ -407,6 +408,11 @@ color:#333;
 }
 
 /* DIALOG BOXES */
+
+.QProgressDialog {
+background-color: #444;
+color: #ccc;
+}
 
 QDialog QWidget { /* Remove Annoying Focus Rectangle */
 outline: 0;
@@ -660,7 +666,7 @@ color: #ccc;
 /* TOOLS MENU */
 
 QWidget#RPCConsole { /* RPC Console Dialog Box */
-background-color:#F8F6F6;
+background-color: #333;
 }
 
 QWidget#RPCConsole QWidget#tab_info QLabel#label_11, QWidget#RPCConsole QWidget#tab_info QLabel#label_10 { /* Margin between Network and Block Chain headers */
@@ -669,37 +675,44 @@ min-height:25px;
 min-width:180px;
 }
 
-QWidget#RPCConsole QWidget#tab_peers  QLabel#peerHeading { /* Peers Info Header */
-color:#1c75bc;
-}
-
-QWidget#RPCConsole QPushButton#openDebugLogfileButton {
+QWidget#RPCConsole QWidget#tab_info QPushButton#openDebugLogfileButton {
 max-width:60px;
 }
 
-QWidget#RPCConsole QTextEdit#messagesWidget { /* Console Messages Window */
-border:0;
+QWidget#RPCConsole QWidget#tab_console QTextEdit#messagesWidget { /* Console Messages Window */
+background-color: transparent;
+border: 0;
 }
 
-QWidget#RPCConsole QLineEdit#lineEdit { /* Console Input */
+QWidget#RPCConsole QWidget#tab_console QLineEdit#lineEdit { /* Console Input */
 }
 
-QWidget#RPCConsole QPushButton#clearButton, QWidget#RPCConsole QPushButton#fontSmallerButton, QWidget#RPCConsole QPushButton#fontBiggerButton { /* Console Font and Clear Buttons */
+QWidget#RPCConsole QWidget#tab_console QPushButton#clearButton,
+QWidget#RPCConsole QWidget#tab_console QPushButton#fontSmallerButton,
+QWidget#RPCConsole QWidget#tab_console QPushButton#fontBiggerButton { /* Console Font and Clear Buttons */
 background-color:transparent;
 padding-left:10px;
 padding-right:10px;
 }
 
-QWidget#RPCConsole QPushButton#promptIcon { /* Prompt Icon */
+QWidget#RPCConsole QWidget#tab_console QPushButton#promptIcon { /* Prompt Icon */
 background-color:transparent;
 }
 
-QWidget#RPCConsole .QGroupBox #line { /* Network In Line */
+QWidget#RPCConsole QWidget#tab_nettraffic .QGroupBox#groupBox #line { /* Network In Line */
 background-color:#00ff00;
 }
 
-QWidget#RPCConsole .QGroupBox #line_2 { /* Network Out Line */
+QWidget#RPCConsole QWidget#tab_nettraffic .QGroupBox#groupBox #line_2 { /* Network Out Line */
 background-color:#ff0000;
+}
+
+QWidget#RPCConsole QWidget#tab_peers QLabel#peerHeading { /* Peers Info Header */
+color: #1c75bc;
+}
+
+QWidget#RPCConsole QWidget#tab_peers QTableView { /* Peers Tables */
+color: #aaa;
 }
 
 /* HELP MENU */
@@ -719,16 +732,16 @@ border: 1px solid #333;
 color: #ccc;
 }
 
-/* About Ion Dialog */
+/* About Dash Dialog */
 QDialog#AboutDialog {
 background-color: #555;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Ion Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Dash Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Ion text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Dash text */
 margin-right:10px;
 }
 
@@ -1082,7 +1095,7 @@ background-color:transparent;
 }
 
 QWidget#contentWidget { /* The actual content with the text/buttons/etc... */
-background-color: #fff;
+background-color: #444;
 border-top:0px solid #000;
 margin:0;
 padding-top:20px;
