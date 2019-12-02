@@ -153,6 +153,8 @@ struct Params {
     int POSStartHeight;
     int MidasStartHeight;
     int DGWStartHeight;
+    int DGWStartTime;
+    int ATPStartHeight;
     /**
      * Minimum blocks including miner confirmation of the total of nMinerConfirmationWindow blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
@@ -180,7 +182,8 @@ struct Params {
     int64_t nPosTargetTimespanMidas;
     int64_t nPosTargetSpacingMidas;
     int64_t nPosTargetSpacing;
-    int64_t nBlockStakeModifierlV2;
+    int32_t nStakeMinDepth;
+    int64_t nBlockStakeModifierV2;
 
     /** Zerocoin */
     int64_t nZerocoinStartHeight;
@@ -189,7 +192,13 @@ struct Params {
     int64_t nPublicZCSpends;
     std::string zerocoinModulus;
     int64_t nFakeSerialBlockheightEnd;
+    int32_t nZerocoinRequiredStakeDepth;
+    int nMintRequiredConfirmations;
+    int nRequiredAccumulation;
 
+    //* ATP parameters */
+    std::string strTokenManagementKey;
+    int nOpGroupNewRequiredConfirmations;
 
     /** these parameters are only used on devnet and can be configured from the outside */
     int nMinimumDifficultyBlocks{0};
