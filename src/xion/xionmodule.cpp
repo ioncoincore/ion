@@ -7,10 +7,11 @@
 #include "consensus/validation.h"
 #include "hash.h"
 #include "iostream"
+#include "validation.h"
+
 #include "libzerocoin/Commitment.h"
 #include "libzerocoin/Coin.h"
-#include "validation.h"
-#include "xionchain.h"
+#include "xion/xionchain.h"
 
 bool PublicCoinSpend::Verify(const libzerocoin::Accumulator& a, bool verifyParams) const {
     return validate();

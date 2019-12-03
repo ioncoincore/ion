@@ -10,14 +10,15 @@
 #include "primitives/transaction.h"
 
 bool IsBlockHashInChain(const uint256& hashBlock);
-bool IsTransactionInChain(const uint256& txId, int& nHeightTx, CTransaction& tx);
+bool IsTransactionInChain(const uint256& txId, int& nHeightTx, CTransactionRef& tx);
 bool IsTransactionInChain(const uint256& txId, int& nHeightTx);
 
 bool CheckPublicCoinSpendEnforced(int blockHeight, bool isPublicSpend);
 
 bool ContextualCheckZerocoinSpend(const CTransaction& tx, const libzerocoin::CoinSpend* spend, CBlockIndex* pindex, const uint256& hashBlock);
 bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const libzerocoin::CoinSpend* spend, CBlockIndex* pindex, const uint256& hashBlock);
+bool ContextualCheckZerocoinMint(const libzerocoin::PublicCoin& coin, const CBlockIndex* pindex);
 
-bool CheckZerocoinSpendTx(CBlockIndex *pindex, CValidationState& state, const CTransaction& tx, std::vector<uint256>& vSpendsInBlock, std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& vSpends, CAmount& nValueIn);
+bool CheckZerocoinSpendTx(CBlockIndex *pindex, CValidationState& state, const CTransaction& tx, std::vector<uint256>& vSpendsInBlock, std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& vSpends, std::vector<std::pair<libzerocoin::PublicCoin, uint256> >& vMints, CAmount& nValueIn);
 
 #endif //ION_CHECKS_H

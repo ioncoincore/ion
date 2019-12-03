@@ -10,6 +10,7 @@
 #include "validation.h"
 #include "xion/xionchain.h"
 #include "xion/xionmodule.h"
+#include "xion/zerocoindb.h"
 
 bool IsBlockHashInChain(const uint256& hashBlock)
 {
@@ -124,7 +125,31 @@ bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const lib
     return true;
 }
 
-bool CheckZerocoinSpendTx(CBlockIndex *pindex, CValidationState& state, const CTransaction& tx, std::vector<uint256>& vSpendsInBlock, std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& vSpends, CAmount& nValueIn) {
+bool ContextualCheckZerocoinMint(const libzerocoin::PublicCoin& coin, const CBlockIndex* pindex)
+{
+    if (pindex->nHeight >= Params().GetConsensus().nPublicZCSpends) {
+        // Zerocoin MINTs have been disabled
+        return error("%s: Mints disabled at height %d - unable to add pubcoin %s", __func__,
+                pindex->nHeight, coin.getValue().GetHex().substr(0, 10));
+    }
+    if (pindex->nHeight >= Params().GetConsensus().nBlockZerocoinV2 && Params().NetworkIDString() != CBaseChainParams::TESTNET) {
+        //See if this coin has already been added to the blockchain
+        uint256 txid;
+        int nHeight;
+        if (zerocoinDB->ReadCoinMint(coin.getValue(), txid) && IsTransactionInChain(txid, nHeight))
+            return error("%s: pubcoin %s was already accumulated in tx %s", __func__,
+                         coin.getValue().GetHex().substr(0, 10),
+                         txid.GetHex());
+    }
+
+    return true;
+}
+
+bool CheckZerocoinSpendTx(CBlockIndex *pindex, CValidationState& state, const CTransaction& tx,
+        std::vector<uint256>& vSpendsInBlock,
+        std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& vSpends,
+        std::vector<std::pair<libzerocoin::PublicCoin, uint256> >& vMints,
+        CAmount& nValueIn) {
     int nHeightTx = 0;
     uint256 txid = tx.GetHash();
     vSpendsInBlock.emplace_back(txid);
@@ -195,12 +220,10 @@ bool CheckZerocoinSpendTx(CBlockIndex *pindex, CValidationState& state, const CT
             if (!TxOutToPublicCoin(out, coin, state))
                 return state.DoS(100, error("%s: failed final check of zerocoinmint for tx %s", __func__, tx.GetHash().GetHex()));
 
-/*
-            if (!ContextualCheckZerocoinMint(tx, coin, pindex))
+            if (!ContextualCheckZerocoinMint(coin, pindex))
                 return state.DoS(100, error("%s: zerocoin mint failed contextual check", __func__));
 
             vMints.emplace_back(std::make_pair(coin, tx.GetHash()));
-*/
         }
     }
     return true;

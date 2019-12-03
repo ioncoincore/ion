@@ -56,6 +56,11 @@
 #include "llmq/quorums_chainlocks.h"
 
 #include "libzerocoin/bignum.h"
+#include "xion/accumulators.h"
+#include "xion/xionchain.h"
+#include "xion/zerocoindb.h"
+
+#include "tokens/tokendb.h"
 
 #include <atomic>
 #include <sstream>
@@ -220,6 +225,8 @@ CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& loc
 CCoinsViewDB *pcoinsdbview = nullptr;
 CCoinsViewCache *pcoinsTip = nullptr;
 CBlockTreeDB *pblocktree = nullptr;
+CZerocoinDB *zerocoinDB = nullptr;
+CTokenDB *pTokenDB = nullptr;
 
 enum FlushStateMode {
     FLUSH_STATE_NONE,
@@ -2019,8 +2026,11 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
     std::vector<uint256> vSpendsInBlock;
-    std::vector<std::pair<libzerocoin::CoinSpend, uint256> > vSpends;
     CAmount nValueIn = 0;
+    //! Zerocoin
+    std::vector<std::pair<libzerocoin::CoinSpend, uint256> > vSpends;
+    std::vector<std::pair<libzerocoin::PublicCoin, uint256> > vMints;
+    //! ATP
 
     std::vector<PrecomputedTransactionData> txdata;
     txdata.reserve(block.vtx.size()); // Required so that pointers to individual PrecomputedTransactionData don't get invalidated
@@ -2029,20 +2039,20 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
-        const CTransaction &tx = *(block.vtx[i]);
-        const uint256 txhash = tx.GetHash();
+        const CTransactionRef tx = block.vtx[i];
+        const uint256 txhash = tx->GetHash();
 
-        nInputs += tx.vin.size();
+        nInputs += tx->vin.size();
 
-        if (tx.HasZerocoinSpendInputs())
+        if (tx->HasZerocoinSpendInputs())
         {
-            if (!CheckZerocoinSpendTx(pindex, state, tx, vSpendsInBlock, vSpends, nValueIn))
+            if (!CheckZerocoinSpendTx(pindex, state, *tx, vSpendsInBlock, vSpends, vMints, nValueIn))
                 return false;
-        } else if (!tx.IsCoinBase())
+        } else if (!tx->IsCoinBase())
         {
             CAmount txfee = 0;
-            if (!Consensus::CheckTxInputs(tx, state, view, pindex->nHeight, txfee)) {
-                return error("%s: Consensus::CheckTxInputs: %s, %s", __func__, tx.GetHash().ToString(), FormatStateMessage(state));
+            if (!Consensus::CheckTxInputs(*tx, state, view, pindex->nHeight, txfee)) {
+                return error("%s: Consensus::CheckTxInputs: %s, %s", __func__, tx->GetHash().ToString(), FormatStateMessage(state));
             }
             nFees += txfee;
             if (!MoneyRange(nFees)) {
@@ -2053,21 +2063,21 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             // Check that transaction is BIP68 final
             // BIP68 lock checks (as opposed to nLockTime checks) must
             // be in ConnectBlock because they require the UTXO set
-            prevheights.resize(tx.vin.size());
-            for (size_t j = 0; j < tx.vin.size(); j++) {
-                prevheights[j] = view.AccessCoin(tx.vin[j].prevout).nHeight;
+            prevheights.resize(tx->vin.size());
+            for (size_t j = 0; j < tx->vin.size(); j++) {
+                prevheights[j] = view.AccessCoin(tx->vin[j].prevout).nHeight;
             }
 
-            if (!SequenceLocks(tx, nLockTimeFlags, &prevheights, *pindex)) {
+            if (!SequenceLocks(*tx, nLockTimeFlags, &prevheights, *pindex)) {
                 return state.DoS(100, error("%s: contains a non-BIP68-final transaction", __func__),
                                  REJECT_INVALID, "bad-txns-nonfinal");
             }
 
             if (fAddressIndex || fSpentIndex)
             {
-                for (size_t j = 0; j < tx.vin.size(); j++) {
-                    const CTxIn input = tx.vin[j];
-                    const Coin& coin = view.AccessCoin(tx.vin[j].prevout);
+                for (size_t j = 0; j < tx->vin.size(); j++) {
+                    const CTxIn input = tx->vin[j];
+                    const Coin& coin = view.AccessCoin(tx->vin[j].prevout);
                     const CTxOut &prevout = coin.out;
                     uint160 hashBytes;
                     int addressType;
@@ -2102,32 +2112,47 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                 }
 
             }
+            // Check that xION mints are not already known
+            if (tx->HasZerocoinMintOutputs()) {
+                for (auto& out : tx->vout) {
+                    if (!out.IsZerocoinMint())
+                        continue;
 
+                    libzerocoin::PublicCoin coin(Params().Zerocoin_Params(false));
+                    if (!TxOutToPublicCoin(out, coin, state))
+                        return state.DoS(100, error("%s: failed final check of zerocoinmint for tx %s", __func__, tx->GetHash().GetHex()));
+
+                    if (!ContextualCheckZerocoinMint(coin, pindex))
+                        return state.DoS(100, error("%s: zerocoin mint failed contextual check", __func__));
+
+                    vMints.emplace_back(std::make_pair(coin, tx->GetHash()));
+                }
+            }
         }
 
         // GetTransactionSigOpCount counts 2 types of sigops:
         // * legacy (always)
         // * p2sh (when P2SH enabled in flags and excludes coinbase)
-        nSigOps += GetTransactionSigOpCount(tx, view, flags);
+        nSigOps += GetTransactionSigOpCount(*tx, view, flags);
         if (nSigOps > MaxBlockSigOps(fDIP0001Active_context))
             return state.DoS(100, error("ConnectBlock(): too many sigops"),
                              REJECT_INVALID, "bad-blk-sigops");
 
-        txdata.emplace_back(tx);
-        if (!tx.IsCoinBase())
+        txdata.emplace_back(*tx);
+        if (!tx->IsCoinBase())
         {
 
             std::vector<CScriptCheck> vChecks;
             bool fCacheResults = fJustCheck; /* Don't cache results if we're actually connecting blocks (still consult the cache, though) */
-            if (!CheckInputs(tx, state, view, fScriptChecks, flags, fCacheResults, fCacheResults, txdata[i], nScriptCheckThreads ? &vChecks : nullptr))
+            if (!CheckInputs(*tx, state, view, fScriptChecks, flags, fCacheResults, fCacheResults, txdata[i], nScriptCheckThreads ? &vChecks : nullptr))
                 return error("ConnectBlock(): CheckInputs on %s failed with %s",
-                    tx.GetHash().ToString(), FormatStateMessage(state));
+                    tx->GetHash().ToString(), FormatStateMessage(state));
             control.Add(vChecks);
         }
 
         if (fAddressIndex) {
-            for (unsigned int k = 0; k < tx.vout.size(); k++) {
-                const CTxOut &out = tx.vout[k];
+            for (unsigned int k = 0; k < tx->vout.size(); k++) {
+                const CTxOut &out = tx->vout[k];
 
                 if (out.scriptPubKey.IsPayToScriptHash()) {
                     std::vector<unsigned char> hashBytes(out.scriptPubKey.begin()+2, out.scriptPubKey.begin()+22);
@@ -2162,9 +2187,9 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         if (i > 0) {
             blockundo.vtxundo.push_back(CTxUndo());
         }
-        UpdateCoins(tx, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
+        UpdateCoins(*tx, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
 
-        vPos.push_back(std::make_pair(tx.GetHash(), pos));
+        vPos.push_back(std::make_pair(tx->GetHash(), pos));
         pos.nTxOffset += ::GetSerializeSize(tx, SER_DISK, CLIENT_VERSION);
     }
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
@@ -2250,6 +2275,17 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
 
     // END DASH
 
+    // Ensure that accumulator checkpoints are valid and in the same state as this instance of the chain
+    AccumulatorMap mapAccumulators(Params().Zerocoin_Params(pindex->nHeight < Params().GetConsensus().nBlockZerocoinV2));
+    if (!ValidateAccumulatorCheckpoint(block, pindex, mapAccumulators)) {
+        if (!ShutdownRequested()) {
+            return state.DoS(100, error("%s: Failed to validate accumulator checkpoint for block=%s height=%d", __func__,
+                                   block.GetHash().GetHex(), pindex->nHeight), REJECT_INVALID, "bad-acc-checkpoint");
+        }
+        return error("%s: Failed to validate accumulator checkpoint for block=%s height=%d because wallet is shutting down", __func__,
+                block.GetHash().GetHex(), pindex->nHeight);
+    }
+
     if (fJustCheck)
         return true;
 
@@ -2271,6 +2307,42 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         pindex->RaiseValidity(BLOCK_VALID_SCRIPTS);
         setDirtyBlockIndex.insert(pindex);
     }
+
+/*
+//  If refactored: move to SyncTransaction
+    //Record xION serials
+    if (pwalletMain) {
+        std::set<uint256> setAddedTx;
+        for (std::pair<libzerocoin::CoinSpend, uint256> pSpend : vSpends) {
+            // Send signal to wallet if this is ours
+            if (pwalletMain->IsMyZerocoinSpend(pSpend.first.getCoinSerialNumber())) {
+                LogPrintf("%s: %s detected zerocoinspend in transaction %s \n", __func__,
+                          pSpend.first.getCoinSerialNumber().GetHex(), pSpend.second.GetHex());
+
+                //Don't add the same tx multiple times
+                if (setAddedTx.count(pSpend.second))
+                    continue;
+
+                //Search block for matching tx, turn into wtx, set merkle branch, add to wallet
+                for (CTransaction tx : block.vtx) {
+                    if (tx->GetHash() == pSpend.second) {
+                        CWalletTx wtx(pwalletMain, tx);
+                        wtx.nTimeReceived = pindex->GetBlockTime();
+                        wtx.SetMerkleBranch(block);
+                        pwalletMain->AddToWallet(wtx);
+                        setAddedTx.insert(pSpend.second);
+                    }
+                }
+            }
+        }
+    }
+*/
+    // Flush spend/mint info to disk
+    if (!zerocoinDB->WriteCoinSpendBatch(vSpends)) return AbortNode(state, ("Failed to record coin serials to database"));
+    if (!zerocoinDB->WriteCoinMintBatch(vMints)) return AbortNode(state, ("Failed to record new mints to database"));
+
+    //Record accumulator checksums
+    DatabaseChecksums(mapAccumulators);
 
     if (fTxIndex)
         if (!pblocktree->WriteTxIndex(vPos))

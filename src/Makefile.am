@@ -261,8 +261,14 @@ BITCOIN_CORE_H = \
   wallet/wallet.h \
   wallet/walletdb.h \
   warnings.h \
+  xion/accumulators.h \
+  xion/accumulatorcheckpoints.h \
+  xion/accumulatorcheckpoints.json.h \
+  xion/accumulatormap.h \
+  xion/deterministicmint.h \
   xion/xionchain.h \
   xion/xionmodule.h \
+  xion/witness.h \
   xion/zerocoin.h \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h\
@@ -360,8 +366,15 @@ libdash_server_a_SOURCES = \
   validation.cpp \
   validationinterface.cpp \
   versionbits.cpp \
+  xion/accumulators.cpp \
+  xion/accumulatorcheckpoints.cpp \
+  xion/accumulatormap.cpp \
+  xion/deterministicmint.cpp \
+  xion/witness.cpp \
   xion/xionchain.cpp \
   xion/xionmodule.cpp \
+  xion/zerocoin.cpp \
+  xion/zerocoindb.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
@@ -388,7 +401,6 @@ libdash_wallet_a_SOURCES = \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
-  xion/zerocoin.cpp \
   $(BITCOIN_CORE_H)
 
 libioncore_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)

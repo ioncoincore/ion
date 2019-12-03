@@ -68,6 +68,10 @@
 #include "spork.h"
 #include "warnings.h"
 
+#include "xion/accumulatorcheckpoints.h"
+#include "xion/zerocoindb.h"
+
+#include "tokens/tokengroupmanager.h"
 #include "evo/deterministicmns.h"
 #include "llmq/quorums_init.h"
 
@@ -312,6 +316,9 @@ void PrepareShutdown()
         deterministicMNManager = nullptr;
         delete evoDb;
         evoDb = nullptr;
+        delete zerocoinDB;
+        zerocoinDB = nullptr;
+        delete pTokenDB;
     }
 #ifdef ENABLE_WALLET
     for (CWalletRef pwallet : vpwallets) {
@@ -1768,11 +1775,15 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
                 llmq::DestroyLLMQSystem();
                 delete deterministicMNManager;
                 delete evoDb;
+                delete zerocoinDB;
+                delete pTokenDB;
 
                 evoDb = new CEvoDB(nEvoDbCache, false, fReset || fReindexChainState);
                 deterministicMNManager = new CDeterministicMNManager(*evoDb);
                 pblocktree = new CBlockTreeDB(nBlockTreeDBCache, false, fReset);
                 llmq::InitLLMQSystem(*evoDb, &scheduler, false, fReset || fReindexChainState);
+                zerocoinDB = new CZerocoinDB(0, false, fReset || fReindexChainState);
+                pTokenDB = new CTokenDB(0, false, fReset || fReindexChainState);
 
                 if (fReset) {
                     pblocktree->WriteReindexing(true);
@@ -1844,6 +1855,10 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
                 // At this point we're either in reindex or we've loaded a useful
                 // block tree into mapBlockIndex!
 
+                //ION: Load Accumulator Checkpoints according to network (main/test/regtest)
+                assert(AccumulatorCheckpoints::LoadCheckpoints(Params().NetworkIDString()));
+
+                tokenGroupManager = std::shared_ptr<CTokenGroupManager>(new CTokenGroupManager());
                 pcoinsdbview = new CCoinsViewDB(nCoinDBCache, false, fReset || fReindexChainState);
                 pcoinscatcher = new CCoinsViewErrorCatcher(pcoinsdbview);
 

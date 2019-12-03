@@ -124,6 +124,7 @@ public:
         block.nTime          = nTime;
         block.nBits          = nBits;
         block.nNonce         = nNonce;
+        block.nAccumulatorCheckpoint = nAccumulatorCheckpoint;
         return block;
     }
 
