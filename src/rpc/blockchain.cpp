@@ -111,6 +111,9 @@ UniValue blockheaderToJSON(const CBlockIndex* blockindex)
     if (pnext)
         result.push_back(Pair("nextblockhash", pnext->GetBlockHash().GetHex()));
 
+    result.push_back(Pair("modifier", strprintf("%016x", blockindex->nStakeModifier)));
+    result.push_back(Pair("modifierV2", blockindex->nStakeModifierV2.GetHex()));
+
     result.push_back(Pair("chainlock", llmq::chainLocksHandler->HasChainLock(blockindex->nHeight, blockindex->GetBlockHash())));
 
     return result;

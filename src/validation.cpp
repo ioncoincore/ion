@@ -24,6 +24,7 @@
 #include "policy/policy.h"
 #include "pos/blocksignature.h"
 #include "pos/checks.h"
+#include "pos/kernel.h"
 #include "pow.h"
 #include "primitives/block.h"
 #include "primitives/transaction.h"
@@ -121,6 +122,9 @@ static void CheckBlockIndex(const Consensus::Params& consensusParams);
 CScript COINBASE_FLAGS;
 
 const std::string strMessageMagic = "Ion Signed Message:\n";
+
+/** Proof of Stake */
+std::map<uint256, uint256> mapProofOfStake;
 
 // Internal stuff
 namespace {
@@ -2007,6 +2011,21 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // Get the script flags for this block
     unsigned int flags = GetBlockScriptFlags(pindex, chainparams.GetConsensus());
 
+    if (block.IsProofOfStake()) {
+        std::unique_ptr<CStakeInput> stake;
+        uint256 hashProofOfStake;
+
+        if (!CheckProofOfStake(block, hashProofOfStake, stake, pindex))
+            return state.DoS(100, error("%s: proof of stake check failed", __func__));
+
+        if (!stake)
+            return error("%s: null stake ptr", __func__);
+
+        uint256 hash = block.GetHash();
+        if(!mapProofOfStake.count(hash)) // add to mapProofOfStake
+            mapProofOfStake.insert(std::make_pair(hash, hashProofOfStake));
+    }
+
     int64_t nTime2 = GetTimeMicros(); nTimeForks += nTime2 - nTime1;
     LogPrint(BCLog::BENCHMARK, "    - Fork checks: %.2fms [%.2fs]\n", 0.001 * (nTime2 - nTime1), nTimeForks * 0.000001);
 
@@ -3212,6 +3231,7 @@ bool ReceivedBlockTransactions(const CBlock &block, CValidationState& state, CBl
     if (block.IsProofOfStake()) {
         pindexNew->SetProofOfStake();
     }
+    AcceptPOSParameters(block, state, pindexNew);
     pindexNew->nTx = block.vtx.size();
     pindexNew->nChainTx = 0;
     pindexNew->nFile = pos.nFile;
@@ -3400,6 +3420,19 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
     for (unsigned int i = 1; i < block.vtx.size(); i++)
         if (block.vtx[i]->IsCoinBase())
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-multiple", false, "more than one coinbase");
+
+    if (block.IsProofOfStake()) {
+        // Coinbase output should be empty if proof-of-stake block
+        if (block.vtx[0]->vout.size() != 1 || !block.vtx[0]->vout[0].IsEmpty())
+            return state.DoS(100, error("CheckBlock() : coinbase output not empty for proof-of-stake block"));
+
+        // Second transaction must be coinstake, the rest must not be
+        if (block.vtx.empty() || !block.vtx[1]->IsCoinStake())
+            return state.DoS(100, error("CheckBlock() : second tx is not coinstake"));
+        for (unsigned int i = 2; i < block.vtx.size(); i++)
+            if (block.vtx[i]->IsCoinStake())
+                return state.DoS(100, error("CheckBlock() : more than one coinstake"));
+    }
 
     // Check transactions
     bool fZerocoinActive = block.GetBlockTime() > consensusParams.nZerocoinStartTime;

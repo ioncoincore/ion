@@ -6,7 +6,6 @@
 #include "blocksignature.h"
 #include "util.h"
 #include "utilstrencodings.h"
-//#include "main.h"
 #include "xion/xionchain.h"
 
 typedef std::vector<unsigned char> valtype;
