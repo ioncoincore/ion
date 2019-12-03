@@ -250,6 +250,11 @@ BITCOIN_CORE_H = \
   threadsafety.h \
   threadinterrupt.h \
   timedata.h \
+  tokens/tokendb.h \
+  tokens/tokengroupconfiguration.h \
+  tokens/tokengroupdescription.h \
+  tokens/tokengroupmanager.h \
+  tokens/tokengroupwallet.h \
   torcontrol.h \
   txdb.h \
   txmempool.h \
@@ -268,7 +273,6 @@ BITCOIN_CORE_H = \
   wallet/rpcwallet.h \
   wallet/wallet.h \
   wallet/walletdb.h \
-  wallet/tokengroupwallet.h \
   warnings.h \
   xion/accumulators.h \
   xion/accumulatorcheckpoints.h \
@@ -302,7 +306,6 @@ libdash_server_a_SOURCES = \
   blockencodings.cpp \
   chain.cpp \
   checkpoints.cpp \
-  consensus/tokengroups.cpp \
   consensus/tx_verify.cpp \
   dsnotificationinterface.cpp \
   evo/cbtx.cpp \
@@ -407,11 +410,16 @@ libdash_wallet_a_SOURCES = \
   keepass.cpp \
   privatesend/privatesend-client.cpp \
   privatesend/privatesend-util.cpp \
+  tokens/rpctokens.cpp \
+  tokens/tokendb.cpp \
+  tokens/tokengroupconfiguration.cpp \
+  tokens/tokengroupdescription.cpp \
+  tokens/tokengroupmanager.cpp \
+  tokens/tokengroupwallet.cpp \
   wallet/crypter.cpp \
   wallet/db.cpp \
   wallet/rpcdump.cpp \
   wallet/rpcwallet.cpp \
-  wallet/tokengroupwallet.cpp \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
   $(BITCOIN_CORE_H)
@@ -602,6 +610,7 @@ libdash_common_a_SOURCES = \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
+  consensus/tokengroups.cpp \
   core_read.cpp \
   core_write.cpp \
   dstencode.cpp \

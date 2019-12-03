@@ -9,19 +9,57 @@
 #include "coins.h"
 #include "consensus/validation.h"
 #include "pubkey.h"
+#include "util.h"
 #include <unordered_map>
+
 class CWallet;
 
 /** Transaction cannot be committed on my fork */
 static const unsigned int REJECT_GROUP_IMBALANCE = 0x104;
 
-
 enum class TokenGroupIdFlags : uint8_t
 {
     NONE = 0,
-    SAME_SCRIPT = 1, // covenants/ encumberances -- output script template must match input
-    BALANCE_BCH = 2 // group inputs and outputs must balance both tokens and BCH
+    SAME_SCRIPT = 1U, // covenants/ encumberances -- output script template must match input
+    BALANCE_BCH = 1U << 1, // group inputs and outputs must balance both tokens and BCH
+    STICKY_MELT = 1U << 2, // group can always melt tokens
+    MGT_TOKEN = 1U << 3, // management tokens are created from magical outputs, and no XDM fees are paid for their creation
+
+    DEFAULT = 0
 };
+
+inline TokenGroupIdFlags operator|(const TokenGroupIdFlags a, const TokenGroupIdFlags b)
+{
+    TokenGroupIdFlags ret = (TokenGroupIdFlags)(((uint8_t)a) | ((uint8_t)b));
+    return ret;
+}
+
+inline TokenGroupIdFlags operator~(const TokenGroupIdFlags a)
+{
+    TokenGroupIdFlags ret = (TokenGroupIdFlags)(~((uint8_t)a));
+    return ret;
+}
+
+inline TokenGroupIdFlags operator&(const TokenGroupIdFlags a, const TokenGroupIdFlags b)
+{
+    TokenGroupIdFlags ret = (TokenGroupIdFlags)(((uint8_t)a) & ((uint8_t)b));
+    return ret;
+}
+
+inline TokenGroupIdFlags &operator|=(TokenGroupIdFlags &a, const TokenGroupIdFlags b)
+{
+    a = (TokenGroupIdFlags)(((uint8_t)a) | ((uint8_t)b));
+    return a;
+}
+
+inline TokenGroupIdFlags &operator&=(TokenGroupIdFlags &a, const TokenGroupIdFlags b)
+{
+    a = (TokenGroupIdFlags)(((uint8_t)a) & ((uint8_t)b));
+    return a;
+}
+inline bool hasTokenGroupIdFlag(TokenGroupIdFlags object, TokenGroupIdFlags flag) {
+    return (((uint8_t)object) & ((uint8_t)flag)) == (uint8_t)flag;
+}
 
 // The definitions below are used internally.  They are defined here for use in unit tests.
 class CTokenGroupID
@@ -46,24 +84,37 @@ public:
     CTokenGroupID(const std::vector<unsigned char> &id) : data(id)
     {
         // for the conceivable future there is no possible way a group could be bigger but the spec does allow larger
-        assert(id.size() < OP_PUSHDATA1);
+        if (!(id.size() < OP_PUSHDATA1)) {
+            LogPrint(BCLog::TOKEN, "%s - Debug Assertion failed", __func__);
+        };
     }
 
     void NoGroup(void) { data.resize(0); }
     bool operator==(const CTokenGroupID &id) const { return data == id.data; }
     bool operator!=(const CTokenGroupID &id) const { return data != id.data; }
+    bool operator<(const CTokenGroupID &id) const { return data < id.data; }
+    bool operator>(const CTokenGroupID &id) const { return data > id.data; }
+    bool operator<=(const CTokenGroupID &id) const { return data <= id.data; }
+    bool operator>=(const CTokenGroupID &id) const { return data >= id.data; }
     //* returns true if this is a user-defined group -- ie NOT bitcoin cash or no group
     bool isUserGroup(void) const;
     //* returns true if this is a subgroup
     bool isSubgroup(void) const;
     //* returns the parent group if this is a subgroup or itself.
     CTokenGroupID parentGroup(void) const;
+    //* returns the data field of a subgroup
+    const std::vector<unsigned char> GetSubGroupData() const;
 
     const std::vector<unsigned char> &bytes(void) const { return data; }
-    //* Convert this token group ID into a mint/melt address
-    // CTxDestination ControllingAddress(txnouttype addrType) const;
-    //* Returns this groupID as a string in cashaddr format
-    // std::string Encode(const CChainParams &params = Params()) const;
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        READWRITE(data);
+    }
+
+    bool hasFlag(TokenGroupIdFlags flag) const;
 };
 
 namespace std
@@ -86,7 +137,6 @@ public:
 };
 }
 
-
 enum class GroupAuthorityFlags : uint64_t
 {
     CTRL = 1ULL << 63, // Is this a controller utxo (forces negative number in amount)
@@ -95,9 +145,10 @@ enum class GroupAuthorityFlags : uint64_t
     CCHILD = 1ULL << 60, // Can create controller outputs
     RESCRIPT = 1ULL << 59, // Can change the redeem script
     SUBGROUP = 1ULL << 58,
+    CONFIGURE = 1ULL << 57, // (reserved)
 
     NONE = 0,
-    ALL = CTRL | MINT | MELT | CCHILD | RESCRIPT | SUBGROUP,
+    ALL = CTRL | MINT | MELT | CCHILD | RESCRIPT | SUBGROUP | CONFIGURE,
     ALL_BITS = 0xffffULL << (64 - 16)
 };
 
@@ -137,62 +188,118 @@ inline bool hasCapability(GroupAuthorityFlags object, const GroupAuthorityFlags 
 }
 
 inline CAmount toAmount(GroupAuthorityFlags f) { return (CAmount)f; }
+
+std::string EncodeGroupAuthority(const GroupAuthorityFlags flags);
+
+// class that just track of the amounts of each group coming into and going out of a transaction
+class CTokenGroupBalance
+{
+public:
+    CTokenGroupBalance()
+        : ctrlPerms(GroupAuthorityFlags::NONE), allowedCtrlOutputPerms(GroupAuthorityFlags::NONE),
+          allowedSubgroupCtrlOutputPerms(GroupAuthorityFlags::NONE), ctrlOutputPerms(GroupAuthorityFlags::NONE),
+          input(0), output(0), numOutputs(0)
+    {
+    }
+    // CTokenGroupInfo groups; // possible groups
+    GroupAuthorityFlags ctrlPerms; // what permissions are provided in inputs
+    GroupAuthorityFlags allowedCtrlOutputPerms; // What permissions are provided in inputs with CHILD set
+    GroupAuthorityFlags allowedSubgroupCtrlOutputPerms; // What permissions are provided in inputs with CHILD set
+    GroupAuthorityFlags ctrlOutputPerms; // What permissions are enabled in outputs
+    CAmount input;
+    CAmount output;
+    uint64_t numOutputs;
+};
+
 class CTokenGroupInfo
 {
 public:
-    CTokenGroupInfo() : associatedGroup(), controllingGroupFlags(GroupAuthorityFlags::NONE), quantity(0), invalid(true)
+    CTokenGroupInfo() : associatedGroup(), quantity(0), invalid(true)
     {
     }
-    CTokenGroupInfo(const CTokenGroupID &associated, const GroupAuthorityFlags controllingGroupFlags, CAmount qty = 0)
-        : associatedGroup(associated), controllingGroupFlags(controllingGroupFlags), quantity(qty), invalid(false)
+    CTokenGroupInfo(const CTokenGroupID &associated, CAmount qty = 0)
+        : associatedGroup(associated), quantity(qty), invalid(false)
     {
     }
-    CTokenGroupInfo(const CKeyID &associated, const GroupAuthorityFlags controllingGroupFlags, CAmount qty = 0)
-        : associatedGroup(associated), controllingGroupFlags(controllingGroupFlags), quantity(qty), invalid(false)
+    CTokenGroupInfo(const CKeyID &associated, CAmount qty = 0)
+        : associatedGroup(associated), quantity(qty), invalid(false)
     {
     }
     // Return the controlling (can mint and burn) and associated (OP_GROUP in script) group of a script
     CTokenGroupInfo(const CScript &script);
 
     CTokenGroupID associatedGroup; // The group announced by the script (or the bitcoin group if no OP_GROUP)
-    GroupAuthorityFlags controllingGroupFlags; // if the utxo is a controller this is not NONE
     CAmount quantity; // The number of tokens specified in this script
     bool invalid;
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        READWRITE(this->associatedGroup);
+        READWRITE(this->quantity);
+        READWRITE(this->invalid);
+    }
+
+    // if the utxo is a controller this is not NONE
+    GroupAuthorityFlags controllingGroupFlags() const {
+        if (quantity < 0) return (GroupAuthorityFlags)quantity;
+        return GroupAuthorityFlags::NONE;
+    }
+
+    // if the amount is negative, it's a token authority
+    CAmount getAmount() const {
+        return quantity < 0 ? 0 : quantity;
+    }
 
     // return true if this object is a token authority.
     bool isAuthority() const
     {
-        return ((controllingGroupFlags & GroupAuthorityFlags::CTRL) == GroupAuthorityFlags::CTRL);
+        return ((controllingGroupFlags() & GroupAuthorityFlags::CTRL) == GroupAuthorityFlags::CTRL);
+    }
+    // return true if this object is a new token creation output.
+    // Note that the group creation nonce cannot be 0
+    bool isGroupCreation(TokenGroupIdFlags tokenGroupIdFlags = TokenGroupIdFlags::NONE) const
+    {
+        bool hasNonce = ((uint64_t)quantity & (uint64_t)~GroupAuthorityFlags::ALL_BITS) != 0;
+
+        return (((controllingGroupFlags() & GroupAuthorityFlags::CTRL) == GroupAuthorityFlags::CTRL) && hasNonce && associatedGroup.hasFlag(tokenGroupIdFlags));
     }
     // return true if this object allows minting.
     bool allowsMint() const
     {
-        return (controllingGroupFlags & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MINT)) ==
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MINT)) ==
                (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MINT);
     }
     // return true if this object allows melting.
     bool allowsMelt() const
     {
-        return (controllingGroupFlags & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MELT)) ==
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MELT)) ==
                (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::MELT);
     }
     // return true if this object allows child controllers.
     bool allowsRenew() const
     {
-        return (controllingGroupFlags & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::CCHILD)) ==
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::CCHILD)) ==
                (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::CCHILD);
     }
     // return true if this object allows rescripting.
     bool allowsRescript() const
     {
-        return (controllingGroupFlags & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::RESCRIPT)) ==
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::RESCRIPT)) ==
                (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::RESCRIPT);
     }
     // return true if this object allows subgroups.
     bool allowsSubgroup() const
     {
-        return (controllingGroupFlags & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::SUBGROUP)) ==
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::SUBGROUP)) ==
                (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::SUBGROUP);
+    }
+    // return true if this object allows (re)configuration of the tokengroup).
+    bool allowsConfig() const
+    {
+        return (controllingGroupFlags() & (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::CONFIGURE)) ==
+               (GroupAuthorityFlags::CTRL | GroupAuthorityFlags::CONFIGURE);
     }
 
     bool isInvalid() const { return invalid; };
@@ -200,15 +307,22 @@ public:
     {
         if (g.invalid || invalid)
             return false;
-        return ((associatedGroup == g.associatedGroup) && (controllingGroupFlags == g.controllingGroupFlags));
+        return ((associatedGroup == g.associatedGroup) && (controllingGroupFlags() == g.controllingGroupFlags()));
     }
 };
 
 // Verify that the token groups in this transaction properly balance
-bool CheckTokenGroups(const CTransaction &tx, CValidationState &state, const CCoinsViewCache &view);
+bool CheckTokenGroups(const CTransaction &tx, CValidationState &state, const CCoinsViewCache &view, std::unordered_map<CTokenGroupID, CTokenGroupBalance>& gBalance);
 
-// Return true if any output in this transaction is part of a group
-bool IsAnyTxOutputGrouped(const CTransaction &tx);
+// Return true if an output or any output in this transaction is part of a group
+bool IsOutputGrouped(const CTxOut &txout);
+bool IsOutputGroupedAuthority(const CTxOut &txout);
+bool IsAnyOutputGrouped(const CTransaction &tx);
+bool IsAnyOutputGroupedAuthority(const CTransaction &tx);
+bool IsAnyOutputGroupedCreation(const CTransaction &tx, const TokenGroupIdFlags tokenGroupIdFlags = TokenGroupIdFlags::NONE);
+bool GetGroupedCreationOutput(const CTransaction &tx, CTxOut &creationOutput, const TokenGroupIdFlags = TokenGroupIdFlags::NONE);
+
+bool AnyInputsGrouped(const CTransaction &transaction, const int nHeight, const CCoinsViewCache& view, const CTokenGroupID tgID);
 
 // Serialize a CAmount into an array of bytes.
 // This serialization does not store the length of the serialized data within the serialized data.
@@ -218,7 +332,7 @@ std::vector<unsigned char> SerializeAmount(CAmount num);
 // Deserialize a CAmount from an array of bytes.
 // This function uses the size of the vector to determine how many bytes were used in serialization.
 // It is therefore useful only within a system that already identifies the length of this field (such as a CScript).
-CAmount DeserializeAmount(std::vector<unsigned char> &vec);
+CAmount DeserializeAmount(opcodetype opcodeQty, std::vector<unsigned char> &vec);
 
 // Convenience function to just extract the group from a script
 inline CTokenGroupID GetTokenGroup(const CScript &script) { return CTokenGroupInfo(script).associatedGroup; }
