@@ -3,14 +3,13 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "consensus/tokengroups.h"
-#include "main.h"
 #include "miner.h"
-#include "parallel.h"
-#include "test/test_bitcoin.h"
+#include "test/test_dash.h"
 #include "utilstrencodings.h"
-#include "wallet/tokengroupwallet.h"
+#include "tokens/tokengroupwallet.h"
 #include <boost/test/unit_test.hpp>
 
+/*
 BOOST_FIXTURE_TEST_SUITE(tokengroup_tests, BasicTestingSetup)
 
 CAmount authorityFlags(GroupAuthorityFlags f, uint64_t amt = 0)
@@ -1362,3 +1361,4 @@ BOOST_FIXTURE_TEST_CASE(tokengroup_blockchain, TestChain100Setup)
 
 
 BOOST_AUTO_TEST_SUITE_END()
+*/

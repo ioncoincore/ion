@@ -26,7 +26,7 @@
 #include "script/sign.h"
 #include "scheduler.h"
 #include "timedata.h"
-#include "tokengroupwallet.h"
+#include "tokens/tokengroupwallet.h"
 #include "txmempool.h"
 #include "util.h"
 #include "ui_interface.h"

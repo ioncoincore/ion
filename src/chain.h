@@ -222,6 +222,13 @@ public:
     std::vector<libzerocoin::CoinDenomination> vMintDenominationsInBlock;
 
     //! ATP specific fields
+    //! Number of XDM transactions in this block.
+    //! Note: in a potential headers-first mode, this number cannot be relied upon until after full block validation
+    unsigned int nXDMTransactions;
+
+    //! (memory only) Number of XDM transactions in the chain up to and including this block.
+    unsigned int nChainXDMTransactions;
+    int64_t nXDMSupply;
 
     //! block header
     int nVersion;
@@ -267,6 +274,9 @@ public:
         nAccumulatorCheckpoint = uint256();
 
         nXDMSupply = 0;
+        nXDMTransactions = 0;
+        nChainXDMTransactions = 0;
+
         nVersion       = 0;
         hashMerkleRoot = uint256();
         nTime          = 0;
@@ -530,6 +540,7 @@ public:
             READWRITE(nStakeModifier);
         }
         READWRITE(VARINT(nXDMTransactions));
+        READWRITE(VARINT(nXDMSupply));
     }
 
     uint256 GetBlockHash() const
