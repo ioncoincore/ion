@@ -37,9 +37,9 @@ class TestNode(NodeConnCB):
         return self.last_mnlistdiff
 
 
-class LLMQCoinbaseCommitmentsTest(IonTestFramework):
-    def set_test_params(self):
-        self.set_dash_test_params(6, 5, fast_dip3_enforcement=True)
+class LLMQCoinbaseCommitmentsTest(DashTestFramework):
+    def __init__(self):
+        super().__init__(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
         self.test_node = TestNode()
