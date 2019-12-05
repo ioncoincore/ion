@@ -19,7 +19,7 @@ Checks LLMQs based ChainLocks
 
 class LLMQChainLocksTest(IonTestFramework):
     def set_test_params(self):
-        self.set_ion_test_params(6, 5, [], fast_dip3_enforcement=True)
+        self.set_dash_test_params(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
 
