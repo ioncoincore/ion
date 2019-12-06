@@ -68,14 +68,14 @@ BASE_SCRIPTS= [
     'wallet-accounts.py',
     'wallet-dump.py',
     'listtransactions.py',
-    #'multikeysporks.py', # not working TODO fix it
-    #'llmq-signing.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'llmq-chainlocks.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'llmq-simplepose.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'llmq-is-cl-conflicts.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'llmq-is-retroactive.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'llmq-dkgerrors.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'dip4-coinbasemerkleroots.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
+    'multikeysporks.py',
+    'llmq-signing.py', # NOTE: needs dash_hash to pass
+    'llmq-chainlocks.py', # NOTE: needs dash_hash to pass
+    'llmq-simplepose.py', # NOTE: needs dash_hash to pass
+    'llmq-is-cl-conflicts.py', # NOTE: needs dash_hash to pass
+    'llmq-is-retroactive.py', # NOTE: needs dash_hash to pass
+    'llmq-dkgerrors.py', # NOTE: needs dash_hash to pass
+    'dip4-coinbasemerkleroots.py', # NOTE: needs dash_hash to pass
     # vv Tests less than 60s vv
     'token_test-pt1.py',
     #'sendheaders.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
