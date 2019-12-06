@@ -441,7 +441,7 @@ bool CInstantSendManager::ProcessTx(const CTransaction& tx, bool allowReSigning,
             return false;
         }
     }
-    if (alreadyVotedCount == ids.size()) {
+    if (!allowReSigning && alreadyVotedCount == ids.size()) {
         LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: already voted on all inputs, bailing out\n", __func__,
                  tx.GetHash().ToString());
         return true;
@@ -454,9 +454,9 @@ bool CInstantSendManager::ProcessTx(const CTransaction& tx, bool allowReSigning,
         auto& in = tx.vin[i];
         auto& id = ids[i];
         inputRequestIds.emplace(id);
-        LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: trying to vote on input %s with id %s\n", __func__,
-                 tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString());
-        if (quorumSigningManager->AsyncSignIfMember(llmqType, id, tx.GetHash())) {
+        LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: trying to vote on input %s with id %s. allowReSigning=%d\n", __func__,
+                 tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString(), allowReSigning);
+        if (quorumSigningManager->AsyncSignIfMember(llmqType, id, tx.GetHash(), allowReSigning)) {
             LogPrint("instantsend", "CInstantSendManager::%s -- txid=%s: voted on input %s with id %s\n", __func__,
                       tx.GetHash().ToString(), in.prevout.ToStringShort(), id.ToString());
         }
@@ -972,6 +972,10 @@ void CInstantSendManager::ProcessNewTransaction(const CTransactionRef& tx, const
         return;
     }
 
+    // This is different on develop as allowReSigning is passed in from the caller. In 0.14.0.x, we have to figure this out
+	// here to mimic develop.
+    bool allowReSigning = !inMempool && !isDisconnect;
+
     uint256 islockHash;
     {
         LOCK(cs);
@@ -989,7 +993,7 @@ void CInstantSendManager::ProcessNewTransaction(const CTransactionRef& tx, const
 
     bool chainlocked = pindex && chainLocksHandler->HasChainLock(pindex->nHeight, pindex->GetBlockHash());
     if (islockHash.IsNull() && !chainlocked) {
-        ProcessTx(*tx, allowReSigning, Params().GetConsensus());
+        ProcessTx(tx, allowReSigning, Params().GetConsensus());
     }
 
     LOCK(cs);

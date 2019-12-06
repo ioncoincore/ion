@@ -782,7 +782,7 @@ bool CSigningManager::AsyncSignIfMember(Consensus::LLMQType llmqType, const uint
                         id.ToString(), prevMsgHash.ToString(), msgHash.ToString());
                 return false;
             } else if (allowReSign) {
-                LogPrint(BCLog::LLMQ, "CSigningManager::%s -- already voted for id=%s and msgHash=%s. Resigning!\n", __func__,
+                LogPrint("llmq", "CSigningManager::%s -- already voted for id=%s and msgHash=%s. Resigning!\n", __func__,
                          id.ToString(), prevMsgHash.ToString());
             } else {
                 LogPrint(BCLog::LLMQ, "CSigningManager::%s -- already voted for id=%s and msgHash=%s. Not voting again.\n", __func__,
