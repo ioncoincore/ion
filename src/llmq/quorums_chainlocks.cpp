@@ -358,7 +358,20 @@ void CChainLocksHandler::TrySignChainTip()
 
 void CChainLocksHandler::TransactionAddedToMempool(const CTransactionRef& tx, int64_t nAcceptTime)
 {
-    if (tx->IsCoinBase() || tx->vin.empty()) {
+    bool handleTx = true;
+    if (tx.IsCoinBase() || tx.vin.empty()) {
+        handleTx = false;
+    }
+
+    if (!masternodeSync.IsBlockchainSynced()) {
+        if (handleTx && posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK) {
+            auto info = mempool.info(tx.GetHash());
+            if (!info.tx) {
+                return;
+            }
+            LOCK(cs);
+            txFirstSeenTime.emplace(tx.GetHash(), info.nTime);
+        }
         return;
     }
 
