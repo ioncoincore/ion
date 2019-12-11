@@ -96,7 +96,25 @@ and open port 51472 on your firewall (or use -upnp).
 If you only want to use Tor to reach .onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
 
-    ./iond -onion=127.0.0.1:9050 -externalip=ionvj7kcklujarx.onion:12700 -discover
+	./dashd -onion=127.0.0.1:9050 -externalip=ssapp53tmftyjmjb.onion -discover
+
+
+3. List of known Dash Core Tor relays
+------------------------------------
+
+Note: All these nodes are hosted by masternodehosting.com
+
+* l7oq3v7ujau5tfrw.onion
+* vsmegqxisccimsir.onion
+* 4rbha5nrjso54l75.onion
+* 3473226fvgoenztx.onion
+* onn5v3aby2dioicx.onion
+* w5n7s2p3mdq5yf2d.onion
+* ec4qdvujskzasvrb.onion
+* g5e4hvsecwri3inf.onion
+* ys5upbdeotplam3y.onion
+* fijy6aikzxfea54i.onion
+
 
 ## Automatically listen on Tor
 
@@ -113,25 +131,21 @@ requires a Tor connection to work. It can be explicitly disabled with `-listenon
 and, if not disabled, configured using the `-torcontrol` and `-torpassword` settings.
 To show verbose debugging information, pass `-debug=tor`.
 
-Connecting to Tor's control socket API requires one of two authentication methods to be
-configured. It also requires the control socket to be enabled, e.g. put `ControlPort 9051`
-in `torrc` config file. For cookie authentication the user running iond must have read
-access to the `CookieAuthFile` specified in Tor configuration. In some cases this is
-preconfigured and the creation of a hidden service is automatic. If permission problems
-are seen with `-debug=tor` they can be resolved by adding both the user running Tor and
-the user running iond to the same group and setting permissions appropriately. On
-Debian-based systems the user running iond can be added to the debian-tor group,
-which has the appropriate permissions.
+Connecting to Tor's control socket API requires one of two authentication methods to be 
+configured. For cookie authentication the user running dashd must have write access 
+to the `CookieAuthFile` specified in Tor configuration. In some cases this is 
+preconfigured and the creation of a hidden service is automatic. If permission problems 
+are seen with `-debug=tor` they can be resolved by adding both the user running tor and 
+the user running dashd to the same group and setting permissions appropriately. On 
+Debian-based systems the user running dashd can be added to the debian-tor group, 
+which has the appropriate permissions. An alternative authentication method is the use 
+of the `-torpassword` flag and a `hash-password` which can be enabled and specified in 
+Tor configuration.
 
-An alternative authentication method is the use
-of the `-torpassword=password` option. The `password` is the clear text form that
-was used when generating the hashed password for the `HashedControlPassword` option
-in the tor configuration file. The hashed password can be obtained with the command
-`tor --hash-password password` (read the tor manual for more details).
+5. Privacy recommendations
+---------------------------
 
-## Privacy recommendations
-
-- Do not add anything but ION Core ports to the hidden service created in section 2.
+- Do not add anything but bitcoin ports to the hidden service created in section 2.
   If you run a web service too, create a new hidden service for that.
   Otherwise it is trivial to link them, which may reduce privacy. Hidden
   services created automatically (as in section 3) always have only one port

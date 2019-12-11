@@ -352,19 +352,19 @@ public:
 
         genesis = CreateGenesisBlock(1486045800, 1486045800, 28884498, 0x1e00ffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000004cf5ffbf2e31a9aa07c86298efb01a30b8911b80af7473d1114715084b"));
-        assert(genesis.hashMerkleRoot == uint256S("0x7af2e961c5262cb0411edcb7414ab7178133fc06257ceb47d349e4e5e35e2d40"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
+        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
-        vSeeds.emplace_back("main.seeder.baseserv.com", true);
-        vSeeds.emplace_back("main.seeder.uksafedns.net", true);
+        vSeeds.emplace_back("dnsseed.dash.org", true);
+        vSeeds.emplace_back("dnsseed.dashdot.io", true);
 
-        // Ion addresses start with 'i'
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,103);
-        // Ion script addresses start with '?'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,88);
-        // Ion private keys start with '?' or '?'
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,153);
-        // Ion BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        // Dash addresses start with 'X'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
+        // Dash script addresses start with '7'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+        // Dash private keys start with '7' or 'X'
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+        // Dash BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         // Ion BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
@@ -550,8 +550,7 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet.seeder.baseserv.com", true);
-        vSeeds.emplace_back("testnet.seeder.uksafedns.net", true);
+        vSeeds.emplace_back("testnet-seed.dashdot.io", true);
 
         // Testnet Ion addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,97);
