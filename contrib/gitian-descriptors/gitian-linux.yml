@@ -42,8 +42,7 @@ packages:
 - "python3"
 - "cmake"
 - "libxkbcommon0"
-- "linux-libc-dev"
-- "doxygen"
+- "ccache"
 remotes:
 - "url": "https://bitbucket.org/ioncoin/ion.git"
   "dir": "ion"

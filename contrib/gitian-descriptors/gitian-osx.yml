@@ -28,7 +28,7 @@ packages:
 - "python3-setuptools"
 - "python3-biplist"
 - "fonts-tuffy"
-- "doxygen"
+- "ccache"
 remotes:
 - "url": "https://bitbucket.org/ioncoin/ion.git"
   "dir": "ion"

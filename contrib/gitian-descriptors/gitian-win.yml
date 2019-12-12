@@ -23,8 +23,7 @@ packages:
 - "ca-certificates"
 - "python3"
 - "rename"
-- "cmake"
-- "doxygen"
+- "ccache"
 remotes:
 - "url": "https://bitbucket.org/ioncoin/ion.git"
   "dir": "ion"
