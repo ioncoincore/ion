@@ -1,4 +1,4 @@
-Dash Core staging tree 0.15
+Dash Core staging tree 0.16
 ===========================
 
 **Latest release** | **Contact us/Chat with us** | **ionomy.com homepage status** |
