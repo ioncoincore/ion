@@ -141,7 +141,7 @@ BASE_SCRIPTS= [
     'minchainwork.py',
     #'p2p-acceptblock.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
     'feature_shutdown.py',
-    #'ionlibtest.py', # not working TODO fix it
+    'privatesend.py',
 ]
 
 EXTENDED_SCRIPTS = [
