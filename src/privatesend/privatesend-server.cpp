@@ -542,7 +542,7 @@ bool CPrivateSendServer::AddEntry(CConnman& connman, const CPrivateSendEntry& en
 {
     if (!fMasternodeMode) return false;
 
-    if (GetEntriesCount() >= vecSessionCollaterals.size()) {
+    if (GetEntriesCount() >= nSessionMaxParticipants) {
         LogPrint(BCLog::PRIVATESEND, "CPrivateSendServer::%s -- ERROR: entries is full!\n", __func__);
         nMessageIDRet = ERR_ENTRIES_FULL;
         return false;
@@ -591,7 +591,7 @@ bool CPrivateSendServer::AddEntry(CConnman& connman, const CPrivateSendEntry& en
 
     vecEntries.push_back(entry);
 
-    LogPrint(BCLog::PRIVATESEND, "CPrivateSendServer::%s -- adding entry %d of %d required\n", __func__, GetEntriesCount(), CPrivateSend::GetMaxPoolParticipants());
+    LogPrint(BCLog::PRIVATESEND, "CPrivateSendServer::%s -- adding entry %d of %d required\n", __func__, GetEntriesCount(), nSessionMaxParticipants);
     nMessageIDRet = MSG_ENTRIES_ADDED;
 
     return true;
