@@ -61,17 +61,9 @@ def build():
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
 
-    if args.macos and not os.path.isfile('inputs/MacOSX10.11.sdk.tar.xz'):
-    	subprocess.check_call(['wget', '-O', 'inputs/MacOSX10.11.sdk.tar.xz', '-N', '-P', 'inputs', 'https://bitbucket.org/ioncoin/macosx-sdks/downloads/MacOSX10.11.sdk.tar.xz'])
-
-    if args.macos and not os.path.isfile('inputs/MacOSX10.11.sdk.tar.xz'):
-    	subprocess.check_call(['wget', '-O', 'inputs/MacOSX10.11.sdk.tar.xz', '-N', '-P', 'inputs', 'https://github.com/gitianuser/MacOSX-SDKs/releases/download/MacOSX10.11.sdk/MacOSX10.11.sdk.tar.xz'])
-
-    if not os.path.isfile('inputs/osslsigncode-2.0.tar.xz'):
-        subprocess.check_call(['wget', '-O', 'inputs/osslsigncode-2.0.tar.xz', 'https://bitbucket.org/ioncoin/osslsigncode/downloads/osslsigncode-2.0.tar.xz'])
-
-    subprocess.check_call(["echo '015cb6c6fe5f5bd102059788cc9ba6015b0d6b21a91e3b929d8c63fbba75b779 inputs/osslsigncode-2.0.tar.xz' | sha256sum -c"], shell=True)
-    subprocess.check_call(['make', '-C', '../ion/depends', 'download', 'SOURCES_PATH=' + os.getcwd() + '/cache/common'])
+    subprocess.check_call(['wget', '-O', 'inputs/osslsigncode-2.0.tar.gz', 'https://github.com/mtrojnar/osslsigncode/archive/2.0.tar.gz'])
+    subprocess.check_call(["echo '5a60e0a4b3e0b4d655317b2f12a810211c50242138322b16e7e01c6fbb89d92f inputs/osslsigncode-2.0.tar.gz' | sha256sum -c"], shell=True)
+    subprocess.check_call(['make', '-C', '../dash/depends', 'download', 'SOURCES_PATH=' + os.getcwd() + '/cache/common'])
 
     if args.linux:
         print('\nCompiling ' + args.version + ' Linux')

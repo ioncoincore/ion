@@ -8,15 +8,14 @@ architectures:
 packages:
 - "libssl-dev"
 - "autoconf"
-- "automake"
 - "libtool"
 - "pkg-config"
 remotes:
 - "url": "https://github.com/cevap/ion-detached-sigs.git"
   "dir": "signature"
 files:
-- "osslsigncode-2.0.tar.xz"
-- "ioncore-win-unsigned.tar.gz"
+- "osslsigncode-2.0.tar.gz"
+- "dashcore-win-unsigned.tar.gz"
 script: |
   set -e -o pipefail
 
@@ -24,12 +23,12 @@ script: |
   SIGDIR=${BUILD_DIR}/signature/win
   UNSIGNED_DIR=${BUILD_DIR}/unsigned
 
-  echo "015cb6c6fe5f5bd102059788cc9ba6015b0d6b21a91e3b929d8c63fbba75b779  osslsigncode-2.0.tar.xz" | sha256sum -c
+  echo "5a60e0a4b3e0b4d655317b2f12a810211c50242138322b16e7e01c6fbb89d92f  osslsigncode-2.0.tar.gz" | sha256sum -c
 
   mkdir -p ${UNSIGNED_DIR}
   tar -C ${UNSIGNED_DIR} -xf ioncore-win-unsigned.tar.xz
 
-  tar xJf osslsigncode-2.0.tar.xz
+  tar xf osslsigncode-2.0.tar.gz
   cd osslsigncode-2.0
 
   ./autogen.sh
