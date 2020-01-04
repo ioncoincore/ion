@@ -152,8 +152,8 @@ class EstimateFeeTest(BitcoinTestFramework):
         which we will use to generate our transactions.
         """
         self.add_nodes(3, extra_args=[["-maxorphantxsize=1000", "-whitelist=127.0.0.1"],
-                                      ["-blockmaxsize=17000", "-maxorphantxsize=1000"],
-                                      ["-blockmaxsize=8000", "-maxorphantxsize=1000"]])
+                                      ["-blockmaxsize=17000", "-maxorphantxsize=1000", "-whitelist=127.0.0.1"],
+                                      ["-blockmaxsize=8000", "-maxorphantxsize=1000", "-whitelist=127.0.0.1"]])
         # Use node0 to mine blocks for input splitting
         self.nodes.append(start_node(0, self.options.tmpdir, ["-maxorphantxsize=1000",
                                                               "-whitelist=127.0.0.1"]))
