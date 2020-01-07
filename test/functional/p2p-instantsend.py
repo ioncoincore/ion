@@ -15,8 +15,8 @@ Tests InstantSend functionality (prevent doublespend for unconfirmed transaction
 '''
 
 class InstantSendTest(DashTestFramework):
-    def __init__(self):
-        super().__init__(9, 5, fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_dash_test_params(7, 3, fast_dip3_enforcement=True)
         # set sender,  receiver,  isolated nodes
         self.isolated_idx = 1
         self.receiver_idx = 2
