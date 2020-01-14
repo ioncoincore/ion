@@ -32,11 +32,11 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Ion"
-#define QAPP_ORG_DOMAIN "ionomy.com"
-#define QAPP_APP_NAME_DEFAULT "Ion-Qt"
-#define QAPP_APP_NAME_TESTNET "Ion-Qt-testnet"
-#define QAPP_APP_NAME_DEVNET "Ion-Qt-%s"
-#define QAPP_APP_NAME_REGTEST "Ion-Qt-regtest"
+#define QAPP_ORG_NAME "Dash"
+#define QAPP_ORG_DOMAIN "dash.org"
+#define QAPP_APP_NAME_DEFAULT "Dash-Qt"
+#define QAPP_APP_NAME_TESTNET "Dash-Qt-testnet"
+#define QAPP_APP_NAME_DEVNET "Dash-Qt-%s"
+#define QAPP_APP_NAME_REGTEST "Dash-Qt-regtest"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H
