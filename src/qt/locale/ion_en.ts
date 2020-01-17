@@ -337,12 +337,12 @@
         <translation>A fatal error occurred. Dash Core can no longer continue safely and will quit.</translation>
     </message>
     <message>
-        <location filename="../bitcoingui.cpp" line="+1138"/>
+        <location filename="../bitcoingui.cpp" line="+1164"/>
         <source>Dash Core</source>
         <translation>Dash Core</translation>
     </message>
     <message>
-        <location line="-994"/>
+        <location line="-1016"/>
         <source>Wallet</source>
         <translation>Wallet</translation>
     </message>
@@ -352,7 +352,7 @@
         <translation>Node</translation>
     </message>
     <message>
-        <location line="+152"/>
+        <location line="+169"/>
         <source>&amp;Overview</source>
         <translation>&amp;Overview</translation>
     </message>
@@ -668,7 +668,7 @@
     </message>
     <message numerus="yes">
         <location line="+375"/>
-        <source>%n active connection(s) to Ion network</source>
+        <source>%n active connection(s) to Dash network</source>
         <translation>
             <numerusform>%n active connection to Ion network</numerusform>
             <numerusform>%n active connections to Ion network</numerusform>
@@ -1253,8 +1253,8 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different &quot;inputs&quot; which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type=&quot;1&quot;&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called &quot;masternodes.&quot; These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know &quot;who&quot; you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users&apos; wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it&apos;s called a &quot;round.&quot; Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these &quot;change addresses.&quot; Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href=&quot;https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html&quot;&gt;PrivateSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different &quot;inputs&quot; which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type=&quot;1&quot;&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called &quot;masternodes.&quot; These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know &quot;who&quot; you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users&apos; wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it&apos;s called a &quot;round.&quot; Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these &quot;change addresses.&quot; Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href=&quot;https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html&quot;&gt;PrivateSend documentation&lt;/a&gt;.</translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different &quot;inputs&quot; which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type=&quot;1&quot;&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called &quot;masternodes.&quot; These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know &quot;who&quot; you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users&apos; wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it&apos;s called a &quot;round.&quot; Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be mixed. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these &quot;change addresses.&quot; Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href=&quot;https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html&quot;&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Dash in your wallet is comprised of different &quot;inputs&quot; which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type=&quot;1&quot;&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 DASH, 0.01 DASH, 0.1 DASH, 1 DASH and 10 DASH -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called &quot;masternodes.&quot; These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know &quot;who&quot; you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users&apos; wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it&apos;s called a &quot;round.&quot; Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be mixed. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these &quot;change addresses.&quot; Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href=&quot;https://docs.dash.org/en/stable/wallets/dashcore/privatesend-instantsend.html&quot;&gt;PrivateSend documentation&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1418,7 +1418,22 @@
         <translation>Operator Reward</translation>
     </message>
     <message>
-        <location filename="../masternodelist.cpp" line="+69"/>
+        <location line="+5"/>
+        <source>Collateral Address</source>
+        <translation>Collateral Address</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Owner Address</source>
+        <translation>Owner Address</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Voting Address</source>
+        <translation>Voting Address</translation>
+    </message>
+    <message>
+        <location filename="../masternodelist.cpp" line="+77"/>
         <source>Copy ProTx Hash</source>
         <translation>Copy ProTx Hash</translation>
     </message>
@@ -1428,7 +1443,7 @@
         <translation>Copy Collateral Outpoint</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+135"/>
         <source>ENABLED</source>
         <translation>ENABLED</translation>
     </message>
@@ -1664,13 +1679,13 @@
     </message>
     <message>
         <location line="+45"/>
-        <source>Automatically open the Ion Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Ion Core client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Connect to the Ion network through a SOCKS5 proxy.</source>
-        <translation>Connect to the Ion network through a SOCKS5 proxy.</translation>
+        <source>Connect to the Dash network through a SOCKS5 proxy.</source>
+        <translation>Connect to the Dash network through a SOCKS5 proxy.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1917,7 +1932,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+109"/>
+        <location filename="../optionsdialog.cpp" line="+105"/>
         <source>default</source>
         <translation>default</translation>
     </message>
@@ -1964,8 +1979,8 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <location line="+53"/>
         <location line="+352"/>
         <location line="+200"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Ion network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Ion network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dash network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Dash network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-306"/>
@@ -2127,14 +2142,14 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+319"/>
-        <location line="+149"/>
+        <location line="+310"/>
+        <location line="+132"/>
         <source>Start Mixing</source>
         <translation>Start Mixing</translation>
     </message>
     <message>
-        <location line="-466"/>
-        <location line="+469"/>
+        <location line="-440"/>
+        <location line="+443"/>
         <source>Stop Mixing</source>
         <translation>Stop Mixing</translation>
     </message>
@@ -2427,7 +2442,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../dash.cpp" line="+181"/>
+        <location filename="../dash.cpp" line="+182"/>
         <source>%1 didn&apos;t yet exit safely...</source>
         <translation>%1 didn&apos;t yet exit safely...</translation>
     </message>
@@ -2437,12 +2452,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Amount</translation>
     </message>
     <message>
-        <location filename="../guiutil.cpp" line="+131"/>
+        <location filename="../guiutil.cpp" line="+183"/>
         <source>Enter a Dash address (e.g. %1)</source>
         <translation>Enter a Dash address (e.g. %1)</translation>
     </message>
     <message>
-        <location line="+826"/>
+        <location line="+788"/>
         <source>%1 d</source>
         <translation>%1 d</translation>
     </message>
@@ -2795,8 +2810,8 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     </message>
     <message>
         <location line="+62"/>
-        <location filename="../rpcconsole.cpp" line="+492"/>
-        <location line="+810"/>
+        <location filename="../rpcconsole.cpp" line="+500"/>
+        <location line="+808"/>
         <source>Select a peer to view detailed information.</source>
         <translation>Select a peer to view detailed information.</translation>
     </message>
@@ -2997,7 +3012,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>-reindex: Rebuild block chain index from current blk000??.dat files.</translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-713"/>
+        <location filename="../rpcconsole.cpp" line="-711"/>
         <source>&amp;Disconnect</source>
         <translation>&amp;Disconnect</translation>
     </message>
@@ -3035,7 +3050,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>&amp;Unban</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+195"/>
         <source>Welcome to the %1 RPC console.</source>
         <translation>Welcome to the %1 RPC console.</translation>
     </message>
@@ -3362,7 +3377,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+668"/>
+        <location filename="../sendcoinsdialog.cpp" line="+686"/>
         <source>Send Coins</source>
         <translation>Send Coins</translation>
     </message>
@@ -3442,7 +3457,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Choose...</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+69"/>
         <source>collapse fee-settings</source>
         <translation>collapse fee-settings</translation>
     </message>
@@ -3473,7 +3488,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>per kilobyte</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-101"/>
         <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</source>
         <translation>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until you have validated the complete chain.</translation>
     </message>
@@ -3483,7 +3498,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Note: Not enough data for fee estimation, using the fallback fee instead.</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+41"/>
         <source>Hide</source>
         <translation>Hide</translation>
     </message>
@@ -3543,7 +3558,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Balance:</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-546"/>
+        <location filename="../sendcoinsdialog.cpp" line="-565"/>
         <source>Copy quantity</source>
         <translation>Copy quantity</translation>
     </message>
@@ -3583,30 +3598,13 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>%1 (%2 blocks)</translation>
     </message>
     <message>
-        <location line="+72"/>
-        <location line="+4"/>
-        <location line="+8"/>
+        <location line="+178"/>
+        <location line="+2"/>
         <source>using</source>
         <translation>using</translation>
     </message>
     <message>
-        <location line="-12"/>
-        <location line="+4"/>
-        <source>anonymous funds</source>
-        <translation>anonymous funds</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
-        <translation>(privatesend requires this amount to be rounded up to the nearest %1).</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>any available funds (not anonymous)</source>
-        <translation>any available funds (not anonymous)</translation>
-    </message>
-    <message>
-        <location line="+73"/>
+        <location line="-42"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+4"/>
@@ -3727,7 +3725,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Pay only the required fee of %1</translation>
     </message>
     <message numerus="yes">
-        <location line="+38"/>
+        <location line="+37"/>
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation>
             <numerusform>Estimated to begin confirmation within %n block.</numerusform>
@@ -4361,7 +4359,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+245"/>
+        <location filename="../transactiontablemodel.cpp" line="+262"/>
         <source>Date</source>
         <translation>Date</translation>
     </message>
@@ -4376,7 +4374,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Address / Label</translation>
     </message>
     <message numerus="yes">
-        <location line="+79"/>
+        <location line="+74"/>
         <source>Open for %n more block(s)</source>
         <translation>
             <numerusform>Open for %n more block</numerusform>
@@ -4704,7 +4702,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Show address QR code</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+228"/>
         <source>Export Transaction History</source>
         <translation>Export Transaction History</translation>
     </message>
@@ -4803,7 +4801,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+340"/>
+        <location filename="../walletmodel.cpp" line="+339"/>
         <source>Send Coins</source>
         <translation>Send Coins</translation>
     </message>
@@ -4859,7 +4857,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
 <context>
     <name>ion-core</name>
     <message>
-        <location filename="../dashstrings.cpp" line="+33"/>
+        <location filename="../dashstrings.cpp" line="+39"/>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Bind to given address and always listen on it. Use [host]:port notation for IPv6</translation>
     </message>
@@ -4884,12 +4882,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Execute command when the best block changes (%s in cmd is replaced by block hash)</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+70"/>
         <source>Name to construct url for KeePass entry that stores the wallet passphrase</source>
         <translation>Name to construct url for KeePass entry that stores the wallet passphrase</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+50"/>
         <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
         <translation>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</translation>
     </message>
@@ -4915,11 +4913,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Add a node to connect to and attempt to keep the connection open</translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
         <translation>Allow DNS lookups for -addnode, -seednode and -connect</translation>
     </message>
@@ -5029,7 +5022,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Failed to listen on any port. Use -listen=0 if you want this.</translation>
     </message>
     <message>
-        <location line="-395"/>
+        <location line="-403"/>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</translation>
     </message>
@@ -5059,12 +5052,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Connect only to the specified node(s); -connect=0 disables automatic connections</source>
-        <translation>Connect only to the specified node(s); -connect=0 disables automatic connections</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+14"/>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
         <translation>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</translation>
     </message>
@@ -5134,7 +5122,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Overrides minimum spork signers to change spork value. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+9"/>
+        <source>PrivateSend uses exact denominated amounts to send funds, you might simply need to mix some more coins.</source>
+        <translation>PrivateSend uses exact denominated amounts to send funds, you might simply need to mix some more coins.</translation>
+    </message>
+    <message>
+        <location line="+89"/>
         <source>Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)</source>
         <translation>Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)</translation>
     </message>
@@ -5159,7 +5152,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+14"/>
         <source>(default: %s)</source>
         <translation>(default: %s)</translation>
     </message>
@@ -5194,12 +5187,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Connect to KeePassHttp on port &lt;port&gt; (default: %u)</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Enable the client to act as a masternode (0-1, default: %u)</source>
-        <translation>Enable the client to act as a masternode (0-1, default: %u)</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+20"/>
         <source>Entry exceeds maximum size.</source>
         <translation>Entry exceeds maximum size.</translation>
     </message>
@@ -5287,6 +5275,16 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <location line="+2"/>
         <source>Invalid minimum number of spork signers specified with -minsporkkeys</source>
         <translation>Invalid minimum number of spork signers specified with -minsporkkeys</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Keep N DASH mixed (%u-%u, default: %u)</source>
+        <translation>Keep N DASH mixed (%u-%u, default: %u)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
+        <translation>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5524,7 +5522,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Will retry...</translation>
     </message>
     <message>
-        <location line="-232"/>
+        <location line="-230"/>
         <source>Can&apos;t find random Masternode.</source>
         <translation>Can&apos;t find random Masternode.</translation>
     </message>
@@ -5534,7 +5532,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Can&apos;t mix while sync in progress.</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+80"/>
         <source>Invalid netmask specified in -whitelist: &apos;%s&apos;</source>
         <translation>Invalid netmask specified in -whitelist: &apos;%s&apos;</translation>
     </message>
@@ -5554,22 +5552,27 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>KeePassHttp key for AES encrypted communication with KeePass</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</translation>
-    </message>
-    <message>
         <location line="-392"/>
         <source>Disable all Dash specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
         <translation>Disable all Dash specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-48"/>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
         <translation>%s file contains all private keys from this wallet. Do not share it with anyone!</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+6"/>
+        <source>-masternode option is deprecated and ignored, specifying -masternodeblsprivkey is enough to start this node as a masternode.</source>
+        <translation>-masternode option is deprecated and ignored, specifying -masternodeblsprivkey is enough to start this node as a masternode.</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Add a node to connect to and attempt to keep the connection open (see the `addnode` RPC command help for more info)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times (default: 127.0.0.1 and ::1 i.e., localhost, or if -rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)</source>
         <translation>Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times (default: 127.0.0.1 and ::1 i.e., localhost, or if -rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)</translation>
     </message>
@@ -5649,7 +5652,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Make sure to encrypt your wallet and delete all non-encrypted backups after you have verified that the wallet works!</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+13"/>
+        <source>Maximum total size of all orphan transactions in megabytes (default: %u)</source>
+        <translation>Maximum total size of all orphan transactions in megabytes (default: %u)</translation>
+    </message>
+    <message>
+        <location line="+23"/>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
         <translation>Prune configured below the minimum of %d MiB.  Please use a higher number.</translation>
     </message>
@@ -5674,7 +5682,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Rescans are not possible in pruned mode. You will need to use -reindex which will download the whole blockchain again.</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+6"/>
+        <source>Set the masternode BLS private key and enable the client to act as a masternode</source>
+        <translation>Set the masternode BLS private key and enable the client to act as a masternode</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Specify full path to directory for automatic wallet backups (must exist)</source>
         <translation>Specify full path to directory for automatic wallet backups (must exist)</translation>
     </message>
@@ -5744,7 +5757,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Warning: Unknown block versions being mined! It&apos;s possible unknown rules are in effect</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
+        <source>You need to rebuild the database using -reindex to change -timestampindex</source>
+        <translation>You need to rebuild the database using -reindex to change -timestampindex</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
         <translation>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</translation>
     </message>
@@ -5764,7 +5782,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>&lt;category&gt; can be:</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Append comment to the user agent string</source>
         <translation>Append comment to the user agent string</translation>
     </message>
@@ -5824,7 +5842,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Enable publish raw transaction in &lt;address&gt;</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>Error: A fatal internal error occurred, see debug.log for details</translation>
     </message>
@@ -6039,7 +6057,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Rescan the block chain for missing wallet transactions on startup</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+27"/>
         <source>Synchronizing blockchain...</source>
         <translation>Synchronizing blockchain...</translation>
     </message>
@@ -6135,6 +6153,16 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>You need to rebuild the database using -reindex to change -addressindex</source>
+        <translation>You need to rebuild the database using -reindex to change -addressindex</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You need to rebuild the database using -reindex to change -spentindex</source>
+        <translation>You need to rebuild the database using -reindex to change -spentindex</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>You need to rebuild the database using -reindex to change -txindex</source>
         <translation>You need to rebuild the database using -reindex to change -txindex</translation>
     </message>
@@ -6154,12 +6182,12 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>see debug.log for details.</translation>
     </message>
     <message>
-        <location line="-99"/>
+        <location line="-100"/>
         <source>RPC server options:</source>
         <translation>RPC server options:</translation>
     </message>
     <message>
-        <location line="-489"/>
+        <location line="-497"/>
         <source>Dash Core</source>
         <translation>Dash Core</translation>
     </message>
@@ -6169,7 +6197,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>The %s developers</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+38"/>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
         <translation>Cannot obtain a lock on data directory %s. %s is probably already running.</translation>
     </message>
@@ -6249,7 +6277,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+18"/>
         <source>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</source>
         <translation>The fee rate (in %s/kB) that indicates your tolerance for discarding change by adding it to the fee (default: %s). Note: An output is discarded if it is dust at this rate, but we will always discard up to the dust relay fee and a discard fee above that is limited by the fee estimate for the longest target</translation>
     </message>
@@ -6324,12 +6352,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>You are starting in lite mode, most Dash-specific functionality is disabled.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
-        <translation>You must specify a masternodeblsprivkey in the configuration. Please see documentation for help.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>%d of last 100 blocks have unexpected version</source>
         <translation>%d of last 100 blocks have unexpected version</translation>
     </message>
@@ -6374,7 +6397,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Accept connections from outside (default: 1 if no -proxy or -connect)</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
         <translation>Allow RFC1918 addresses to be relayed and connected to (default: %u)</translation>
     </message>
@@ -6404,7 +6427,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Create up to N inputs of each denominated amount (%u-%u, default: %u)</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Error loading %s</source>
         <translation>Error loading %s</translation>
     </message>
@@ -6484,12 +6507,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Invalid spork address specified with -sporkaddr</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Keep N DASH anonymized (%u-%u, default: %u)</source>
-        <translation>Keep N DASH anonymized (%u-%u, default: %u)</translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+11"/>
         <source>Loading P2P addresses...</source>
         <translation>Loading P2P addresses...</translation>
     </message>
@@ -6714,7 +6732,7 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>Warning</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Your entries added successfully.</source>
         <translation>Your entries added successfully.</translation>
     </message>
