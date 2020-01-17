@@ -1331,10 +1331,6 @@
         <translation>ÖzelGönder bakiyesi hedefle</translation>
     </message>
     <message>
-        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Router'da otomatik olarak Dash Core istemcisi portu aç. Bu sadece router'ınız UPnP destekliyorsa ve etkinse çalışır.</translation>
-    </message>
-    <message>
         <source>Connect to the Dash network through a SOCKS5 proxy.</source>
         <translation>Dash ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
@@ -1722,10 +1718,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Partially mixed</source>
         <translation>Kısmen karıştırılmış</translation>
-    </message>
-    <message>
-        <source>Mixed</source>
-        <translation>Karıştırıldı</translation>
     </message>
     <message numerus="yes">
         <source>Denominated inputs have %5 of %n rounds on average</source>
@@ -2810,10 +2802,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
         <translation>&lt;b&gt;(%1 / %2 girdi gösteriliyor)&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>PrivateSend funds only</source>
-        <translation>Yalnızca ÖzelGönder fonları</translation>
-    </message>
-    <message>
         <source>any available funds</source>
         <translation>mevcut fonlar</translation>
     </message>
@@ -2828,10 +2816,6 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>Fee rate: %1</source>
         <translation>Ücret oranı: %1</translation>
-    </message>
-    <message numerus="yes">
-        <source>This transaction will consume %n input(s)</source>
-        <translation><numerusform>Bu işlem %n girdi tüketecektir</numerusform><numerusform>Bu işlem %n girdi tüketecektir</numerusform></translation>
     </message>
     <message>
         <source>Warning: Using PrivateSend with %1 or more inputs can harm your privacy and is not recommended</source>

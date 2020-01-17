@@ -1275,8 +1275,8 @@
         <translation>จำนวนนี้ทำหน้าที่เป็นเกณฑ์เพื่อปิดการใช้งาน PrivateSend เมื่อถึงขีดจำกัดแล้ว</translation>
     </message>
     <message>
-        <source>Automatically open the Ion Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>เปิดพอร์ต Ion Core client บนเราเตอร์โดยอัตโนมัติ การทำงานนี้ใช้ได้เฉพาะเมื่อเราเตอร์ของคุณรองรับ UPnP และเปิดใช้งานแล้ว</translation>
+        <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>เปิดพอร์ต Dash Core client บนเราเตอร์โดยอัตโนมัติ การทำงานนี้ใช้ได้เฉพาะเมื่อเราเตอร์ของคุณรองรับ UPnP และเปิดใช้งานแล้ว</translation>
     </message>
     <message>
         <source>Connect to the Dash network through a SOCKS5 proxy.</source>
