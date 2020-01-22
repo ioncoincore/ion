@@ -1,29 +1,9 @@
-# The test build matrix (stage: test) is constructed to test a wide range of
-# configurations, rather than a single pass/fail. This helps to catch build
-# failures and logic errors that present on platforms other than the ones the
-# author has tested.
-#
-# Some builders use the dependency-generator in `./depends`, rather than using
-# apt-get to install build dependencies. This guarantees that the tester is
-# using the same versions as Gitian, so the build results are nearly identical
-# to what would be found in a final release.
-#
-# In order to avoid rebuilding all dependencies for each build, the binaries
-# are cached and re-used when possible. Changes in the dependency-generator
-# will trigger cache-invalidation and rebuilds as necessary.
-#
-# These caches can be manually removed if necessary. This is one of the very
-# few manual operations that is possible with Travis, and it can be done by a
-# ION GitHub member via the Travis web interface [0].
-#
-# Travis CI uploads the cache after the script phase of the build [1].
-# However, the build is terminated without saving the cache if it takes over
-# 50 minutes [2]. Thus, if we spent too much time in early build stages, fail
-# with an error and save the cache.
-#
-# [0] https://travis-ci.org/ion-project/ion/caches
-# [1] https://docs.travis-ci.com/user/caching/#build-phases
-# [2] https://docs.travis-ci.com/user/customizing-the-build#build-timeouts
+# errata:
+# - sudo/dist/group are set so as to get Blue Box VMs, necessary for [loopback]
+#   IPv6 support
+
+sudo: required
+dist: bionic
 
 dist: xenial
 os: linux
@@ -142,75 +122,31 @@ jobs:
         ION_CONFIG="--enable-zmq --with-gui=qt5 --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++"
         CONFIG_SHELL="/bin/ion"
 
-    - stage: test
-      name: 'x86_64 Linux  [GOAL: install]  [bionic]  [uses qt5 dev package instead of depends Qt to speed up build and avoid timeout]'
-      env: >-
-        HOST=x86_64-unknown-linux-gnu
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools protobuf-compiler libdbus-1-dev libharfbuzz-dev libprotobuf-dev"
-        DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1 ALLOW_HOST_PACKAGES=1"
-        RUN_FUNCTIONAL_TESTS=true
-        #TEST_RUNNER_EXTRA="--coverage --extended"  # Run extended tests so that coverage does not fail, but exclude the very slow dbcrash
-        GOAL="install"
-        ION_CONFIG="--enable-zmq --with-gui=qt5 --enable-glibc-back-compat --enable-reduce-exports"
-
-    - stage: test
-      name: 'x86_64 Linux  [GOAL: install]  [trusty]  [no functional tests, no depends, only system libs]'
-      env: >-
-        HOST=x86_64-unknown-linux-gnu
-        DOCKER_NAME_TAG=ubuntu:14.04
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools libicu-dev libpng-dev libssl-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.1++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev"
-        NO_DEPENDS=1
-        RUN_FUNCTIONAL_TESTS=false
-        GOAL="install"
-        ION_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=no"
-
-    - stage: test
-      name: 'x86_64 Linux  [GOAL: install]  [xenial]  [no depends, only system libs]'
-      env: >-
-        HOST=x86_64-unknown-linux-gnu
-        DOCKER_NAME_TAG=ubuntu:16.04
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools libssl-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev"
-        NO_DEPENDS=1
-        GOAL="install"
-        ION_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER --disable-hardening --disable-asm"
-
-    - stage: test
-      name: 'x86_64 Linux  [GOAL: install]  [bionic]  [no depends, only system libs]'
-      env: >-
-        HOST=x86_64-unknown-linux-gnu
-        PACKAGES="python3-zmq qtbase5-dev qttools5-dev-tools libssl1.0-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev"
-        NO_DEPENDS=1
-        GOAL="install"
-        ION_CONFIG="--enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER"
-
-#    - stage: test
-#      name: 'x86_64 Linux  [GOAL: install]  [bionic]  [no depends, only system libs, sanitizers: fuzzer,address]'
-#      env: >-
-#        HOST=x86_64-unknown-linux-gnu
-#        PACKAGES="clang python3-zmq qtbase5-dev qttools5-dev-tools libssl1.0-dev libevent-dev bsdmainutils libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libdb5.3++-dev libminiupnpc-dev libzmq3-dev libprotobuf-dev protobuf-compiler libqrencode-dev libgmp-dev"
-#        NO_DEPENDS=1
-#        RUN_UNIT_TESTS=false
-#        RUN_FUNCTIONAL_TESTS=false
-#        RUN_BENCH=true
-#        GOAL="install"
-#        ION_CONFIG="--enable-zmq --with-incompatible-bdb --enable-glibc-back-compat --enable-reduce-exports --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER --with-sanitizers=undefined CC=clang CXX=clang++"
-
-#    - stage: test
-#      name: 'x86_64 Linux  [GOAL: install]  [bionic]  [no wallet]'
-#      env: >-
-#        HOST=x86_64-unknown-linux-gnu
-#        PACKAGES="python3-zmq"
-#        DEP_OPTS="NO_WALLET=1"
-#        GOAL="install"
-#        ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
-
-    - stage: test
-      name: 'macOS 10.10  [GOAL: deploy] [no functional tests]'
-      env: >-
-        HOST=x86_64-apple-darwin14
-        PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python3-dev python3-setuptools"
-        OSX_SDK=10.11
-        RUN_UNIT_TESTS=false
-        RUN_FUNCTIONAL_TESTS=false
-        GOAL="deploy"
-        ION_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+install:
+    # Our scripts try to be Travis agnostic
+    - export PULL_REQUEST="$TRAVIS_PULL_REQUEST"
+    - export COMMIT_RANGE="$TRAVIS_COMMIT_RANGE"
+    - export JOB_NUMBER="$TRAVIS_JOB_NUMBER"
+    - export HOST_SRC_DIR=$TRAVIS_BUILD_DIR
+    - export HOST_CACHE_DIR=$HOME/cache
+    - export TRAVIS_COMMIT_LOG=`git log --format=fuller -1`
+    - export PYTHON_DEBUG=1
+    - source ./ci/matrix.sh
+    - mkdir -p $HOST_CACHE_DIR/docker && mkdir -p $HOST_CACHE_DIR/ccache && mkdir -p $HOST_CACHE_DIR/depends && mkdir -p $HOST_CACHE_DIR/sdk-sources
+    # Keep this as it makes caching related debugging easier
+    - ls -lah $HOST_CACHE_DIR && ls -lah $HOST_CACHE_DIR/depends && ls -lah $HOST_CACHE_DIR/ccache && ls -lah $HOST_CACHE_DIR/docker
+    # Load cached builder image
+    - if [ -f $HOST_CACHE_DIR/docker/dash-builder-$BUILD_TARGET.tar.gz ]; then zcat $HOST_CACHE_DIR/docker/dash-builder-$BUILD_TARGET.tar.gz | docker load || true; fi
+    - travis_retry docker pull ubuntu:bionic
+    - travis_retry docker build -t $BUILDER_IMAGE_NAME --build-arg=USER_ID=$UID --build-arg=GROUP_ID=$UID --build-arg=BUILD_TARGET=$BUILD_TARGET -f ci/Dockerfile.builder ci
+before_script:
+    # Make sure stdout is in blocking mode. Otherwise builds will fail due to large writes to stdout
+    # See https://github.com/travis-ci/travis-ci/issues/4704. If this gets fixed, this line can also be removed.
+    - python3 -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); fcntl.fcntl(sys.stdout, fcntl.F_SETFL, flags&~os.O_NONBLOCK);'
+    # Build docker image only for develop branch of the main repo
+    - if [ "$TRAVIS_REPO_SLUG" != "dashpay/dash" -o "$TRAVIS_BRANCH" != "develop" -o "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_BUILD="false"; echo DOCKER_BUILD=$DOCKER_BUILD; fi
+after_script:
+    - echo $TRAVIS_COMMIT_RANGE
+    - echo $TRAVIS_COMMIT_LOG
+after_success:
+    - if [ "$DOCKER_BUILD" = "true" ]; then docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD && ./docker/push-docker.sh; fi
