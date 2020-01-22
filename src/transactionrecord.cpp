@@ -233,13 +233,15 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
                 {
                     // Received by Ion Address
                     sub.type = TransactionRecord::RecvWithAddress;
-                    sub.strAddress = CBitcoinAddress(address).ToString();
+                    sub.strAddress = EncodeDestination(address);
+                    sub.txDest = address;
                 }
                 else
                 {
                     // Received by IP connection (deprecated features), or a multisignature or other non-simple transaction
                     sub.type = TransactionRecord::RecvFromOther;
                     sub.strAddress = mapValue["from"];
+                    sub.txDest = DecodeDestination(sub.strAddress);
                 }
                 if (wtx.IsCoinBase())
                 {
@@ -247,9 +249,7 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
                     sub.type = TransactionRecord::Generated;
                 }
 
-                sub.address.SetString(sub.strAddress);
-                sub.txDest = sub.address.Get();
-                parts.push_back(sub);
+                parts.append(sub);
             }
         }
     }
@@ -304,13 +304,15 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
                 CTxDestination address;
                 if (ExtractDestination(wtx.tx->vout[0].scriptPubKey, address))
                 {
-                    // Sent to Ion Address
-                    sub.strAddress = CBitcoinAddress(address).ToString();
+                    // Sent to Dash Address
+                    sub.strAddress = EncodeDestination(address);
+                    sub.txDest = address;
                 }
                 else
                 {
                     // Sent to IP, or other non-address transaction like OP_EVAL
                     sub.strAddress = mapValue["to"];
+                    sub.txDest = DecodeDestination(sub.strAddress);
                 }
             }
             else
@@ -339,10 +341,8 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
 
             sub.debit = -(nDebit - nChange);
             sub.credit = nCredit - nChange;
-            sub.address.SetString(sub.strAddress);
-            sub.txDest = sub.address.Get();
-            parts.push_back(sub);
-            parts.back().involvesWatchAddress = involvesWatchAddress;   // maybe pass to TransactionRecord as constructor argument
+            parts.append(sub);
+            parts.last().involvesWatchAddress = involvesWatchAddress;   // maybe pass to TransactionRecord as constructor argument
         }
         else if (fAllFromMe)
         {
@@ -384,13 +384,15 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
                 {
                     // Sent to Ion Address
                     sub.type = TransactionRecord::SendToAddress;
-                    sub.strAddress = CBitcoinAddress(address).ToString();
+                    sub.strAddress = EncodeDestination(address);
+                    sub.txDest = address;
                 }
                 else
                 {
                     // Sent to IP, or other non-address transaction like OP_EVAL
                     sub.type = TransactionRecord::SendToOther;
                     sub.strAddress = mapValue["to"];
+                    sub.txDest = DecodeDestination(sub.strAddress);
                 }
 
                 if(mapValue["DS"] == "1")
@@ -407,10 +409,7 @@ std::vector<TransactionRecord> TransactionRecord::decomposeTransaction(const CWa
                 }
                 sub.debit = -nValue;
 
-                sub.address.SetString(sub.strAddress);
-                sub.txDest = sub.address.Get();
-
-                parts.push_back(sub);
+                parts.append(sub);
             }
         }
         else
