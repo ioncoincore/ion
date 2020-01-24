@@ -1319,6 +1319,10 @@
         <translation>此金額為關閉匿名發送的門檻。</translation>
     </message>
     <message>
+        <source>Target PrivateSend balance</source>
+        <translation>目標匿名發送餘額</translation>
+    </message>
+    <message>
         <source>Automatically open the Dash Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>自動在路由器上開放達世幣核心客戶端的通訊埠。只有在你的路由器支援且開啓「通用即插即用」協定(UPnP)時才有作用。</translation>
     </message>
@@ -2796,6 +2800,18 @@ https://www.transifex.com/ioncoincore/ioncore/</translation>
     <message>
         <source>any available funds</source>
         <translation>任何可用資金</translation>
+    </message>
+    <message>
+        <source>Transaction size: %1</source>
+        <translation>交易大小: %1</translation>
+    </message>
+    <message>
+        <source>Fee rate: %1</source>
+        <translation>費用率: %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>This transaction will consume %n input(s)</source>
+        <translation><numerusform>此交易將消耗 %n 個輸入</numerusform></translation>
     </message>
     <message>
         <source>Confirm send coins</source>
