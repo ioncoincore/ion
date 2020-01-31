@@ -27,6 +27,7 @@
 #include "evo/deterministicmns.h"
 #include "evo/cbtx.h"
 #include "llmq/quorums_init.h"
+#include "privatesend/privatesend.h"
 
 #include <memory>
 
@@ -58,6 +59,7 @@ BasicTestingSetup::BasicTestingSetup(const std::string& chainName)
         SetupNetworking();
         InitSignatureCache();
         InitScriptExecutionCache();
+        CPrivateSend::InitStandardDenominations();
         fPrintToDebugLog = false; // don't want to write to debug.log file
         fCheckBlockIndex = true;
         SelectParams(chainName);
