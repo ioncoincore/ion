@@ -354,13 +354,10 @@ public:
     void ReleaseNodeVector(const std::vector<CNode*>& vecNodes);
 
     void RelayTransaction(const CTransaction& tx);
-    void RelayInv(CInv &inv, const int minProtoVersion);
-    void RelayInv(CInv &inv);
-    void RelayInvFiltered(CInv &inv, const CTransaction &relatedTx, const int minProtoVersion);
-    void RelayInvFiltered(CInv &inv, const CTransaction &relatedTx);
+    void RelayInv(CInv &inv, const int minProtoVersion = MIN_PEER_PROTO_VERSION, bool fAllowMasternodeConnections = false);
+    void RelayInvFiltered(CInv &inv, const CTransaction &relatedTx, const int minProtoVersion = MIN_PEER_PROTO_VERSION, bool fAllowMasternodeConnections = false);
     // This overload will not update node filters,  so use it only for the cases when other messages will update related transaction data in filters
-    void RelayInvFiltered(CInv &inv, const uint256 &relatedTxHash, const int minProtoVersion);
-    void RelayInvFiltered(CInv &inv, const uint256 &relatedTxHash);
+    void RelayInvFiltered(CInv &inv, const uint256 &relatedTxHash, const int minProtoVersion = MIN_PEER_PROTO_VERSION, bool fAllowMasternodeConnections = false);
     void RemoveAskFor(const uint256& hash);
 
     // Addrman functions
