@@ -7,11 +7,11 @@
 #define BITCOIN_NETADDRESS_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/ion-config.h"
+#include <config/dash-config.h>
 #endif
 
-#include "compat.h"
-#include "serialize.h"
+#include <compat.h>
+#include <serialize.h>
 
 #include <stdint.h>
 #include <string>

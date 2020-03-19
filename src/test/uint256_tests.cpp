@@ -2,10 +2,10 @@
 // Copyright (c) 2018-2020 The Ion Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include "arith_uint256.h"
-#include "uint256.h"
-#include "version.h"
-#include "test/test_ion.h"
+#include <arith_uint256.h>
+#include <uint256.h>
+#include <version.h>
+#include <test/test_dash.h>
 
 #include <boost/test/unit_test.hpp>
 #include <stdint.h>

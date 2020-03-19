@@ -5,7 +5,7 @@
 #ifndef ION_BATCHEDLOGGER_H
 #define ION_BATCHEDLOGGER_H
 
-#include "tinyformat.h"
+#include <tinyformat.h>
 
 class CBatchedLogger
 {

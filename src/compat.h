@@ -8,7 +8,7 @@
 #define BITCOIN_COMPAT_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/ion-config.h"
+#include <config/dash-config.h>
 #endif
 
 #include <type_traits>
@@ -61,7 +61,7 @@
 
 #ifndef WIN32
 typedef unsigned int SOCKET;
-#include "errno.h"
+#include <errno.h>
 #define WSAGetLastError()   errno
 #define WSAEINVAL           EINVAL
 #define WSAEALREADY         EALREADY

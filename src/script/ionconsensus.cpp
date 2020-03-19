@@ -4,12 +4,12 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "ionconsensus.h"
+#include <script/dashconsensus.h>
 
-#include "primitives/transaction.h"
-#include "pubkey.h"
-#include "script/interpreter.h"
-#include "version.h"
+#include <primitives/transaction.h>
+#include <pubkey.h>
+#include <script/interpreter.h>
+#include <version.h>
 
 namespace {
 

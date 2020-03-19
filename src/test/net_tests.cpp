@@ -2,17 +2,17 @@
 // Copyright (c) 2018-2020 The Ion Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include "addrman.h"
-#include "test/test_ion.h"
+#include <addrman.h>
+#include <test/test_dash.h>
 #include <string>
 #include <boost/test/unit_test.hpp>
-#include "hash.h"
-#include "serialize.h"
-#include "streams.h"
-#include "net.h"
-#include "netbase.h"
-#include "chainparams.h"
-#include "util.h"
+#include <hash.h>
+#include <serialize.h>
+#include <streams.h>
+#include <net.h>
+#include <netbase.h>
+#include <chainparams.h>
+#include <util.h>
 
 class CAddrManSerializationMock : public CAddrMan
 {

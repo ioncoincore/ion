@@ -7,7 +7,7 @@
 #ifndef BITCOIN_SERIALIZE_H
 #define BITCOIN_SERIALIZE_H
 
-#include "compat/endian.h"
+#include <compat/endian.h>
 
 #include "libzerocoin/Denominations.h"
 #include "libzerocoin/SpendType.h"
@@ -28,7 +28,7 @@
 #include <utility>
 #include <vector>
 
-#include "prevector.h"
+#include <prevector.h>
 
 static const unsigned int MAX_SIZE = 0x02000000;
 

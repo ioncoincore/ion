@@ -5,11 +5,11 @@
 #ifndef ION_QUORUMS_INSTANTSEND_H
 #define ION_QUORUMS_INSTANTSEND_H
 
-#include "quorums_signing.h"
+#include <llmq/quorums_signing.h>
 
-#include "coins.h"
-#include "unordered_lru_cache.h"
-#include "primitives/transaction.h"
+#include <coins.h>
+#include <unordered_lru_cache.h>
+#include <primitives/transaction.h>
 
 #include <unordered_map>
 #include <unordered_set>

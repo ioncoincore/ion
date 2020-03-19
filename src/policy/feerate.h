@@ -7,8 +7,8 @@
 #ifndef BITCOIN_POLICY_FEERATE_H
 #define BITCOIN_POLICY_FEERATE_H
 
-#include "amount.h"
-#include "serialize.h"
+#include <amount.h>
+#include <serialize.h>
 
 #include <string>
 
