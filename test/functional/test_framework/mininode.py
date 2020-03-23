@@ -47,6 +47,7 @@ import ion_hash
 MIN_VERSION_SUPPORTED = 60001
 MY_VERSION = 70214  # MIN_PEER_PROTO_VERSION
 MY_SUBVERSION = b"/python-mininode-tester:0.0.3/"
+MY_SUBVERSION_DEVNET = b"/python-mininode-tester:0.0.3,devnet=devnet-%s/"
 MY_RELAY = 1 # from version 70001 onwards, fRelay should be appended to version messages (BIP37)
 
 MAX_INV_SZ = 50000
@@ -1699,7 +1700,7 @@ class NodeConn(asyncore.dispatcher):
         "devnet": b"\xe2\xca\xff\xce",    # devnet
     }
 
-    def __init__(self, dstaddr, dstport, callback, net="regtest", services=NODE_NETWORK, send_version=True):
+    def __init__(self, dstaddr, dstport, callback, net="regtest", services=NODE_NETWORK, send_version=True, devnet_name=None):
         asyncore.dispatcher.__init__(self, map=mininode_socket_map)
         self.dstaddr = dstaddr
         self.dstport = dstport
@@ -1710,6 +1711,7 @@ class NodeConn(asyncore.dispatcher):
         self.last_sent = 0
         self.state = "connecting"
         self.network = net
+        self.devnet_name = devnet_name
         self.cb = callback
         self.disconnect = False
         self.nServices = 0
@@ -1722,6 +1724,9 @@ class NodeConn(asyncore.dispatcher):
             vt.addrTo.port = self.dstport
             vt.addrFrom.ip = "0.0.0.0"
             vt.addrFrom.port = 0
+            vt.strSubVer = MY_SUBVERSION
+            if self.network == "devnet" and self.devnet_name is not None:
+                vt.strSubVer = MY_SUBVERSION_DEVNET % self.devnet_name.encode()
             self.send_message(vt, True)
 
         logger.debug('Connecting to Ion Node: %s:%d' % (self.dstaddr, self.dstport))
