@@ -85,14 +85,14 @@ jobs:
         GOAL="install"
         ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
 
-    - stage: test
-      name: 'RISC-V  [GOAL:install] [no unit or functional tests]'
-      env: >-
-        HOST=riscv64-linux-gnu
-        PACKAGES="python3 g++-riscv64-linux-gnu"
-        RUN_FUNCTIONAL_TESTS=false
-        GOAL="install"
-        ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+runtests: &runtests
+  stage: run tests
+  script:
+    - $DOCKER_RUN_IN_BUILDER ./ci/build_depends.sh
+    - $DOCKER_RUN_IN_BUILDER ./ci/build_src.sh
+    - $DOCKER_RUN_IN_BUILDER ./ci/test_unittests.sh
+    - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then extended="--extended --exclude pruning,dbcrash"; fi
+    - $DOCKER_RUN_IN_BUILDER ./ci/test_integrationtests.sh --quiet --jobs=3 ${extended}
 
     - stage: test
       name: 'Win32  [GOAL: deploy] [no functional tests]'
