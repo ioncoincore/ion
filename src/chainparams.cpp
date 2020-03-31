@@ -787,6 +787,7 @@ public:
 
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
+        fRequireRoutableExternalIP = true;
         fMineBlocksOnDemand = false;
         fMiningRequiresPeers = true;
         fAllowMultipleAddressesFromGroup = true;
