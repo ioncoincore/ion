@@ -136,7 +136,7 @@ void CChainParams::UpdateLLMQDevnetParams(int size, int threshold)
     params.dkgBadVotesThreshold = threshold;
 }
 
-static CBlock FindDevNetGenesisBlock(const Consensus::Params& params, const CBlock &prevBlock, const CAmount& reward)
+static CBlock FindDevNetGenesisBlock(const CBlock &prevBlock, const CAmount& reward)
 {
     std::string devNetName = GetDevNetName();
     assert(!devNetName.empty());
@@ -756,7 +756,7 @@ public:
         genesis = CreateGenesisBlock(1486045800, 1491737471, 1096447, 0x207fffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-        devnetGenesis = FindDevNetGenesisBlock(consensus, genesis, 1 * COIN);
+        devnetGenesis = FindDevNetGenesisBlock(genesis, 50 * COIN);
         consensus.hashDevnetGenesisBlock = devnetGenesis.GetHash();
 
         vFixedSeeds.clear();
