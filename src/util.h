@@ -140,13 +140,10 @@ namespace BCLog {
         MNSYNC      = ((uint64_t)1 << 40),
         PRIVATESEND = ((uint64_t)1 << 41),
         SPORK       = ((uint64_t)1 << 42),
-        //End Ion
+        NETCONN     = ((uint64_t)1 << 43),
+        //End Dash
 
-        //Start ION
-        ZEROCOIN    = ((uint64_t)1 << 61),
-        STAKING     = ((uint64_t)1 << 62),
-        TOKEN       = ((uint64_t)1 << 63),
-        //End ION
+        NET_NETCONN = NET | NETCONN, // use this to have something logged in NET and NETCONN as well
 
         ALL         = ~(uint64_t)0,
     };

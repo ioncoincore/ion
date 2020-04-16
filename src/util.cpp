@@ -289,13 +289,8 @@ const CLogCategoryDesc LogCategories[] =
     {BCLog::MNSYNC, "mnsync"},
     {BCLog::PRIVATESEND, "privatesend"},
     {BCLog::SPORK, "spork"},
-    //End Ion
-
-    //Start ION
-    {BCLog::ZEROCOIN, "zerocoin"},
-    {BCLog::STAKING, "staking"},
-    {BCLog::TOKEN, "tokens"},
-    //End ION
+    {BCLog::NETCONN, "netconn"},
+    //End Dash
 
 };
 
