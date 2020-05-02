@@ -812,7 +812,7 @@ void BitcoinGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 #else
 void BitcoinGUI::macosDockIconActivated()
 {
-    show();
+    showNormalIfMinimized();
     activateWindow();
 }
 #endif
