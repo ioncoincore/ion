@@ -1,3 +1,4 @@
+# TOR SUPPORT IN DASH CORE
 
 - [TOR SUPPORT IN ION](#tor-support-in-ion)
 	- [Run ION Core behind a Tor proxy](#run-ion-core-behind-a-tor-proxy)
@@ -16,7 +17,7 @@ port. See [Tor Project FAQ:TBBSocksPort](https://www.torproject.org/docs/faq.htm
 for how to properly configure Tor.
 
 
-## Run ION Core behind a Tor proxy
+## 1. Run Dash Core behind a Tor proxy
 
 The first step is running ION Core behind a Tor proxy. This will already make all
 outgoing connections be anonymized, but more is possible.
@@ -45,12 +46,12 @@ In a typical situation, this suffices to run behind a Tor proxy:
 
     ./iond -proxy=127.0.0.1:9050
 
-## Run a ION Core hidden server
+## 2. Run a Dash Core hidden server
 
 If you configure your Tor system accordingly, it is possible to make your node also
 reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equivalent
 config file): *Needed for Tor version 0.2.7.0 and older versions of Tor only. For newer
-versions of Tor see [Section 3](#3-automatically-listen-on-tor).*
+versions of Tor see [Section 4](#4-automatically-listen-on-tor).*
 
     HiddenServiceDir /var/lib/tor/ion-service/
     HiddenServicePort 12700 127.0.0.1:12700
@@ -99,8 +100,7 @@ for normal IPv4/IPv6 communication, use:
 	./dashd -onion=127.0.0.1:9050 -externalip=ssapp53tmftyjmjb.onion -discover
 
 
-3. List of known Dash Core Tor relays
-------------------------------------
+## 3. List of known Dash Core Tor relays
 
 Note: All these nodes are hosted by masternodehosting.com
 
@@ -116,7 +116,7 @@ Note: All these nodes are hosted by masternodehosting.com
 * fijy6aikzxfea54i.onion
 
 
-## Automatically listen on Tor
+## 4. Automatically listen on Tor
 
 Starting with Tor version 0.2.7.1 it is possible, through Tor's control socket
 API, to create and destroy 'ephemeral' hidden services programmatically.
@@ -142,10 +142,9 @@ which has the appropriate permissions. An alternative authentication method is t
 of the `-torpassword` flag and a `hash-password` which can be enabled and specified in 
 Tor configuration.
 
-5. Privacy recommendations
----------------------------
+## 5. Privacy recommendations
 
-- Do not add anything but bitcoin ports to the hidden service created in section 2.
+- Do not add anything but Dash Core ports to the hidden service created in section 2.
   If you run a web service too, create a new hidden service for that.
   Otherwise it is trivial to link them, which may reduce privacy. Hidden
   services created automatically (as in section 3) always have only one port
