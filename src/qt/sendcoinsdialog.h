@@ -47,6 +47,7 @@ public:
     void setAddress(const QString &address);
     void pasteEntry(const SendCoinsRecipient &rv);
     bool handlePaymentRequest(const SendCoinsRecipient &recipient);
+    void setPrivateSend(bool privateSend);
 
 public Q_SLOTS:
     void clear();
@@ -65,6 +66,7 @@ private:
     void send(QList<SendCoinsRecipient> recipients);
     bool fFeeMinimized;
     const PlatformStyle *platformStyle;
+    bool fPrivateSend;
 
     // Process WalletModel::SendCoinsReturn and generate a pair consisting
     // of a message and message flags for use in Q_EMIT message().
