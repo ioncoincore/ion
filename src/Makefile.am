@@ -285,7 +285,6 @@ BITCOIN_CORE_H = \
   wallet/crypter.h \
   wallet/db.h \
   wallet/fees.h \
-  wallet/init.h \
   wallet/rpcwallet.h \
   wallet/wallet.h \
   wallet/walletdb.h \
