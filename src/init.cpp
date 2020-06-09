@@ -1842,9 +1842,7 @@ bool AppInitMain()
                 deterministicMNManager.reset();
                 deterministicMNManager.reset(new CDeterministicMNManager(*evoDb));
 
-                llmq::InitLLMQSystem(*evoDb, &scheduler, false, fReset || fReindexChainState);
-                zerocoinDB = new CZerocoinDB(0, false, fReset || fReindexChainState);
-                pTokenDB = new CTokenDB(0, false, fReset || fReindexChainState);
+                llmq::InitLLMQSystem(*evoDb, false, fReset || fReindexChainState);
 
                 if (fReset) {
                     pblocktree->WriteReindexing(true);
