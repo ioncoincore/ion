@@ -3,7 +3,7 @@
 # Copyright (c) 2018-2020 The Ion Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test running bitcoind with the -rpcbind and -rpcallowip options."""
+"""Test running dashd with the -rpcbind and -rpcallowip options."""
 
 import socket
 import sys
