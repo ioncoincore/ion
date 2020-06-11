@@ -1954,14 +1954,10 @@ bool AppInitMain()
                     assert(chainActive.Tip() != NULL);
                 }
 
-                if (fReindexTokens) {
-                    uiInterface.InitMessage(_("Reindexing token database..."));
-                    if (!ReindexTokenDB(strLoadError)) {
-                        break;
-                    }
+                if (!deterministicMNManager->UpgradeDBIfNeeded()) {
+                    strLoadError = _("Error upgrading evo database");
+                    break;
                 }
-
-                deterministicMNManager->UpgradeDBIfNeeded();
 
                 uiInterface.InitMessage(_("Verifying tokens..."));
                 if (!VerifyTokenDB(strLoadError)) {
