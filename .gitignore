@@ -6,14 +6,15 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/ion
-src/iond
-src/ion-cli
-src/ion-tx
-src/test/test_ion
-src/test/test_ion_fuzzy
-src/qt/test/test_ion-qt
-src/bench/bench_ion
+src/dash
+src/dashd
+src/dash-cli
+src/dash-tx
+src/test/test_dash
+src/test/test_dash_fuzzy
+src/qt/test/test_dash-qt
+src/qt/res/css/colors/*
+src/bench/bench_dash
 
 # autoreconf
 Makefile.in
