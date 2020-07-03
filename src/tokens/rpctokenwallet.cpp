@@ -469,10 +469,13 @@ extern UniValue listtokentransactions(const JSONRPCRequest& request)
 
     if (request.fHelp || request.params.size() > 4)
         throw std::runtime_error(
-            "listtokentransactions (\"groupid\")\n"
+            "listtokentransactions (\"groupid\" count skip include_watchonly)\n"
             "\nReturns transactions for given groupid.\n"
             "\nArguments:\n"
-            "1. \"groupid\"        (string, required) the token group identifier.\n"
+            "1. \"groupid\"         (string, required) the token group identifier.\n"
+            "2. count             (numeric, optional, default=10) The number of transactions to return\n"
+            "3. skip              (numeric, optional, default=0) The number of transactions to skip\n"
+            "4. include_watchonly (bool, optional, default=false) Include transactions to watch-only addresses (see 'importaddress')\n"
             "\nResult:\n"
             "[\n"
             "  {\n"
@@ -520,7 +523,7 @@ extern UniValue listtokentransactions(const JSONRPCRequest& request)
     unsigned int curparam = 0;
 
     std::string strAccount = "*";
-    bool fAllGroups;
+    bool fAllGroups = true;
     CTokenGroupID grpID;
 
     if (request.params.size() > curparam)
