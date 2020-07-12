@@ -91,8 +91,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
 
     /* Theme selector */
-    QDir themes(":themes");
-    for (const QString &entry : themes.entryList()) {
+    for (const QString& entry : GUIUtil::listThemes()) {
         ui->theme->addItem(entry, QVariant(entry));
     }
 
