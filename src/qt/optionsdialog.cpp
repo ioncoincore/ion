@@ -27,6 +27,7 @@
 #include <QIntValidator>
 #include <QLocale>
 #include <QMessageBox>
+#include <QSettings>
 #include <QTimer>
 
 OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
@@ -36,6 +37,8 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     mapper(0)
 {
     ui->setupUi(this);
+
+    previousTheme = GUIUtil::getActiveTheme();
 
     GUIUtil::setFont({ui->statusLabel}, GUIUtil::FontWeight::Bold, 16);
 
@@ -105,6 +108,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     for (const QString& entry : GUIUtil::listThemes()) {
         ui->theme->addItem(entry, QVariant(entry));
     }
+    connect(ui->theme, SIGNAL(valueChanged()), this, SLOT(updateTheme()));
 
     /* Language selector */
     QDir translations(":translations");
@@ -201,7 +205,6 @@ void OptionsDialog::setModel(OptionsModel *_model)
     connect(ui->connectSocksTor, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
     /* Display */
     connect(ui->digits, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
-    connect(ui->theme, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
 }
@@ -301,6 +304,9 @@ void OptionsDialog::on_okButton_clicked()
 
 void OptionsDialog::on_cancelButton_clicked()
 {
+    if (previousTheme != GUIUtil::getActiveTheme()) {
+        updateTheme(previousTheme);
+    }
     reject();
 }
 
@@ -379,6 +385,16 @@ void OptionsDialog::updateDefaultProxyNets()
     strProxy = proxy.proxy.ToStringIP() + ":" + proxy.proxy.ToStringPort();
     strDefaultProxyGUI = ui->proxyIp->text() + ":" + ui->proxyPort->text();
     (strProxy == strDefaultProxyGUI.toStdString()) ? ui->proxyReachTor->setChecked(true) : ui->proxyReachTor->setChecked(false);
+}
+
+void OptionsDialog::updateTheme(const QString& theme)
+{
+    QString newValue = theme.isEmpty() ? ui->theme->value().toString() : theme;
+    if (GUIUtil::getActiveTheme() != newValue) {
+        QSettings().setValue("theme", newValue);
+        QSettings().sync();
+        Q_EMIT themeChanged();
+    }
 }
 
 ProxyAddressValidator::ProxyAddressValidator(QObject *parent) :
