@@ -17,7 +17,6 @@
 #include <QString>
 #include <QTreeWidgetItem>
 
-class PlatformStyle;
 class WalletModel;
 
 class CCoinControl;
@@ -44,7 +43,7 @@ class CoinControlDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CoinControlDialog(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    explicit CoinControlDialog(QWidget* parent = 0);
     ~CoinControlDialog();
 
     void setModel(WalletModel *model);
@@ -67,8 +66,6 @@ private:
     QAction *copyTransactionHashAction;
     QAction *lockAction;
     QAction *unlockAction;
-
-    const PlatformStyle *platformStyle;
 
     void sortView(int, Qt::SortOrder);
     void updateView();
