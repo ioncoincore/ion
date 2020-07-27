@@ -85,7 +85,7 @@ public:
     /* Restart flag helper */
     void setRestartRequired(bool fRequired);
     bool isRestartRequired() const;
-    bool resetSettings;
+    bool resetSettingsOnShutdown{false};
 
 private:
     /* Qt-only settings */
