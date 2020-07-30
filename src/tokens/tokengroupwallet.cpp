@@ -70,7 +70,7 @@ void GetAllGroupBalances(const CWallet *wallet, std::unordered_map<CTokenGroupID
     });
 }
 
-void GetAllGroupBalancesAndAuthorities(const CWallet *wallet, std::unordered_map<CTokenGroupID, CAmount> &balances, std::unordered_map<CTokenGroupID, GroupAuthorityFlags> &authorities)
+void GetAllGroupBalancesAndAuthorities(const CWallet *wallet, std::unordered_map<CTokenGroupID, CAmount> &balances, std::unordered_map<CTokenGroupID, GroupAuthorityFlags> &authorities, const int nMinDepth)
 {
     std::vector<COutput> coins;
     wallet->FilterCoins(coins, [&balances, &authorities](const CWalletTx *tx, const CTxOut *out) {
@@ -87,7 +87,7 @@ void GetAllGroupBalancesAndAuthorities(const CWallet *wallet, std::unordered_map
             }
         }
         return false; // I don't want to actually filter anything
-    });
+    }, nMinDepth);
 }
 
 void ListAllGroupAuthorities(const CWallet *wallet, std::vector<COutput> &coins) {
@@ -144,7 +144,7 @@ CAmount GetGroupBalance(const CTokenGroupID &grpID, const CTxDestination &dest, 
     return balance;
 }
 
-void GetGroupBalanceAndAuthorities(CAmount &balance, GroupAuthorityFlags &authorities, const CTokenGroupID &grpID, const CTxDestination &dest, const CWallet *wallet)
+void GetGroupBalanceAndAuthorities(CAmount &balance, GroupAuthorityFlags &authorities, const CTokenGroupID &grpID, const CTxDestination &dest, const CWallet *wallet, const int nMinDepth)
 {
     std::vector<COutput> coins;
     balance = 0;
@@ -178,7 +178,7 @@ void GetGroupBalanceAndAuthorities(CAmount &balance, GroupAuthorityFlags &author
             }
         }
         return false;
-    });
+    }, nMinDepth);
 }
 
 void GetGroupCoins(const CWallet *wallet, std::vector<COutput>& coins, CAmount& balance, const CTokenGroupID &grpID, const CTxDestination &dest) {

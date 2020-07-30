@@ -947,7 +947,7 @@ public:
        Returns the number of matches.
      */
     unsigned int FilterCoins(std::vector<COutput> &vCoins,
-        std::function<bool(const CWalletTx *, const CTxOut *)>) const;
+        std::function<bool(const CWalletTx *, const CTxOut *)>, int nMinDepth = 0) const;
 
     /**
      * Return list of available coins and locked coins grouped by non-change output address.

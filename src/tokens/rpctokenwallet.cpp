@@ -390,13 +390,14 @@ extern UniValue gettokenbalance(const JSONRPCRequest& request)
             "\nArguments:\n"
             "1. \"groupid\" (string, optional) the token group identifier to filter\n"
             "2. \"address\" (string, optional) the ION address to filter\n"
+            "3. \"minconf\" (numeric, optional, default=1) Only include transactions confirmed at least this many times.\n"
             "\n"
             "\nExamples:\n" +
             HelpExampleCli("gettokenbalance", "groupid ionrt1zwm0kzlyptdmwy3849fd6z5epesnjkruqlwlv02u7y6ymf75nk4qs6u85re") +
             "\n"
         );
 
-    if (request.params.size() > 2)
+    if (request.params.size() > 3)
     {
         throw std::runtime_error("Invalid number of argument to token balance");
     }
@@ -407,7 +408,7 @@ extern UniValue gettokenbalance(const JSONRPCRequest& request)
     {
         std::unordered_map<CTokenGroupID, CAmount> balances;
         std::unordered_map<CTokenGroupID, GroupAuthorityFlags> authorities;
-        GetAllGroupBalancesAndAuthorities(pwallet, balances, authorities);
+        GetAllGroupBalancesAndAuthorities(pwallet, balances, authorities, 1);
         UniValue ret(UniValue::VARR);
         for (const auto &item : balances)
         {
@@ -448,9 +449,15 @@ extern UniValue gettokenbalance(const JSONRPCRequest& request)
         {
             dst = DecodeDestination(request.params[curparam].get_str(), Params());
         }
+        curparam++;
+        int nMinDepth = 0;
+        if (request.params.size() > curparam)
+        {
+            nMinDepth = request.params[curparam].get_int();
+        }
         CAmount balance;
         GroupAuthorityFlags authorities;
-        GetGroupBalanceAndAuthorities(balance, authorities, grpID, dst, pwallet);
+        GetGroupBalanceAndAuthorities(balance, authorities, grpID, dst, pwallet, nMinDepth);
         UniValue retobj(UniValue::VOBJ);
         retobj.push_back(Pair("groupID", EncodeTokenGroup(grpID)));
         retobj.push_back(Pair("balance", tokenGroupManager->TokenValueFromAmount(balance, grpID)));
