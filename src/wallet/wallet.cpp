@@ -2936,7 +2936,7 @@ CAmount CWallet::GetAvailableBalance(const CCoinControl* coinControl) const
 }
 
 unsigned int CWallet::FilterCoins(std::vector<COutput> &vCoins,
-    std::function<bool(const CWalletTx *, const CTxOut *)> func) const
+    std::function<bool(const CWalletTx *, const CTxOut *)> func, int nMinDepth) const
 {
     vCoins.clear();
     unsigned int ret = 0;
@@ -2955,7 +2955,7 @@ unsigned int CWallet::FilterCoins(std::vector<COutput> &vCoins,
                 continue;
 
             int nDepth = pcoin->GetDepthInMainChain();
-            if (nDepth < 0)
+            if (nDepth < nMinDepth)
                 continue;
 
             // We should not consider coins which aren't at least in our mempool
