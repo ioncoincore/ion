@@ -259,7 +259,7 @@ void PrepareShutdown()
         pwallet->Flush(false);
     }
 #endif
-    miningManager->GenerateBitcoins(false, 0);
+    if (miningManager.get() != nullptr) miningManager->GenerateBitcoins(false, 0);
 
     MapPort(false);
 
