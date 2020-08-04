@@ -54,6 +54,7 @@ public:
     static QList<CAmount> payAmounts;
     static CCoinControl *coinControl();
     static bool fSubtractFeeFromAmount;
+    static void usePrivateSend(bool fUsePrivateSend);
 
 private:
     Ui::CoinControlDialog *ui;
@@ -83,6 +84,13 @@ private:
         COLUMN_VOUT_INDEX,
     };
     friend class CCoinControlWidgetItem;
+
+    enum class Mode {
+        NORMAL,
+        PRIVATESEND,
+    };
+
+    static CoinControlDialog::Mode mode;
 
 private Q_SLOTS:
     void showMenu(const QPoint &);
