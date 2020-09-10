@@ -78,6 +78,7 @@ BASE_SCRIPTS= [
     'llmq-is-retroactive.py', # NOTE: needs dash_hash to pass
     'llmq-dkgerrors.py', # NOTE: needs dash_hash to pass
     'dip4-coinbasemerkleroots.py', # NOTE: needs dash_hash to pass
+    'feature_block_reward_reallocation.py',
     # vv Tests less than 60s vv
     'token_test-pt1.py',
     #'sendheaders.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
