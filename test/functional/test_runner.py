@@ -55,9 +55,10 @@ TEST_EXIT_SKIPPED = 77
 BASE_SCRIPTS= [
     # Scripts that are run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
-    #'dip3-deterministicmns.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
-    #'wallet-hd.py',
-    #'walletbackup.py', # not working TODO fix it
+    'dip3-deterministicmns.py', # NOTE: needs dash_hash to pass
+    'feature_block_reward_reallocation.py',
+    'wallet-hd.py',
+    'walletbackup.py',
     # vv Tests less than 5m vv
     #'p2p-fullblocktest.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
     'fundrawtransaction.py',
@@ -78,7 +79,6 @@ BASE_SCRIPTS= [
     'llmq-is-retroactive.py', # NOTE: needs dash_hash to pass
     'llmq-dkgerrors.py', # NOTE: needs dash_hash to pass
     'dip4-coinbasemerkleroots.py', # NOTE: needs dash_hash to pass
-    'feature_block_reward_reallocation.py',
     # vv Tests less than 60s vv
     'token_test-pt1.py',
     #'sendheaders.py', # NOTE: needs ion_hash to pass -- not working TODO fix it
