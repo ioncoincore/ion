@@ -17,6 +17,7 @@
 #include <qt/transactiontablemodel.h>
 #include <qt/walletmodel.h>
 
+#include <privatesend/privatesend-client.h>
 #include <ui_interface.h>
 
 #include <QCalendarWidget>
@@ -28,6 +29,7 @@
 #include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
+#include <QListView>
 #include <QMenu>
 #include <QPoint>
 #include <QScrollBar>
@@ -208,6 +210,8 @@ TransactionView::TransactionView(QWidget* parent) :
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
     connect(showAddressQRCodeAction, SIGNAL(triggered()), this, SLOT(showAddressQRCode()));
+
+    updatePrivateSendVisibility();
 }
 
 void TransactionView::setModel(WalletModel *_model)
@@ -722,4 +726,17 @@ void TransactionView::updateWatchOnlyColumn(bool fHaveWatchOnly)
 {
     watchOnlyWidget->setVisible(fHaveWatchOnly);
     transactionView->setColumnHidden(TransactionTableModel::Watchonly, !fHaveWatchOnly);
+}
+
+void TransactionView::updatePrivateSendVisibility()
+{
+    bool fEnabled = CPrivateSendClientOptions::IsEnabled();
+    // If PrivateSend gets enabled use "All" else "Most common"
+    typeWidget->setCurrentIndex(fEnabled ? 0 : 1);
+    // Hide all PrivateSend related filters
+    QListView* typeList = qobject_cast<QListView*>(typeWidget->view());
+    std::vector<int> vecRows{4, 5, 6, 7, 8};
+    for (auto nRow : vecRows) {
+        typeList->setRowHidden(nRow, !fEnabled);
+    }
 }
