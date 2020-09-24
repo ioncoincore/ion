@@ -1150,7 +1150,7 @@ void BitcoinGUI::updateProgressBarVisibility()
 void BitcoinGUI::updatePrivateSendVisibility()
 {
 #ifdef ENABLE_WALLET
-    bool fEnabled = CPrivateSendClientOptions::IsEnabled();
+    bool fEnabled = privateSendClient.fEnablePrivateSend;
 #else
     bool fEnabled = false;
 #endif
