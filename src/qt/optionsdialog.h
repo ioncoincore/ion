@@ -65,7 +65,10 @@ private Q_SLOTS:
 
     void updatePrivateSendVisibility();
 
+    void updateWidth();
+
 Q_SIGNALS:
+    void appearanceChanged();
     void proxyIpChecks(QValidatedLineEdit *pUiProxyIp, int nProxyPort);
 
 private:
@@ -76,6 +79,8 @@ private:
     QString previousTheme;
     AppearanceWidget* appearance;
     bool fPrivateSendEnabledPrev{false};
+
+    void showEvent(QShowEvent* event) override;
 };
 
 #endif // BITCOIN_QT_OPTIONSDIALOG_H
