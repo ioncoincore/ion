@@ -49,7 +49,7 @@ margin:0;
 }
 
 QToolBar > QToolButton {
-background-color:#130fa2;
+background-color:#0092ff;
 border:0;
 font-size: 14px;
 min-width: 70px;
@@ -114,7 +114,7 @@ selection-background-color: #999;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color: #130fa2;
+background-color: #0092ff;
 border:0;
 border-radius:8px;
 color:#ffffff;
@@ -141,7 +141,7 @@ border:1px solid #333;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #130fa2;
+border:1px solid #0092ff;
 padding: 0px 5px 0px 5px;
 background:#fcfcfc;
 min-height:31px;
@@ -287,7 +287,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color: #130fa2;
+background-color: #0092ff;
 color:#fff;
 min-height:25px;
 font-weight:bold;
@@ -719,7 +719,7 @@ min-height:30px;
 
 QWidget .QFrame#frame .QLabel#label_5 { /* Wallet Label */
 min-width:180px;
-color:#130fa2;
+color:#0092ff;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -852,7 +852,7 @@ min-width: 421px;
 QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend Header */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:180px;
-color:#130fa2;
+color:#0092ff;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -909,7 +909,7 @@ color:#818181;
 }
 
 QWidget .QFrame#framePrivateSend #privateSendFormLayoutWidget .QProgressBar#privateSendProgress::chunk {
-background-color: #130fa2;
+background-color: #0092ff;
 width:1px;
 }
 
@@ -998,7 +998,7 @@ margin-top:0;
 
 QWidget .QFrame#frame_2 .QLabel#label_4 { /* Recent Transactions Label */
 min-width:180px;
-color: #130fa2;
+color: #0092ff;
 margin-left:67px;
 margin-top:0;
 margin-right:5px;
