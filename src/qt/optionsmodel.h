@@ -56,6 +56,7 @@ public:
         DatabaseCache,          // int
         SpendZeroConfChange,    // bool
         ShowMasternodesTab,     // bool
+        PrivateSendEnabled,     // bool
         ShowAdvancedPSUI,       // bool
         ShowPrivateSendPopups,  // bool
         LowKeysWarning,         // bool
@@ -85,6 +86,7 @@ public:
     bool getCoinControlFeatures() const { return fCoinControlFeatures; }
     bool getShowAdvancedPSUI() { return fShowAdvancedPSUI; }
     const QString& getOverriddenByCommandLine() { return strOverriddenByCommandLine; }
+    void emitPrivateSendEnabledChanged();
 
     /* Restart flag helper */
     void setRestartRequired(bool fRequired);
@@ -111,6 +113,7 @@ private:
     void checkAndMigrate();
 Q_SIGNALS:
     void displayUnitChanged(int unit);
+    void privateSendEnabledChanged();
     void privateSendRoundsChanged();
     void privateSentAmountChanged();
     void advancedPSUIChanged(bool);
