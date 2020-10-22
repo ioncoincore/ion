@@ -97,7 +97,7 @@ Block Height | Masternodes | Miner | Minter | Annual (ION) | Annual (ELEC) |
 
 ## Ion Core FAQ/Help
 _get support/chat with us or send your request per [Email](mail:support@ionomy.com). You can also join our discord or encrypted chat on matrix._
-[![Twitter](https://img.shields.io/twitter/url/https/bitbucket.org/ioncoin/ion.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fioncoincore%2Fion) [![Chat on Discord](https://img.shields.io/discord/308323056592486420.svg?logo=discord)](https://discord.gg/vuZn7gC) ![Official Encrypted Support (Matrix)](https://img.shields.io/matrix/ionsupportgeneral:matrix.provenstack.com.svg?server_fqdn=matrix.provenstack.com)
+[![Twitter](https://img.shields.io/twitter/url/https/bitbucket.org/ioncoin/ion.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fioncoincore%2Fion)
 
 - [Documentation](../../tree/master/doc)
   - [Setup Ion](../../tree/master/doc#setup)
