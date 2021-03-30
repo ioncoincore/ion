@@ -14,7 +14,7 @@ jobs:
         command: |
             apt-get -y update
             apt-get -y install python-pip
-            git clone --depth 1 https://bitbucket.org/ioncoin/ion .
+            git clone --depth 1 https://github.com/ioncoincore/ion .
             source .travis/lint_04_install.sh
             source .travis/lint_05_before_script.sh
             # LevelDB
@@ -26,12 +26,12 @@ jobs:
             # univalue
             git remote add -f univalue https://github.com/jgarzik/univalue
             # snap
-            git remote add -f snap  https://github.com/ioncoincore/ion
+            #git remote add -f snap  https://github.com/ioncoincore/ion
             git rm -rf src/leveldb
             git rm -rf src/secp256k1
             git rm -rf src/crypto/ctaes
             git rm -rf src/univalue
-            git rm -rf snap
+            #git rm -rf snap
             git add .
             git config --global user.email "lint@dev.null"
             git config --global user.name "Lint Check"
@@ -45,7 +45,7 @@ jobs:
             # univalue
             git subtree add --prefix src/univalue univalue 9f0b9975925b202ab130714e5422f8dd8bf40ac3 --squash
             # snap
-            git subtree add --prefix snap snap snap --squash
+            #git subtree add --prefix snap snap snap --squash
             source .travis/lint_06_script.sh
   x86_64_bionic:
     docker:
