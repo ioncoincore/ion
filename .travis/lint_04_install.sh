@@ -6,9 +6,9 @@
 
 export LC_ALL=C
 
-pip install codespell==1.13.0
-pip install flake8==3.5.0
-pip install vulture==0.29
+pip2 install codespell==1.13.0
+pip2 install flake8==3.5.0
+pip2 install vulture==0.29
 
 SHELLCHECK_VERSION=v0.6.0
 curl -s "https://storage.googleapis.com/shellcheck/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" | tar --xz -xf - --directory /tmp/
