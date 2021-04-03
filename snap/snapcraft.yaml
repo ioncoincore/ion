@@ -52,7 +52,7 @@ description: |
   
   Contact us on social networks and forums:
   
-  - Instagram: https://t.me/ionomy
+  - Telegram:  https://t.me/ionomy
   - Twitter:   https://twitter.com/ionomics
   - Reddit:    https://www.reddit.com/r/ionomy/
   - Facebook:  https://facebook.com/ionomy
@@ -133,7 +133,7 @@ apps:
     plugs: [home]
 parts:
   ion:
-    source: https://bitbucket.org/ioncoin/ion
+    source: https://github.com/ioncoincore/ion
     source-type: git
     source-tag: master
     plugin: nil
