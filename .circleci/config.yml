@@ -14,7 +14,7 @@ jobs:
         command: |
             apt-get -y update
             apt-get -y install python-pip
-            git clone --depth 1 https://bitbucket.org/ioncoin/ion .
+            git clone --depth 1 https://github.com/ioncoincore/ion .
             source .travis/lint_04_install.sh
             source .travis/lint_05_before_script.sh
             # LevelDB
@@ -26,12 +26,12 @@ jobs:
             # univalue
             git remote add -f univalue https://github.com/jgarzik/univalue
             # snap
-            git remote add -f snap  https://github.com/ioncoincore/ion
+            #git remote add -f snap  https://github.com/ioncoincore/ion
             git rm -rf src/leveldb
             git rm -rf src/secp256k1
             git rm -rf src/crypto/ctaes
             git rm -rf src/univalue
-            git rm -rf snap
+            #git rm -rf snap
             git add .
             git config --global user.email "lint@dev.null"
             git config --global user.name "Lint Check"
@@ -45,7 +45,7 @@ jobs:
             # univalue
             git subtree add --prefix src/univalue univalue 9f0b9975925b202ab130714e5422f8dd8bf40ac3 --squash
             # snap
-            git subtree add --prefix snap snap snap --squash
+            #git subtree add --prefix snap snap snap --squash
             source .travis/lint_06_script.sh
   x86_64_bionic:
     docker:
@@ -73,6 +73,28 @@ jobs:
             python3 setup.py install
             cd -
             test/functional/test_runner.py
+  x86_64_focal:
+    docker:
+      - image: circleci/buildpack-deps:focal
+        user: root
+    environment:
+      HOST: x86_64-linux-gnu
+      JOBS: 4
+    steps:
+      - checkout
+      - run:
+          command: |
+            git submodule update --init --recursive
+            apt-get -y update
+            apt-get -y install pkg-config autoconf libtool automake bsdmainutils ca-certificates python3 cmake libxkbcommon0 gcc-8 g++-8 libpython3.9-dev python3-distutils
+            update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100
+            update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 100
+            update-alternatives --install /usr/bin/${HOST}-gcc ${HOST}-gcc /usr/bin/${HOST}-gcc-8 100
+            update-alternatives --install /usr/bin/${HOST}-g++ ${HOST}-g++ /usr/bin/${HOST}-g++-8 100
+            make -j${JOBS} -C depends HOST=${HOST}
+            ./autogen.sh
+            ./configure --host=${HOST} --prefix=`pwd`/depends/${HOST} --enable-zmq --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++
+            make -j${JOBS}
   i686_bionic:
     docker:
       - image: ioncoin/gitian:latest
@@ -118,7 +140,7 @@ jobs:
             make install
             cd ../..
             ./autogen.sh
-            ./configure --host=${HOST} --prefix=/ --enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER --disable-hardening --disable-asm
+            ./configure --host=${HOST} --prefix=/ --enable-zmq --with-incompatible-bdb --with-gui=qt5 CPPFLAGS=-DDEBUG_LOCKORDER --disable-hardening --disable-asm --disable-tests
             make -j${JOBS}
   arm32_bionic:
     docker:
@@ -226,7 +248,8 @@ jobs:
             tar -C `pwd`/depends/SDKs -xJf ./MacOSX10.11.sdk.tar.xz
             make -j${JOBS} -C depends HOST=${HOST}
             ./autogen.sh
-            ./configure --host=${HOST} --prefix=`pwd`/depends/${HOST} --enable-reduce-exports --enable-werror --disable-ccache --disable-maintainer-mode --disable-dependency-tracking
+            ./configure --host=${HOST} --prefix=`pwd`/depends/${HOST} --enable-reduce-exports --enable-werror --disable-ccache --disable-maintainer-mode --disable-dependency-tracking --disable-bench --disable-gui-tests
+
             make -j${JOBS}
   snapcraft_build:
     docker:
@@ -247,6 +270,9 @@ workflows:
           requires:
             - lint_all
       - x86_64_xenial:
+          requires:
+            - lint_all
+      - x86_64_focal:
           requires:
             - lint_all
       - arm32_bionic:
