@@ -21,11 +21,11 @@ CAmount GetGroupBalance(const CTokenGroupID &grpID, const CTxDestination &dest, 
 // Returns a mapping of groupID->balance
 void GetAllGroupBalances(const CWallet *wallet, std::unordered_map<CTokenGroupID, CAmount> &balances);
 void GetAllGroupBalancesAndAuthorities(const CWallet *wallet, std::unordered_map<CTokenGroupID, CAmount> &balances,
-    std::unordered_map<CTokenGroupID, GroupAuthorityFlags> &authorities);
+    std::unordered_map<CTokenGroupID, GroupAuthorityFlags> &authorities, const int nMinDepth = 0);
 void ListAllGroupAuthorities(const CWallet *wallet, std::vector<COutput> &coins);
 void ListGroupAuthorities(const CWallet *wallet, std::vector<COutput> &coins, const CTokenGroupID &grpID);
 void GetGroupBalanceAndAuthorities(CAmount &balance, GroupAuthorityFlags &authorities, const CTokenGroupID &grpID,
-    const CTxDestination &dest, const CWallet *wallet);
+    const CTxDestination &dest, const CWallet *wallet, const int nMinDepth = 0);
 
 void GetGroupCoins(const CWallet *wallet, std::vector<COutput>& coins, CAmount& balance, const CTokenGroupID &grpID, const CTxDestination &dest = CNoDestination());
 void GetGroupAuthority(const CWallet *wallet, std::vector<COutput>& coins, GroupAuthorityFlags flags, const CTokenGroupID &grpID, const CTxDestination &dest = CNoDestination());
