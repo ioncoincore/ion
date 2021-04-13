@@ -14,7 +14,7 @@ jobs:
         command: |
             apt-get -y update
             apt-get -y install python-pip
-            git clone --depth 1 https://github.com/cryptolinux-ion/ion .
+            git clone --depth 1 https://github.com/ioncoincore/ion .
             source .travis/lint_04_install.sh
             source .travis/lint_05_before_script.sh
             # LevelDB
