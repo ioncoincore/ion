@@ -1,0 +1,10 @@
+--- a/depends/packages/qt.mk.orig	2021-04-16 12:19:13.253361120 +0100
++++ b/depends/packages/qt.mk	2021-04-16 12:22:03.130814819 +0100
+@@ -92,6 +92,7 @@
+ $(package)_config_opts += -no-feature-udpsocket
+ $(package)_config_opts += -no-feature-wizard
+ $(package)_config_opts += -no-feature-xml
++$(package)_config_opts += -no-feature-precompile_header
+ $(package)_config_opts += -recheck-all
+ 
+ #$(package)_config_opts_darwin = -no-dbus

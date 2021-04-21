@@ -1,0 +1,18 @@
+--- ion-master/depends/packages/xcb_proto.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/xcb_proto.mk	2021-04-14 10:53:09.000000000 +0100
+@@ -3,6 +3,7 @@
+ $(package)_download_path=http://xcb.freedesktop.org/dist
+ $(package)_file_name=xcb-proto-$($(package)_version).tar.bz2
+ $(package)_sha256_hash=7b98721e669be80284e9bbfeab02d2d0d54cd11172b72271e47a2fe875e2bde1
++$(package)_patches=0001-xcb-proto-for-new-python.patch
+ 
+ define $(package)_set_vars
+   $(package)_config_opts=--disable-shared
+@@ -10,6 +11,7 @@
+ endef
+ 
+ define $(package)_preprocess_cmds
++patch -p1 < $($(package)_patch_dir)/0001-xcb-proto-for-new-python.patch && \
+   cp -f $(BASEDIR)/config.guess $(BASEDIR)/config.sub .
+ endef
+ 

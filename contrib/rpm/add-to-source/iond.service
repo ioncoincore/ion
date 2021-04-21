@@ -1,0 +1,16 @@
+[Unit]
+Description=Ioncoin Daemon
+ConditionPathExists=/usr/bin/iond
+After=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=no
+EnvironmentFile=/etc/sysconfig/iond
+ExecStart=/bin/su - $USER -c "/usr/bin/iond"
+ExecStop=/bin/su - $USER -c "/usr/bin/ion-cli stop"
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

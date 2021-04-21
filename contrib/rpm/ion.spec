@@ -1,442 +1,380 @@
-%define bdbv 4.8.30
-%global selinux_variants mls strict targeted
+Name:           ion
+Version:        5.0.99.0
 
-%if 0%{?_no_gui:1}
-%define _buildqt 0
-%define buildargs --with-gui=no
+# Release Start
+
+Release:        e15e875%{?dist}
+
+# Release End
+
+Summary:        Ionoin Daemon
+Group:          System/Base
+License:        MIT
+URL:            https://github.com/ioncoincore/ion.git
+Source0:        ion-5.0.99.0.tgz
+
+Patch0:		version.patch
+Patch1:         aarch-compile.patch
+Patch2:         5.0.00.patch
+Patch3:         no-precompile_header.patch
+Patch4:         opensuse.patch
+Patch5:         0001-xcb-proto-for-new-python.patch
+Patch6:         force_bootstrap.patch
+Patch7:         qt-bootstrap.patch
+Patch8:         xcb_proto.patch
+
+BuildRequires: gcc, git, rpm-build, rpm-devel, autoconf, automake, libtool, gcc-c++, which, make, cmake, zlib-devel, python3, curl
+
+%if 0%{?suse_version}
+BuildRequires: libstdc++-devel, glibc-devel, binutils
 %else
-%define _buildqt 1
-%if 0%{?_use_qt4}
-%define buildargs --with-qrencode --with-gui=qt4
+%if 0%{?mageia}
+BuildRequires: libstdc++-static-devel, glibc-static-devel
 %else
-%define buildargs --with-qrencode --with-gui=qt5
+BuildRequires: glibc-static, libstdc++-static, rpm-build-libs, cpp
 %endif
 %endif
-
-Name:		ion
-Version:	0.12.0
-Release:	2%{?dist}
-Summary:	Peer to Peer Cryptographic Currency
-
-Group:		Applications/System
-License:	MIT
-URL:		https://ioncoin.xyz/
-Source0:	https://ioncoin.xyz/bin/ion-core-%{version}/ion-%{version}.tar.gz
-Source1:	http://download.oracle.com/berkeley-db/db-%{bdbv}.NC.tar.gz
-
-Source10:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/debian/examples/ioncoin.conf
-
-#man pages
-Source20:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/doc/man/iond.1
-Source21:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/doc/man/ion-cli.1
-Source22:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/doc/man/ion-qt.1
-
-#selinux
-Source30:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/contrib/rpm/ion.te
-# Source31 - what about ion-tx and bench_ion ???
-Source31:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/contrib/rpm/ion.fc
-Source32:	https://raw.githubusercontent.com/ion-project/ion/v%{version}/contrib/rpm/ion.if
-
-Source100:	https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg
-
-%if 0%{?_use_libressl:1}
-BuildRequires:	libressl-devel
-%else
-BuildRequires:	openssl-devel
-%endif
-BuildRequires:	boost-devel
-BuildRequires:	miniupnpc-devel
-BuildRequires:	autoconf automake libtool
-BuildRequires:	libevent-devel
-
-
-Patch0:		ion-0.12.0-libressl.patch
-
 
 %description
-Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
-operate with no central authority or banks; managing transactions and the
-issuing of ions is carried out collectively by the network.
+Ion is a free open source peer-to-peer electronic cash system that
+is completely decentralized, without the need for a central server or
+trusted parties. Users hold the crypto keys to their own money and
+transact directly with each other, with the help of a P2P network to
+check for double-spending.
 
-%if %{_buildqt}
-%package core
-Summary:	Peer to Peer Cryptographic Currency
-Group:		Applications/System
-Obsoletes:	%{name} < %{version}-%{release}
-Provides:	%{name} = %{version}-%{release}
-%if 0%{?_use_qt4}
-BuildRequires:	qt-devel
-%else
-BuildRequires:	qt5-qtbase-devel
-# for /usr/bin/lrelease-qt5
-BuildRequires:	qt5-linguist
-%endif
-BuildRequires:	protobuf-devel
-BuildRequires:	qrencode-devel
-BuildRequires:	%{_bindir}/desktop-file-validate
-# for icon generation from SVG
-BuildRequires:	%{_bindir}/inkscape
-BuildRequires:	%{_bindir}/convert
+Requires: xdg-utils
 
-%description core
-Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
-operate with no central authority or banks; managing transactions and the
-issuing of ions is carried out collectively by the network.
+%package ioncoin
+Summary:	Ionoin Daemon and QT Wallet
+Requires: %{name} = %{version}-%{release}
 
-This package contains the Qt based graphical client and node. If you are looking
-to run a Bitcoin wallet, this is probably the package you want.
-%endif
+%description ioncoin
+Ioncoin is a command-line (iond) and qt (ion-qt) wallet for the Ioncoin Crypto Coin
 
+%package iond 
+Summary:	Ionoin Daemon
+Requires: %{name} = %{version}-%{release}
 
-%package libs
-Summary:	Bitcoin shared libraries
-Group:		System Environment/Libraries
+%description iond
+Iond is a command-line (iond) wallet for the Ioncoin Crypto Coin
 
-%description libs
-This package provides the ionconsensus shared libraries. These libraries
-may be used by third party software to provide consensus verification
-functionality.
+%package qt
+Summary:	Ioncoin QT Wallet
+Requires: %{name} = %{version}-%{release}
 
-Unless you know need this package, you probably do not.
+%description qt
+Ion-qt is a qt (ion-qt) wallet for the Ioncoin Crypto Coin
+
+%package doc
+Summary: Documentation files for %{name}
+Group: Development/Languages
+Requires: %{name} = %{version}-%{release}
+
+%description doc
+This package contains documentation files for %{name}.
 
 %package devel
-Summary:	Development files for ion
-Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
+Summary:	Ioncoin Development Files
+Requires: %{name} = %{version}-%{release}
 
 %description devel
-This package contains the header files and static library for the
-ionconsensus shared library. If you are developing or compiling software
-that wants to link against that library, then you need this package installed.
-
-Most people do not need this package installed.
-
-%package server
-Summary:	The ion daemon
-Group:		System Environment/Daemons
-Requires:	ion-utils = %{version}-%{release}
-Requires:	selinux-policy policycoreutils-python
-Requires(pre):	shadow-utils
-Requires(post):	%{_sbindir}/semodule %{_sbindir}/restorecon %{_sbindir}/fixfiles %{_sbindir}/sestatus
-Requires(postun):	%{_sbindir}/semodule %{_sbindir}/restorecon %{_sbindir}/fixfiles %{_sbindir}/sestatus
-BuildRequires:	systemd
-BuildRequires:	checkpolicy
-BuildRequires:	%{_datadir}/selinux/devel/Makefile
-
-%description server
-This package provides a stand-alone ion-core daemon. For most users, this
-package is only needed if they need a full-node without the graphical client.
-
-Some third party wallet software will want this package to provide the actual
-ion-core node they use to connect to the network.
-
-If you use the graphical ion-core client then you almost certainly do not
-need this package.
-
-%package utils
-Summary:	Bitcoin utilities
-Group:		Applications/System
-
-%description utils
-This package provides several command line utilities for interacting with a
-ion-core daemon.
-
-The ion-cli utility allows you to communicate and control a ion daemon
-over RPC, the ion-tx utility allows you to create a custom transaction, and
-the bench_ion utility can be used to perform some benchmarks.
-
-This package contains utilities needed by the ion-server package.
-
+Libraries and includes for ioncoin development
 
 %prep
 %setup -q
-%patch0 -p1 -b .libressl
-cp -p %{SOURCE10} ./ioncoin.conf.example
-tar -zxf %{SOURCE1}
-cp -p db-%{bdbv}.NC/LICENSE ./db-%{bdbv}.NC-LICENSE
-mkdir db4 SELinux
-cp -p %{SOURCE30} %{SOURCE31} %{SOURCE32} SELinux/
-
+%patch0 -p1
+%ifarch aarch64
+%patch1 -p1
+%endif
+# only if building v5.0.00
+#%patch2 -p1
+# centos needs precompile_header disabled
+%if 0%{?centos}
+%patch3 -p1
+%endif
+# only if libs are put in lib64
+#%if 0%{?suse_version}
+#%patch4 -p1
+#%endif
+%patch7 -p1
+%if 0%{?fedora}
+%patch8 -p1
+%endif
+%if 0%{?mageia}
+%patch8 -p1
+%endif
 
 %build
-CWD=`pwd`
-cd db-%{bdbv}.NC/build_unix/
-../dist/configure --enable-cxx --disable-shared --with-pic --prefix=${CWD}/db4
-make install
-cd ../..
-
+case $RPM_ARCH in
+  x86_64)
+    BUILD="x86_64-pc-linux-gnu"
+    ;;
+  i386)
+    BUILD="i686-pc-linux-gnu"
+    ;;
+  aarch64)
+    BUILD="aarch64-unknown-linux-gnu"
+    ;;
+  arm)
+    BUILD="armv7l-unknown-linux-gnueabihf"
+    ;;
+  s390x)
+    BUILD="s390x-ibm-linux-gnu"
+    ;;
+  *)
+    echo "$RPM_ARCH Not Supported"
+    break
+    ;;
+esac
+%if 0%{?fedora}
+mkdir -p depends/patches/xcb_proto
+cp $RPM_SOURCE_DIR/0001-xcb-proto-for-new-python.patch depends/patches/xcb_proto
+%endif
+%if 0%{?mageia}
+mkdir -p depends/patches/xcb_proto
+cp $RPM_SOURCE_DIR/0001-xcb-proto-for-new-python.patch depends/patches/xcb_proto
+%endif
+cp $RPM_SOURCE_DIR/force_bootstrap.patch depends/patches/qt
+HOST=${BUILD} make -j5 -C depends
+#cp -pr ~/depends/* depends/
 ./autogen.sh
-%configure LDFLAGS="-L${CWD}/db4/lib/" CPPFLAGS="-I${CWD}/db4/include/" --with-miniupnpc --enable-glibc-back-compat %{buildargs}
-make %{?_smp_mflags}
+CONFIG_SITE=`pwd`/depends/${BUILD}/share/config.site ./configure --prefix=/usr --enable-glibc-back-compat --enable-reduce-exports --disable-bench --disable-gui-tests --disable-ccache --disable-maintainer-mode --disable-dependency-tracking --host=${BUILD}
+HOST=${BUILD} make -j5 install DESTDIR=$RPM_BUILD_ROOT
+/usr/bin/strip $RPM_BUILD_ROOT/usr/bin/*
+mkdir -p $RPM_BUILD_ROOT/usr/share/doc/ion
+mkdir -p $RPM_BUILD_ROOT/usr/share/pixmaps
+mkdir -p $RPM_BUILD_ROOT/usr/share/applications
+mkdir -p $RPM_BUILD_ROOT/usr/share/desktop-directories
+mkdir -p $RPM_BUILD_ROOT/etc/audit/local.rules
+mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
+mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/system
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/iond.service $RPM_BUILD_ROOT/usr/lib/systemd/system
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/iond.pp $RPM_BUILD_ROOT/etc/audit/local.rules
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/iond.te $RPM_BUILD_ROOT/etc/audit/local.rules
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/iond $RPM_BUILD_ROOT/etc/sysconfig
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/ioncoin-core.desktop $RPM_BUILD_ROOT/usr/share/applications
+/usr/bin/install $RPM_BUILD_DIR/%{name}-%{version}/ioncoin-core.directory $RPM_BUILD_ROOT/usr/share/desktop-directories
+/usr/bin/install share/pixmaps/* $RPM_BUILD_ROOT/usr/share/pixmaps
+cp -r doc/* $RPM_BUILD_ROOT/usr/share/doc/ion
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/ioncoin
+rm -rf $RPM_BUILD_ROOT/usr/lib/.build-id
 
-pushd SELinux
-for selinuxvariant in %{selinux_variants}; do
-	make NAME=${selinuxvariant} -f %{_datadir}/selinux/devel/Makefile
-	mv ion.pp ion.pp.${selinuxvariant}
-	make NAME=${selinuxvariant} -f %{_datadir}/selinux/devel/Makefile clean
-done
-popd
+#%clean
+#mv $RPM_BUILD_DIR/%{name}-%{version} /usr/src/ioncoin-core.old/%{name}-%{version}-%{release}-`date +%d.%m.%y`
+#rm -rf $RPM_BUILD_ROOT
 
-
-%install
-make install DESTDIR=%{buildroot}
-
-mkdir -p -m755 %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/iond %{buildroot}%{_sbindir}/iond
-
-# systemd stuff
-mkdir -p %{buildroot}%{_tmpfilesdir}
-cat <<EOF > %{buildroot}%{_tmpfilesdir}/ioncoin.conf
-d /run/iond 0750 ion ion -
-EOF
-touch -a -m -t 201504280000 %{buildroot}%{_tmpfilesdir}/ioncoin.conf
-
-mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
-cat <<EOF > %{buildroot}%{_sysconfdir}/sysconfig/ion
-# Provide options to the ion daemon here, for example
-# OPTIONS="-testnet -disable-wallet"
-
-OPTIONS=""
-
-# System service defaults.
-# Don't change these unless you know what you're doing.
-CONFIG_FILE="%{_sysconfdir}/ion/ioncoin.conf"
-DATA_DIR="%{_localstatedir}/lib/ion"
-PID_FILE="/run/iond/iond.pid"
-EOF
-touch -a -m -t 201504280000 %{buildroot}%{_sysconfdir}/sysconfig/ion
-
-mkdir -p %{buildroot}%{_unitdir}
-cat <<EOF > %{buildroot}%{_unitdir}/ion.service
-[Unit]
-Description=Bitcoin daemon
-After=syslog.target network.target
-
-[Service]
-Type=forking
-ExecStart=%{_sbindir}/iond -daemon -conf=\${CONFIG_FILE} -datadir=\${DATA_DIR} -pid=\${PID_FILE} \$OPTIONS
-EnvironmentFile=%{_sysconfdir}/sysconfig/ion
-User=ion
-Group=ion
-
-Restart=on-failure
-PrivateTmp=true
-TimeoutStopSec=120
-TimeoutStartSec=60
-StartLimitInterval=240
-StartLimitBurst=5
-
-[Install]
-WantedBy=multi-user.target
-EOF
-touch -a -m -t 201504280000 %{buildroot}%{_unitdir}/ion.service
-#end systemd stuff
-
-mkdir %{buildroot}%{_sysconfdir}/ion
-mkdir -p %{buildroot}%{_localstatedir}/lib/ion
-
-#SELinux
-for selinuxvariant in %{selinux_variants}; do
-	install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
-	install -p -m 644 SELinux/ion.pp.${selinuxvariant} %{buildroot}%{_datadir}/selinux/${selinuxvariant}/ion.pp
-done
-
-%if %{_buildqt}
-# qt icons
-install -D -p share/pixmaps/ion.ico %{buildroot}%{_datadir}/pixmaps/ion.ico
-install -p share/pixmaps/nsis-header.bmp %{buildroot}%{_datadir}/pixmaps/
-install -p share/pixmaps/nsis-wizard.bmp %{buildroot}%{_datadir}/pixmaps/
-install -p %{SOURCE100} %{buildroot}%{_datadir}/pixmaps/ion.svg
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/ion16.png -w16 -h16
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/ion32.png -w32 -h32
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/ion64.png -w64 -h64
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/ion128.png -w128 -h128
-%{_bindir}/inkscape %{SOURCE100} --export-png=%{buildroot}%{_datadir}/pixmaps/ion256.png -w256 -h256
-%{_bindir}/convert -resize 16x16 %{buildroot}%{_datadir}/pixmaps/ion256.png %{buildroot}%{_datadir}/pixmaps/ion16.xpm
-%{_bindir}/convert -resize 32x32 %{buildroot}%{_datadir}/pixmaps/ion256.png %{buildroot}%{_datadir}/pixmaps/ion32.xpm
-%{_bindir}/convert -resize 64x64 %{buildroot}%{_datadir}/pixmaps/ion256.png %{buildroot}%{_datadir}/pixmaps/ion64.xpm
-%{_bindir}/convert -resize 128x128 %{buildroot}%{_datadir}/pixmaps/ion256.png %{buildroot}%{_datadir}/pixmaps/ion128.xpm
-%{_bindir}/convert %{buildroot}%{_datadir}/pixmaps/ion256.png %{buildroot}%{_datadir}/pixmaps/ion256.xpm
-touch %{buildroot}%{_datadir}/pixmaps/*.png -r %{SOURCE100}
-touch %{buildroot}%{_datadir}/pixmaps/*.xpm -r %{SOURCE100}
-
-# Desktop File - change the touch timestamp if modifying
-mkdir -p %{buildroot}%{_datadir}/applications
-cat <<EOF > %{buildroot}%{_datadir}/applications/ion-core.desktop
-[Desktop Entry]
-Encoding=UTF-8
-Name=Bitcoin
-Comment=Bitcoin P2P Cryptocurrency
-Comment[fr]=Bitcoin, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Bitcoin, eşten eşe kriptografik sanal para birimi
-Exec=ion-qt %u
-Terminal=false
-Type=Application
-Icon=ion128
-MimeType=x-scheme-handler/ion;
-Categories=Office;Finance;
-EOF
-# change touch date when modifying desktop
-touch -a -m -t 201511100546 %{buildroot}%{_datadir}/applications/ion-core.desktop
-%{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/ion-core.desktop
-
-# KDE protocol - change the touch timestamp if modifying
-mkdir -p %{buildroot}%{_datadir}/kde4/services
-cat <<EOF > %{buildroot}%{_datadir}/kde4/services/ion-core.protocol
-[Protocol]
-exec=ion-qt '%u'
-protocol=ion
-input=none
-output=none
-helper=true
-listing=
-reading=false
-writing=false
-makedir=false
-deleting=false
-EOF
-# change touch date when modifying protocol
-touch -a -m -t 201511100546 %{buildroot}%{_datadir}/kde4/services/ion-core.protocol
-%endif
-
-# man pages
-install -D -p %{SOURCE20} %{buildroot}%{_mandir}/man1/iond.1
-install -p %{SOURCE21} %{buildroot}%{_mandir}/man1/ion-cli.1
-%if %{_buildqt}
-install -p %{SOURCE22} %{buildroot}%{_mandir}/man1/ion-qt.1
-%endif
-
-# nuke these, we do extensive testing of binaries in %%check before packaging
-rm -f %{buildroot}%{_bindir}/test_*
-
-%check
-make check
-srcdir=src test/ion-util-test.py
-test/functional/test_runner.py --extended
-
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
-
-%pre server
-getent group ion >/dev/null || groupadd -r ion
-getent passwd ion >/dev/null ||
-	useradd -r -g ion -d /var/lib/ion -s /sbin/nologin \
-	-c "Bitcoin wallet server" ion
-exit 0
-
-%post server
-%systemd_post ion.service
-# SELinux
-if [ `%{_sbindir}/sestatus |grep -c "disabled"` -eq 0 ]; then
-for selinuxvariant in %{selinux_variants}; do
-	%{_sbindir}/semodule -s ${selinuxvariant} -i %{_datadir}/selinux/${selinuxvariant}/ion.pp &> /dev/null || :
-done
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 8332
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 8333
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 18332
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 18333
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 18443
-%{_sbindir}/semanage port -a -t ion_port_t -p tcp 18444
-%{_sbindir}/fixfiles -R ion-server restore &> /dev/null || :
-%{_sbindir}/restorecon -R %{_localstatedir}/lib/ion || :
-fi
-
-%posttrans server
-%{_bindir}/systemd-tmpfiles --create
-
-%preun server
-%systemd_preun ion.service
-
-%postun server
-%systemd_postun ion.service
-# SELinux
-if [ $1 -eq 0 ]; then
-	if [ `%{_sbindir}/sestatus |grep -c "disabled"` -eq 0 ]; then
-	%{_sbindir}/semanage port -d -p tcp 8332
-	%{_sbindir}/semanage port -d -p tcp 8333
-	%{_sbindir}/semanage port -d -p tcp 18332
-	%{_sbindir}/semanage port -d -p tcp 18333
-	%{_sbindir}/semanage port -d -p tcp 18443
-	%{_sbindir}/semanage port -d -p tcp 18444
-	for selinuxvariant in %{selinux_variants}; do
-		%{_sbindir}/semodule -s ${selinuxvariant} -r ion &> /dev/null || :
-	done
-	%{_sbindir}/fixfiles -R ion-server restore &> /dev/null || :
-	[ -d %{_localstatedir}/lib/ion ] && \
-		%{_sbindir}/restorecon -R %{_localstatedir}/lib/ion &> /dev/null || :
-	fi
-fi
-
-%clean
-rm -rf %{buildroot}
-
-%if %{_buildqt}
-%files core
+%files
 %defattr(-,root,root,-)
-%license COPYING db-%{bdbv}.NC-LICENSE
-%doc COPYING ioncoin.conf.example doc/README.md doc/bips.md doc/files.md doc/multiwallet-qt.md doc/reduce-traffic.md doc/release-notes.md doc/tor.md
-%attr(0755,root,root) %{_bindir}/ion-qt
-%attr(0644,root,root) %{_datadir}/applications/ion-core.desktop
-%attr(0644,root,root) %{_datadir}/kde4/services/ion-core.protocol
-%attr(0644,root,root) %{_datadir}/pixmaps/*.ico
-%attr(0644,root,root) %{_datadir}/pixmaps/*.bmp
-%attr(0644,root,root) %{_datadir}/pixmaps/*.svg
-%attr(0644,root,root) %{_datadir}/pixmaps/*.png
-%attr(0644,root,root) %{_datadir}/pixmaps/*.xpm
-%attr(0644,root,root) %{_mandir}/man1/ion-qt.1*
-%endif
-
-%files libs
-%defattr(-,root,root,-)
-%license COPYING
-%doc COPYING doc/README.md doc/shared-libraries.md
-%{_libdir}/lib*.so.*
+%{_bindir}/ion-cli
+%{_bindir}/ion-tx
+%{_bindir}/test_ion
 
 %files devel
 %defattr(-,root,root,-)
-%license COPYING
-%doc COPYING doc/README.md doc/developer-notes.md doc/shared-libraries.md
-%attr(0644,root,root) %{_includedir}/*.h
-%{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
-%attr(0644,root,root) %{_libdir}/pkgconfig/*.pc
+/usr/include/ionconsensus.h
+/usr/lib/libionconsensus.a
+/usr/lib/libionconsensus.la
+/usr/lib/libionconsensus.so
+/usr/lib/libionconsensus.so.0
+/usr/lib/libionconsensus.so.0.0.0
+/usr/lib/pkgconfig/libionconsensus.pc
 
-%files server
+%files ioncoin
 %defattr(-,root,root,-)
-%license COPYING db-%{bdbv}.NC-LICENSE
-%doc COPYING ioncoin.conf.example doc/README.md doc/REST-interface.md doc/bips.md doc/dnsseed-policy.md doc/files.md doc/reduce-traffic.md doc/release-notes.md doc/tor.md
-%attr(0755,root,root) %{_sbindir}/iond
-%attr(0644,root,root) %{_tmpfilesdir}/ioncoin.conf
-%attr(0644,root,root) %{_unitdir}/ion.service
-%dir %attr(0750,ion,ion) %{_sysconfdir}/ion
-%dir %attr(0750,ion,ion) %{_localstatedir}/lib/ion
-%config(noreplace) %attr(0600,root,root) %{_sysconfdir}/sysconfig/ion
-%attr(0644,root,root) %{_datadir}/selinux/*/*.pp
-%attr(0644,root,root) %{_mandir}/man1/iond.1*
+%{_bindir}/iond
+%{_bindir}/ion-qt
+/usr/share/pixmaps/*
+/usr/share/applications/ioncoin-core.desktop
+/usr/share/desktop-directories/ioncoin-core.directory
+/etc/sysconfig/iond
+/usr/lib/systemd/system/iond.service
+/etc/audit/local.rules/*
 
-%files utils
+%files iond
 %defattr(-,root,root,-)
-%license COPYING
-%doc COPYING ioncoin.conf.example doc/README.md
-%attr(0755,root,root) %{_bindir}/ion-cli
-%attr(0755,root,root) %{_bindir}/ion-tx
-%attr(0755,root,root) %{_bindir}/bench_ion
-%attr(0644,root,root) %{_mandir}/man1/ion-cli.1*
+%{_bindir}/iond
+/etc/sysconfig/iond
+/usr/lib/systemd/system/iond.service
+/etc/audit/local.rules/*
 
+%files qt
+%defattr(-,root,root,-)
+%{_bindir}/ion-qt
+/usr/share/pixmaps/*
+/usr/share/applications/ioncoin-core.desktop
+/usr/share/desktop-directories/ioncoin-core.directory
 
+%files doc
+%defattr(-,root,root,-)
+/usr/share/doc/ion/*
+/usr/share/man/man1/*
+
+%post qt
+/usr/bin/xdg-icon-resource install --size 64 /usr/share/pixmaps/ion64.png cevap-ioncoin
+/usr/bin/xdg-desktop-menu install /usr/share/desktop-directories/ioncoin-core.directory /usr/share/applications/ioncoin-core.desktop
+echo "##"
+echo "# Ion-qt Package Installed"
+echo "##"
+
+%post iond
+/usr/sbin/semodule -i /etc/audit/local.rules/iond.pp
+/bin/systemctl daemon-reload
+echo "##"
+echo "# Install finished.  Edit USER in /etc/sysconfig/iond"
+echo "##"
+
+%post ioncoin
+/usr/sbin/semodule -i /etc/audit/local.rules/iond.pp
+/usr/bin/xdg-icon-resource install --size 64 /usr/share/pixmaps/ion64.png cevap-ioncoin
+/usr/bin/xdg-desktop-menu install /usr/share/desktop-directories/ioncoin-core.directory /usr/share/applications/ioncoin-core.desktop
+/bin/systemctl daemon-reload
+echo "##"
+echo "# Install finished.  Edit USER in /etc/sysconfig/iond"
+echo "##"
+
+%pre qt
+if [ ! -z `/bin/pidof ion-qt`]
+then
+ /bin/kill -15 `/bin/pidof ion-qt`
+fi
+
+%pre iond
+if [ ! -z `/bin/pidof iond`]
+then
+ /bin/kill -15 `/bin/pidof iond`
+fi
+
+%pre ioncoin
+if [ ! -z `/bin/pidof iond`]
+then
+ /bin/kill -15 `/bin/pidof iond`
+fi
+if [ ! -z `/bin/pidof ion-qt`]
+then
+ /bin/kill -15 `/bin/pidof ion-qt`
+fi
+
+%preun qt
+if [ ! -z `/bin/pidof ion-qt` ];then
+ /bin/kill -15 `/bin/pidof ion-qt`
+fi
+/usr/bin/xdg-desktop-menu uninstall /usr/share/desktop-directories/ioncoin-core.directory /usr/share/applications/ioncoin-core.desktop
+/usr/bin/xdg-icon-resource uninstall --size 64 cevap-ioncoin
+
+%preun iond
+if [ ! -z `/bin/pidof iond` ];then
+ /bin/kill -15 `/bin/pidof iond`
+fi
+
+%preun ioncoin
+if [ ! -z `/bin/pidof iond` ];then
+ /bin/kill -15 `/bin/pidof iond`
+fi
+if [ ! -z `/bin/pidof ion-qt` ];then
+ /bin/kill -15 `/bin/pidof ion-qt`
+fi
+/usr/bin/xdg-desktop-menu uninstall /usr/share/desktop-directories/ioncoin-core.directory /usr/share/applications/ioncoin-core.desktop
+/usr/bin/xdg-icon-resource uninstall --size 64 cevap-ioncoin
+
+%postun qt
+echo "##"
+echo "# Ion-QT Removed"
+echo "##"
+
+%postun iond
+if [ -e /lib/systemd/system/iond.service ]
+then
+ /bin/systemctl disable iond 
+ /bin/rm /lib/systemd/system/iond.service
+fi
+/bin/systemctl daemon-reload
+/usr/sbin/semodule -r iond
+echo "##"
+echo "# Iond Removed"
+echo "##"
+
+%postun ioncoin
+if [ -e /lib/systemd/system/iond.service ]
+then
+ /bin/systemctl disable iond
+ /bin/rm /lib/systemd/system/iond.service
+fi
+/bin/systemctl daemon-reload
+/usr/sbin/semodule -r iond
+echo "##"
+echo "# Ioncoin Package Removed"
+echo "##"
 
 %changelog
-* Fri Feb 26 2016 Alice Wonder <buildmaster@librelamp.com> - 0.12.0-2
-- Rename Qt package from ion to ion-core
-- Make building of the Qt package optional
-- When building the Qt package, default to Qt5 but allow building
--  against Qt4
-- Only run SELinux stuff in post scripts if it is not set to disabled
+* Wed Apr 21 2021 ckti.ion <ckti@i2pmail.org> - 5.0.99.0-e15e875
+- update to 5.0.00
 
-* Wed Feb 24 2016 Alice Wonder <buildmaster@librelamp.com> - 0.12.0-1
-- Initial spec file for 0.12.0 release
+* Sun Apr 26 2020 ckti <ckti@i2pmail.org> - 5.0.99.0-e17c0dfd2
+- see https://bitbucket.org/ioncoin/ion/src/master/doc/release-notes.md for full changelog
 
-# This spec file is written from scratch but a lot of the packaging decisions are directly
-# based upon the 0.11.2 package spec file from https://www.ringingliberty.com/ion/
+* Thu Apr 19 2018 ckti.ion <ckti@i2pmail.org> - 3.0.4.0.CE-0da0dd8.2
+- Issues Resolved in this Release:
+- Change signal in pre/post scripts
+
+* Tue Apr 10 2018 ckti.ion <ckti@i2pmail.org> - 3.0.4.0.CE-0da0dd8.1
+- Issues Resolved in this Release:
+- Automatic Wallet Update (#31)
+- Fatal internal error (#19)
+- Mac Qt Coin Control only shows max 10 addresses in tree mode (#17)
+- Missing splashscreens for regtest and unittest (#10)
+- Warning during compilation: suggest parentheses around '&&' within (#9)
+- listtransactions and listunspent not showing transactions since last start 
+- (#8)
+- Local wallet Mints using 20K for Remote Master Node (#4)
+
+* Wed Apr 04 2018 ckti.ion <ckti@i2pmail.org> - 3.0.4.0.CE-fa72830.1
+- update to version fa72830.1
+- Release 3.0.4.0 is a recommended, semi-mandatory update for all users.
+- This release contains transaction creation bug fixes for xION spends,
+- automint calculation adjustments, and other various updates/fixes.
+- We have now zerocoin within ion. More info about what it is and how to use it
+- will follow in announcements and further release info.
+- Snapcraft is enabled and it can be simply installed by:
+- sudo snap install --edge ion
+- Stashedsend is now Swift-X
+- We dropped MIDAS and will use DGW. More info will follow.
+- Autominiting with zerocoin. More info will follow.
+- We have new look and desing, currently it is a dirty version.
+- It includes new GUI layout, new colors.
+- Current source base is much faster and cleaner than ion's previous one.
+- It uses all cpu's and there are no performance issues which we could
+- observe, it is just much faster then previous source base.
+- We have BIP38 including a tool with password encryption and
+- decrpytion features
+- We finaly have built in blockexplorer which works on all ion's networks.
+- There are some new features which improve usability as well as user
+- experience in general. More info to follow.
+- Auto Wallet Backup
+
+* Sat Mar 17 2018 ckti.ion <ckti@i2pmail.org> - 3.0.99.0-5b3ca01.1
+- update to version 5b3ca01.1
+
+* Tue Jan 02 2018 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-2655d30.1
+- update to version 2655d30.1
+
+* Sat Nov 18 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-1ea608a.3
+- add iond.te removal
+- add xdg-icon-resource install
+- add dependency of xdg-utils
+
+* Mon Nov 06 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-1ea608a.2
+- update to GIT commit 1ea608a.2
+- add iond.pp SeLinux module and source iond.te
+
+* Sat Nov 04 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-1ea608a.1
+- update to GIT commit 1ea608a.1
+
+* Mon Oct 23 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-5bc80c4.3
+- add application menu items
+
+* Sat Oct 14 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-5bc80c4.2
+- rewrite iond.service
+
+* Tue Oct 10 2017 ckti.ion <ckti@i2pmail.org> - 2.1.6.3-5bc80c4.1
+- Initial Installation
+

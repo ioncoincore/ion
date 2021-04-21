@@ -1,0 +1,17 @@
+
+module iond 1.0;
+
+require {
+	type xauth_exec_t;
+	type su_exec_t;
+	type lastlog_t;
+	type init_t;
+	class file { execute execute_no_trans lock map open read write };
+	class passwd rootok;
+}
+
+#============= init_t ==============
+allow init_t lastlog_t:file { lock open read write };
+allow init_t self:passwd rootok;
+allow init_t su_exec_t:file { execute execute_no_trans map open read };
+allow init_t xauth_exec_t:file execute;

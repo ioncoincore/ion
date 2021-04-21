@@ -1,0 +1,140 @@
+--- ion-master/depends/funcs.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/funcs.mk	2021-04-19 11:56:00.716558443 +0100
+@@ -10,7 +10,7 @@
+ $(1)_nm=$($($(1)_type)_NM)
+ $(1)_cflags=$($($(1)_type)_CFLAGS) $($($(1)_type)_$(release_type)_CFLAGS)
+ $(1)_cxxflags=$($($(1)_type)_CXXFLAGS) $($($(1)_type)_$(release_type)_CXXFLAGS)
+-$(1)_ldflags=$($($(1)_type)_LDFLAGS) $($($(1)_type)_$(release_type)_LDFLAGS) -L$($($(1)_type)_prefix)/lib
++$(1)_ldflags=$($($(1)_type)_LDFLAGS) $($($(1)_type)_$(release_type)_LDFLAGS) -L$($($(1)_type)_prefix)/lib64 -L$($($(1)_type)_prefix)/lib
+ $(1)_cppflags=$($($(1)_type)_CPPFLAGS) $($($(1)_type)_$(release_type)_CPPFLAGS) -I$($($(1)_type)_prefix)/include
+ $(1)_recipe_hash:=
+ endef
+@@ -129,7 +129,7 @@
+ $(1)_config_env+=$($(1)_config_env_$(host_os)) $($(1)_config_env_$(host_os)_$(release_type))
+ $(1)_config_env+=$($(1)_config_env_$(host_arch)_$(host_os)) $($(1)_config_env_$(host_arch)_$(host_os)_$(release_type))
+ 
+-$(1)_config_env+=PKG_CONFIG_LIBDIR=$($($(1)_type)_prefix)/lib/pkgconfig
++$(1)_config_env+=PKG_CONFIG_LIBDIR=$($($(1)_type)_prefix)/lib64/pkgconfig
+ $(1)_config_env+=PKG_CONFIG_PATH=$($($(1)_type)_prefix)/share/pkgconfig
+ $(1)_config_env+=PATH=$(build_prefix)/bin:$(PATH)
+ $(1)_build_env+=PATH=$(build_prefix)/bin:$(PATH)
+--- ion-master/depends/packages/dbus.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/dbus.mk	2021-04-19 13:05:48.155359002 +0100
+@@ -23,5 +23,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/expat.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/expat.mk	2021-04-19 10:42:38.619758771 +0100
+@@ -23,5 +23,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/fontconfig.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/fontconfig.mk	2021-04-19 11:36:02.215902229 +0100
+@@ -29,5 +29,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/freetype.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/freetype.mk	2021-04-19 10:41:52.939902762 +0100
+@@ -23,5 +23,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/gmp.mk	2021-04-19 13:12:21.149489825 +0100
++++ ion-5.0.99.0/depends/packages/gmp.mk	2021-04-19 10:35:46.765057061 +0100
+@@ -23,5 +23,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/libXau.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/libXau.mk	2021-04-19 11:37:19.871686866 +0100
+@@ -28,5 +28,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/libevent.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/libevent.mk	2021-04-19 10:30:46.306004212 +0100
+@@ -29,5 +29,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
++  rm lib64/*.la
+ endef
+--- ion-master/depends/packages/protobuf.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/protobuf.mk	2021-04-19 10:39:56.772268964 +0100
+@@ -30,5 +30,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/libprotoc.a
++  rm lib64/libprotoc.a
+ endef
+--- ion-master/depends/packages/qrencode.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/qrencode.mk	2021-04-19 13:07:21.890913171 +0100
+@@ -29,5 +29,5 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  rm lib/*.la
+-endef
+\ No newline at end of file
++  rm lib64/*.la
++endef
+--- ion-master/depends/packages/qt.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/qt.mk	2021-04-19 11:49:42.045616446 +0100
+@@ -217,7 +219,7 @@
+ 
+ define $(package)_config_cmds
+   export PKG_CONFIG_SYSROOT_DIR=/ && \
+-  export PKG_CONFIG_LIBDIR=$(host_prefix)/lib/pkgconfig && \
++  export PKG_CONFIG_LIBDIR=$(host_prefix)/lib64/pkgconfig && \
+   export PKG_CONFIG_PATH=$(host_prefix)/share/pkgconfig  && \
+   ./configure $($(package)_config_opts) && \
+   echo "host_build: QT_CONFIG ~= s/system-zlib/zlib" >> mkspecs/qconfig.pri && \
+
+--- ion-master/depends/packages/zeromq.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/zeromq.mk	2021-04-19 13:47:45.858726875 +0100
+@@ -34,6 +34,6 @@
+ endef
+ 
+ define $(package)_postprocess_cmds
+-  sed -i.old "s/ -lstdc++//" lib/pkgconfig/libzmq.pc && \
+-  rm -rf bin share lib/*.la
+-endef
+\ No newline at end of file
++  sed -i.old "s/ -lstdc++//" lib64/pkgconfig/libzmq.pc && \
++  rm -rf bin share lib64/*.la
++endef

@@ -1,0 +1,18 @@
+--- ion-master/depends/packages/qt.mk	2021-04-19 13:11:34.945709576 +0100
++++ ion-5.0.99.0/depends/packages/qt.mk	2021-04-19 13:48:14.870653647 +0100
+@@ -15,6 +15,7 @@
+ $(package)_patches+=fix_android_qmake_conf.patch fix_android_jni_static.patch
+ # NOTE: fix_qt_configure.patch is only needed for Qt 5.7, newer versions don't have this issue.
+ # Remove it after bumping $(package)_version to 5.8+.
++$(package)_patches += force_bootstrap.patch
+ 
+ $(package)_qttranslations_file_name=qttranslations-$($(package)_suffix)
+ $(package)_qttranslations_sha256_hash=fb5a47799754af73d3bf501fe513342cfe2fc37f64e80df5533f6110e804220c
+@@ -200,6 +201,7 @@
+   patch -p1 < $($(package)_patch_dir)/xkb-default.patch &&\
+   patch -p1 -i $($(package)_patch_dir)/fix_android_qmake_conf.patch &&\
+   patch -p1 -i $($(package)_patch_dir)/fix_android_jni_static.patch &&\
++  patch -p1 -i $($(package)_patch_dir)/force_bootstrap.patch && \
+   echo "!host_build: QMAKE_CFLAGS     += $($(package)_cflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf &&\
+   echo "!host_build: QMAKE_CXXFLAGS   += $($(package)_cxxflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf &&\
+   echo "!host_build: QMAKE_LFLAGS     += $($(package)_ldflags)" >> qtbase/mkspecs/common/gcc-base.conf &&\
