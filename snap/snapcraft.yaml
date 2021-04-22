@@ -45,14 +45,13 @@ description: |
   - Whitepaper: https://ionomy.com/en/whitepaper
   - Technical whitepaper: https://tinyurl.com/y3st8jfb
   
-  Get source code from Github: https://bitbucket.org/ioncoin/ion.git
-  Get CE source code from Github: https://github.com/cevap/ion.git
+  Get source code from Github: https://github.com/ioncoinicore/ion.git
   
   Chat with Support on Discord: https://discord.gg/vuZn7gC
   
   Contact us on social networks and forums:
   
-  - Instagram: https://t.me/ionomy
+  - Telegram:  https://t.me/ionomy
   - Twitter:   https://twitter.com/ionomics
   - Reddit:    https://www.reddit.com/r/ionomy/
   - Facebook:  https://facebook.com/ionomy
@@ -133,7 +132,7 @@ apps:
     plugs: [home]
 parts:
   ion:
-    source: https://bitbucket.org/ioncoin/ion
+    source: https://github.com/ioncoincore/ion
     source-type: git
     source-tag: master
     plugin: nil
