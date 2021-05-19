@@ -1,0 +1,11 @@
+--- a/share/genbuild.sh.orig	2021-04-09 10:23:04.120940529 +0100
++++ b/share/genbuild.sh	2021-04-09 10:23:25.005596511 +0100
+@@ -38,7 +38,7 @@
+ 
+     # otherwise generate suffix from git, i.e. string like "59887e8-dirty"
+     SUFFIX=$(git rev-parse --short HEAD)
+-    git diff-index --quiet HEAD -- || SUFFIX="$SUFFIX-dirty"
++    git diff-index --quiet HEAD -- || SUFFIX="$SUFFIX-rpm"
+ 
+     # get a string like "2012-04-10 16:27:19 +0200"
+     LAST_COMMIT_DATE="$(git log -n 1 --format="%ci")"

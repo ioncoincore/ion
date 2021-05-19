@@ -1,0 +1,11 @@
+--- a/depends/packages/qt.mk	2021-04-03 10:02:58.604192497 +0100
++++ b/depends/packages/qt.mk	2021-04-14 10:08:17.607366869 +0100
+@@ -115,7 +115,7 @@
+ $(package)_config_opts_arm_linux += -platform linux-g++ -xplatform ion-linux-g++
+ $(package)_config_opts_i686_linux  = -xplatform linux-g++-32
+ $(package)_config_opts_x86_64_linux = -xplatform linux-g++-64
+-$(package)_config_opts_aarch64_linux = -xplatform linux-aarch64-gnu-g++
++$(package)_config_opts_aarch64_linux = -platform linux-g++
+ $(package)_config_opts_powerpc_linux += -platform linux-g++ -xplatform ion-linux-g++
+ $(package)_config_opts_powerpc64_linux += -platform linux-g++ -xplatform ion-linux-g++
+ $(package)_config_opts_powerpc64le_linux += -platform linux-g++ -xplatform ion-linux-g++

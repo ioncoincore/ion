@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=/usr/bin/ion-qt
+Icon=ioncoin-core-ioncoin
+Name=Ion-QT
